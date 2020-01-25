@@ -1,5 +1,7 @@
 {
   "name": "youRabbit",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
