@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'notify',
     loadChildren: () => import('./notify/notify.module').then( m => m.NotifyPageModule)
+  },
+  {
+    path: 'females',
+    loadChildren: () => import('./females/females.module').then( m => m.FemalesPageModule)
   }
 ];
 
