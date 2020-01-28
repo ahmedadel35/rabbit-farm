@@ -30,6 +30,11 @@ export class AppComponent {
       title: 'Females',
       url: '/females',
       icon: 'female'
+    },
+    {
+      title: 'Mony',
+      url: '/mony',
+      icon: 'star'
     }
   ];
 
