@@ -20,6 +20,16 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Notifications',
+      url: '/notify',
+      icon: 'notifications'
+    },
+    {
+      title: 'Females',
+      url: '/females',
+      icon: 'female'
     }
   ];
 
