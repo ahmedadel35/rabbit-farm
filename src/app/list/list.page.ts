@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { DatabaseService } from '../services/database.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-list',
@@ -8,29 +10,35 @@ import { Storage } from '@ionic/storage';
     styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
+    public title = '';
+    private pageId = '';
 
-    constructor(private router: Router, private route: ActivatedRoute,db: Storage) {
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private storage: Storage,
+        private db: DatabaseService,
+        private loader: LoaderService
+    ) {
+        if (this.router.getCurrentNavigation().extras.state) {
+            // get page name and id from state
+            this.title = this.router.getCurrentNavigation().extras.state.page.title;
+            this.pageId = this.router.getCurrentNavigation().extras.state.page.id;
+        } else {
+            this.router.navigate(['mony']);
+        }
 
+        this.loadByType('income');
 
-        console.log(location.pathname);
-        // console.log(this.router, this.router.getCurrentNavigation());
-        this.route.queryParams.subscribe(param => {
-            console.log(param);
-            if (this.router.getCurrentNavigation().extras.state) {
-                // get page name and title from state
-                console.log(
-                    this.router.getCurrentNavigation().extras.state.page.title
-                );
-                console.log(
-                    this.router.getCurrentNavigation().extras.state.page.id
-                );
-            }
-        });
-
-        db.get('mony').then(x => console.log(x));
     }
 
     ngOnInit() {}
+
+    loadByType(type = this.pageId) {
+        this.db.get('config').then(d => {
+            console.log(d);
+        });
+    }
     // add back when alpha.4 is out
     // navigate(item) {
     //   this.router.navigate(['/list', JSON.stringify(item)]);

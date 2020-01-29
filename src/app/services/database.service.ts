@@ -14,18 +14,18 @@ export class DatabaseService {
     ) {
         this.plt.ready().then(rd => {
 
-            const mony = this.get('mony');
-            if (!mony) {
-                this.http.get('assets/seed/mony.json').subscribe(x => {
-                    console.log(x);
-                    this.set('mony', x);
-                });
-            }
+            // const mony = this.get('mony');
+            // if (!mony) {
+            //     this.http.get('assets/seed/mony.json').subscribe(x => {
+            //         console.log(x);
+            //         this.set('mony', x);
+            //     });
+            // }
         });
     }
 
-    async get(key: string) {
-        await this.storage.get(key).then(d => {
+    async get(key: string): Promise<Array<{}> | boolean> {
+        return await this.storage.get(key).then(d => {
             if (null !== d) {
                 return JSON.parse(d);
             }
@@ -38,7 +38,7 @@ export class DatabaseService {
         this.storage.set(key, JSON.stringify(value));
     }
 
-    async add(key: string, value: any): Promise<boolean> {
+    async add(key: string, value: any): Promise<Array<{}> | boolean> {
         return await this.get(key).then((d: any | null) => {
             if (d) {
                 d.push(value);
