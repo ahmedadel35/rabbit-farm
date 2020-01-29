@@ -1,10 +1,14 @@
 import { DatabaseService } from '../services/database.service';
-import { Config } from '../interfaces/Config';
+import Config from '../interfaces/Config';
 
 export default class FirstTimeUsage {
-    constructor(private db: DatabaseService) {}
+    private db: DatabaseService;
 
-    run() {
+    constructor(db: DatabaseService) {
+        this.db = db;
+    }
+
+    public run() {
         this.createConfigTB();
     }
 
@@ -16,7 +20,7 @@ export default class FirstTimeUsage {
             fetam: 14,
             hamlMotaqa: 30
         };
-
+    
         this.db.set('config', config);
     }
 }
