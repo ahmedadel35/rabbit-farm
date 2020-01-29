@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 // import { DatabaseService } from '../services/database.service';
 
 @Component({
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./mony.page.scss']
 })
 export class MonyPage implements OnInit {
-    constructor() {}
+
+    constructor(private router: Router) {}
 
     ngOnInit() {}
+
+    openPage(id: string, title: string) {
+        const page = {
+            id,
+            title
+        };
+
+        const navExt: NavigationExtras = {
+            state: {
+                page
+            }
+        };
+        this.router.navigate(['list'], navExt);
+    }
 
     // loadData() {
     //     this.data = this.db.get('mony');

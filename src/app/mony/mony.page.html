@@ -22,11 +22,11 @@
             <ion-item-divider>
                 <ion-label color="primary">أساسى</ion-label>
             </ion-item-divider>
-            <ion-item class="ion-activatable" (click)="openPage('income')">
+            <ion-item class="ion-activatable" (click)="openPage('income', 'الإيرادات')">
                 <ion-ripple-effect></ion-ripple-effect>
                 الإيرادات
             </ion-item>
-            <ion-item class="ion-activatable" (click)="openPage('outcome')">
+            <ion-item class="ion-activatable" (click)="openPage('outcome', 'المصروفات')">
                 <ion-ripple-effect></ion-ripple-effect>
                 المصروفات
             </ion-item>
@@ -34,7 +34,7 @@
             <ion-item-divider>
                 <ion-label color="warning">أخرى</ion-label>
             </ion-item-divider>
-            <ion-item class="ion-activatable" (click)="openPage('fetam')">
+            <ion-item class="ion-activatable" (click)="openPage('fetam', 'الفطام')">
                 <ion-ripple-effect></ion-ripple-effect>
                 الفطام
             </ion-item>
