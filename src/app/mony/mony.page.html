@@ -18,6 +18,44 @@
 
 <ion-content>
     <ion-list>
+        <ion-item-group>
+            <ion-item-divider>
+                <ion-label color="primary">أساسى</ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-button
+                    fill="clear"
+                    href="/income"
+                    expand="full"
+                    color="dark"
+                >
+                    الإيرادات
+                </ion-button>
+            </ion-item>
+            <ion-item>
+                <ion-button
+                    fill="clear"
+                    href="/outcome"
+                    color="dark"
+                    expand="full"
+                >
+                    المصروفات
+                </ion-button>
+            </ion-item>
+            <ion-item-divider>
+                <ion-label color="warning">أخرى</ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-button
+                    fill="clear"
+                    href="/fetam"
+                    expand="full"
+                    color="dark"
+                >
+                    الفطام
+                </ion-button>
+            </ion-item>
+        </ion-item-group>
         <ion-item
             *ngFor="let i of data"
             color="{{ i.sum ? 'danger' : 'primary' }}"
@@ -70,7 +108,10 @@
                 </ion-col>
                 <ion-col size="2">
                     <ion-button type="submit" fill="solid">
-                        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                        <ion-icon
+                            slot="icon-only"
+                            name="add-circle-outline"
+                        ></ion-icon>
                     </ion-button>
                 </ion-col>
             </ion-row>
