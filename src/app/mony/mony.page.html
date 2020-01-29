@@ -1,18 +1,18 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color='primary'>
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>المالية</ion-title>
-        <ion-buttons slot="end">
+        <!-- <ion-buttons slot="end">
             <ion-button
-                color="primary"
+                color="light"
                 fill="outline"
                 (click)="showSum()"
                 [disabled]="doneSum"
                 >المجموع</ion-button
             >
-        </ion-buttons>
+        </ion-buttons> -->
     </ion-toolbar>
 </ion-header>
 
@@ -22,41 +22,24 @@
             <ion-item-divider>
                 <ion-label color="primary">أساسى</ion-label>
             </ion-item-divider>
-            <ion-item>
-                <ion-button
-                    fill="clear"
-                    href="/list?home='asd'"
-                    expand="full"
-                    color="dark"
-                >
-                    الإيرادات
-                </ion-button>
+            <ion-item class="ion-activatable" (click)="openPage('income')">
+                <ion-ripple-effect></ion-ripple-effect>
+                الإيرادات
             </ion-item>
-            <ion-item>
-                <ion-button
-                    fill="clear"
-                    href="/outcome"
-                    color="dark"
-                    expand="full"
-                >
-                    المصروفات
-                </ion-button>
+            <ion-item class="ion-activatable" (click)="openPage('outcome')">
+                <ion-ripple-effect></ion-ripple-effect>
+                المصروفات
             </ion-item>
+
             <ion-item-divider>
                 <ion-label color="warning">أخرى</ion-label>
             </ion-item-divider>
-            <ion-item>
-                <ion-button
-                    fill="clear"
-                    href="/fetam"
-                    expand="full"
-                    color="dark"
-                >
-                    الفطام
-                </ion-button>
+            <ion-item class="ion-activatable" (click)="openPage('fetam')">
+                <ion-ripple-effect></ion-ripple-effect>
+                الفطام
             </ion-item>
         </ion-item-group>
-        <ion-item
+        <!-- <ion-item
             *ngFor="let i of data"
             color="{{ i.sum ? 'danger' : 'primary' }}"
         >
@@ -68,25 +51,11 @@
                     <ion-col>{{ i.date }}</ion-col>
                 </ion-row>
             </ion-label>
-        </ion-item>
+        </ion-item> -->
     </ion-list>
-    <!-- <ion-tabs>
-        <ion-tab-bar slot="top">
-            <ion-tab-button tab="list">
-                <ion-label>الإيرادات</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="speakers">
-                <ion-label>المصروفات</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="map">
-                <ion-label>الفطام</ion-label>
-            </ion-tab-button>
-        </ion-tab-bar>
-    </ion-tabs> -->
 </ion-content>
-<ion-footer>
+
+<!-- <ion-footer>
     <ion-toolbar>
         <form #monyForm="ngForm" (ngSubmit)="addToMony(monyForm)">
             <ion-row>
@@ -132,4 +101,4 @@
             </ion-row>
         </form>
     </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
