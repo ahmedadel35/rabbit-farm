@@ -35,8 +35,8 @@ export class MonyPage implements OnInit {
                 date
             });
 
-            // @ts-ignore
-            this.db.set('mony', this.data.filter(x => x.sum !== true));
+            // to save the sum: this.data.filter(x => x.sum !== true)
+            this.db.set('mony', this.data);
             this.doneSum = false;
         }
     }
