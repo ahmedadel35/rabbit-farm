@@ -1,13 +1,17 @@
+import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 
-export default class Loader {
+@Injectable({
+    providedIn: 'root'
+})
+export class LoaderService {
     public loader: Promise<HTMLIonLoadingElement>;
 
-    constructor(private loadCtrl: LoadingController) {}
+    constructor(private loaderCtrl: LoadingController) {}
 
     /**
      * show ionic spinner loader
-     * 
+     *
      * @memberof Loader
      */
     async showLoader() {

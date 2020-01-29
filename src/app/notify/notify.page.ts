@@ -4,6 +4,7 @@ import { DatabaseService } from '../services/database.service';
 import { Storage } from '@ionic/storage';
 // import Loader from '../helpers/Loader';
 import FirstTimeUsage from './FirstTimeUsage';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-notify',
@@ -14,9 +15,10 @@ export class NotifyPage implements OnInit {
     constructor(
         private plt: Platform,
         private storage: Storage,
-        private db: DatabaseService
+        private db: DatabaseService,
+        private loader: LoaderService
     ) {
-        // this.Loader.showLoader();
+        this.loader.showLoader();
 
         this.plt.ready().then(rbd => {
             if (rbd) {
