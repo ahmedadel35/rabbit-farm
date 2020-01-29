@@ -1,9 +1,77 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>mony</ion-title>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>المالية</ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                color="primary"
+                fill="outline"
+                (click)="showSum()"
+                [disabled]="doneSum"
+                >المجموع</ion-button
+            >
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    {{data|json}}
+    <ion-list>
+        <ion-item
+            *ngFor="let i of data"
+            color="{{ i.sum ? 'danger' : 'primary' }}"
+        >
+            <ion-label>
+                <ion-row>
+                    <ion-col>{{ i.value }}</ion-col>
+                    <ion-col>{{ i.count }}</ion-col>
+                    <ion-col>{{ i.notes }}</ion-col>
+                    <ion-col>{{ i.date }}</ion-col>
+                </ion-row>
+            </ion-label>
+        </ion-item>
+    </ion-list>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <form #monyForm="ngForm" (ngSubmit)="addToMony(monyForm)">
+            <ion-row>
+                <ion-col size="3">
+                    <ion-input
+                        type="number"
+                        placeholder="القيمة"
+                        autofocus="true"
+                        inputmode="decimal"
+                        ngModel
+                        name="value"
+                        color="primary"
+                        required="true"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-input
+                        type="number"
+                        placeholder="العدد"
+                        inputmode="decimal"
+                        ngModel
+                        name="count"
+                        color="tertiary"
+                        required="true"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-input
+                        type="text"
+                        placeholder="ملاحظات"
+                        ngModel
+                        name="notes"
+                    ></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-button type="submit" expand="block" fill="solid">
+                add
+            </ion-button>
+        </form>
+    </ion-toolbar>
+</ion-footer>

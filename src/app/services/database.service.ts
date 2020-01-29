@@ -1,21 +1,21 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DatabaseService implements OnInit {
-    constructor(private http: HttpClient) {}
-
-    ngOnInit() {
-        const mony = this.get('mony');
-        if (!mony) {
-            this.http.get('assets/seed/mony.json')
-                .subscribe(x => {
+export class DatabaseService {
+    constructor(private plt: Platform, private http: HttpClient) {
+        this.plt.ready().then(rd => {
+            const mony = this.get('mony');
+            if (!mony) {
+                this.http.get('assets/seed/mony.json').subscribe(x => {
                     console.log(x);
                     this.set('mony', x);
                 });
-        }
+            }
+        });
     }
 
     get(key: string): Array<{}> | false {

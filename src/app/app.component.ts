@@ -32,7 +32,7 @@ export class AppComponent {
       icon: 'female'
     },
     {
-      title: 'Mony',
+      title: 'المالية',
       url: '/mony',
       icon: 'star'
     }
