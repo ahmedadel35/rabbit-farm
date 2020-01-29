@@ -17,7 +17,7 @@ export class NotifyPage implements OnInit {
         private db: DatabaseService,
         private loader: LoaderService
     ) {
-        this.loader.showLoader();
+        this.loader.show();
 
         this.plt.ready().then(rbd => {
             if (rbd) {

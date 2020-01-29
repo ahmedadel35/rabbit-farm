@@ -14,7 +14,7 @@ export class LoaderService {
      *
      * @memberof Loader
      */
-    async showLoader() {
+    async show() {
         if (!this.loader) {
             this.loader = await this.loaderCtrl.create({
                 backdropDismiss: false,
@@ -30,7 +30,7 @@ export class LoaderService {
      *
      * @memberof Loader
      */
-    async hideLoader() {
+    async hide() {
         if (this.loader) {
             await this.loader.dismiss();
         }
