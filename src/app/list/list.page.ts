@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'app-list',
@@ -7,28 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
-    private selectedItem: any;
-    private icons = [
-        'flask',
-        'wifi',
-        'beer',
-        'football',
-        'basketball',
-        'paper-plane',
-        'american-football',
-        'boat',
-        'bluetooth',
-        'build'
-    ];
-    public items: Array<{ title: string; note: string; icon: string }> = [];
-    constructor(private router: Router, private route: ActivatedRoute) {
-        for (let i = 1; i < 11; i++) {
-            this.items.push({
-                title: 'Item ' + i,
-                note: 'This is item #' + i,
-                icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-            });
-        }
+
+    constructor(private router: Router, private route: ActivatedRoute,db: Storage) {
+
 
         console.log(location.pathname);
         // console.log(this.router, this.router.getCurrentNavigation());
@@ -44,6 +26,8 @@ export class ListPage implements OnInit {
                 );
             }
         });
+
+        db.get('mony').then(x => console.log(x));
     }
 
     ngOnInit() {}
