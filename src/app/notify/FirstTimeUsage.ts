@@ -1,7 +1,10 @@
 import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
+import Funds from '../interfaces/funds';
 
-export default class FirstTimeUsage {
+export const FirstTimeKey = 'first_time_use';
+
+export class FirstTimeUsage {
     private db: DatabaseService;
 
     constructor(db: DatabaseService) {
@@ -10,6 +13,8 @@ export default class FirstTimeUsage {
 
     public run() {
         this.createConfigTB();
+        this.createFundsTB();
+        this.db.set(FirstTimeKey, true);
     }
 
     private createConfigTB() {
@@ -20,7 +25,35 @@ export default class FirstTimeUsage {
             fetam: 14,
             hamlMotaqa: 30
         };
-    
+
         this.db.set('config', config);
+    }
+
+    private createFundsTB() {
+        const funds: Array<Funds> = [
+            {
+                type: 'income',
+                value: 0,
+                info: '',
+                count: 0,
+                sum: false
+            },
+            {
+                type: 'outcome',
+                value: 0,
+                info: '',
+                count: 0,
+                sum: false
+            },
+            {
+                type: 'fetam',
+                value: 0,
+                info: '',
+                count: 0,
+                sum: false
+            }
+        ];
+
+        this.db.set('funds', funds);
     }
 }

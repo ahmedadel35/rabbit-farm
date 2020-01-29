@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
-import { Storage } from '@ionic/storage';
-// import Loader from '../helpers/Loader';
-import FirstTimeUsage from './FirstTimeUsage';
 import { LoaderService } from '../services/loader.service';
+import { Storage } from '@ionic/storage';
+import { FirstTimeUsage, FirstTimeKey } from './FirstTimeUsage';
 
 @Component({
     selector: 'app-notify',
@@ -23,7 +22,7 @@ export class NotifyPage implements OnInit {
         this.plt.ready().then(rbd => {
             if (rbd) {
                 // check if this first time to use the app
-                this.storage.get('first_time_use').then(fth => {
+                this.storage.get(FirstTimeKey).then(fth => {
                     if (fth) return true; // not the first time
 
                     // create the basic tables
