@@ -3,5 +3,6 @@ export default interface Funds {
     value: number;
     info: string;
     count?: number;
+    date: string;
     sum?: boolean;
 }
