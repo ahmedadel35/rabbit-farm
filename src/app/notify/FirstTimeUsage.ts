@@ -36,7 +36,7 @@ export class FirstTimeUsage {
                 value: 0,
                 info: '',
                 count: 0,
-                date: '25 فبراير 2019',
+                date: '',
                 sum: false
             },
             {
@@ -44,7 +44,7 @@ export class FirstTimeUsage {
                 value: 0,
                 info: '',
                 count: 0,
-                date: '25 فبراير 2019',
+                date: '',
                 sum: false
             },
             {
@@ -52,7 +52,7 @@ export class FirstTimeUsage {
                 value: 0,
                 info: '',
                 count: 0,
-                date: '25 فبراير 2019',
+                date: '',
                 sum: false
             }
         ];
