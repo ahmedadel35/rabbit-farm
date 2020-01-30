@@ -1,5 +1,10 @@
 <ion-header>
     <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button fill='clear' color='light' routerLink='/females'>
+                <ion-icon name='arrow-forward'></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>{{ title }}</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -24,7 +29,7 @@
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">الرقم</ion-label>
+                <ion-label position="floating" color='danger'>الرقم</ion-label>
                 <ion-input
                     [(ngModel)]="num"
                     name="num"
@@ -34,17 +39,18 @@
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">النوع</ion-label>
+                <ion-label position="floating" color='danger'>النوع</ion-label>
                 <ion-input
                     clearInput
                     [(ngModel)]="type"
                     name="type"
                     type="text"
                     [readonly]="showData"
+                    required
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">تاريخ الميلاد</ion-label>
+                <ion-label position="floating" color='danger'>تاريخ الميلاد</ion-label>
                 <ion-datetime
                     displayFormat="DD MMMM YYYY"
                     placeholder="أختر التاريخ"
@@ -136,8 +142,8 @@
                             fill="solid"
                             color="primary"
                             expand="block"
-                            size='large'
-                            [disabled]="!num || !date"
+                            size="large"
+                            [disabled]="!num || !date || !type"
                         >
                             حفظ
                         </ion-button>
@@ -148,7 +154,7 @@
                             fill="solid"
                             color="danger"
                             expand="block"
-                            size='large'
+                            size="large"
                         >
                             مسح
                         </ion-button>

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
+import Rabbit from '../interfaces/rabbit';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-add-new',
@@ -18,7 +20,8 @@ export class AddNewPage implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private db: DatabaseService,
-        private loader: LoaderService
+        private loader: LoaderService,
+        public toastCtrl: ToastController
     ) {}
 
     ngOnInit() {
@@ -32,11 +35,63 @@ export class AddNewPage implements OnInit {
 
             console.log(this.router.getCurrentNavigation().extras.state.page);
         }
+
+        this.db.get(this.pageId).then(x => console.log(x));
     }
 
     save(form: NgForm) {
-        const f = form.value;
+        // this.loader.show();
+        const f: Rabbit = form.value;
+        const date = this.createDate(f.date);
 
-        console.log(f);
+        // create rabbit object
+        const obj: Rabbit = {
+            name: f.name,
+            num: f.num,
+            type: f.type,
+            date,
+            source: f.source,
+            father: f.father,
+            mother: f.mother,
+            box: f.box,
+            eye: f.eye,
+            weight: f.weight
+        };
+
+        console.log(obj);
+
+        if (this.pageId === 'males') {
+            if (typeof f.mother !== 'undefined') {
+                // check if this female exists
+                this.db.get(this.pageId).then(d => {
+                    const found = (d as Array<Rabbit>).some(x => x.mother === f.mother);
+                    console.log(found);
+                });
+            }
+        }
+
+        this.db.add(this.pageId, obj).then(d => {
+            form.resetForm();
+        });
+    }
+
+    private createDate(utc: string): string {
+        const d = new Date(utc);
+        const months = [
+            'يناير',
+            'فبراير',
+            'مارس',
+            'ابريل',
+            'مايو',
+            'يونية',
+            'يوليو',
+            'اغسطس',
+            'سبتمبر',
+            'اكتوبر',
+            'نوفمبر',
+            'ديسمبر'
+        ];
+
+        return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
     }
 }
