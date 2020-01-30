@@ -47,13 +47,13 @@ export class MonyPage implements OnInit {
                 ratio = 0,
                 state = '',
                 cssClass = '';
-            // (d as Array<Funds>).forEach(x => {
-            //     if (x.type === 'income') {
-            //         income += x.value;
-            //     } else if (x.type === 'outcome') {
-            //         outcome += x.value;
-            //     }
-            // });
+            (d as Array<Funds>).forEach(x => {
+                if (x.type === 'income') {
+                    income += x.value;
+                } else if (x.type === 'outcome') {
+                    outcome += x.value;
+                }
+            });
 
             inVal = Math.abs(income - outcome).toFixed(1);
             // check if outcome is zero
