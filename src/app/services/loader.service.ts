@@ -39,7 +39,7 @@ export class LoaderService {
             setTimeout(x => {
                 this.loader.dismiss().then(d => d);
                 this.loader = null;
-            }, 600);
+            }, 2100);
         }
     }
 }
