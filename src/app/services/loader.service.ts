@@ -34,12 +34,16 @@ export class LoaderService {
      */
     hide() {
         if (this.loader) {
-            this.loader.dismiss().then(d => d);
+            this.hideLoader(700);
         } else {
-            setTimeout(x => {
-                this.loader.dismiss().then(d => d);
-                this.loader = null;
-            }, 2100);
+            this.hideLoader(2500);
         }
+    }
+
+    private hideLoader(timeout: number): void {
+        setTimeout(x => {
+            this.loader.dismiss().then(d => d);
+            this.loader = null;
+        }, timeout);
     }
 }
