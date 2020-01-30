@@ -24,7 +24,9 @@ export class ListPage implements OnInit {
         private storage: Storage,
         private db: DatabaseService,
         public loader: LoaderService
-    ) {
+    ) {}
+
+    ngOnInit() {
         if (!this.router.getCurrentNavigation().extras.state) {
             this.router.navigate(['mony']);
         } else {
@@ -33,13 +35,8 @@ export class ListPage implements OnInit {
             this.pageId = this.router.getCurrentNavigation().extras.state.page.id;
 
             this.loadByType(this.pageId);
-
-            // this.loader.show();
-            // setTimeout(x => this.loader.hide(), 1500);
         }
     }
-
-    ngOnInit() {}
 
     loadByType(type: string) {
         this.loader.show();
@@ -47,7 +44,9 @@ export class ListPage implements OnInit {
             // save all data into one object
             this.allData = d as Array<Funds>;
             // remove types other than this page id
-            d = (d as Array<Funds>).filter(x => (x.type === type && (x.date !== 'noDate')));
+            d = (d as Array<Funds>).filter(
+                x => x.type === type && x.date !== 'noDate'
+            );
             console.log(d);
             this.data = d as Array<Funds>;
             this.loader.hide();
@@ -124,7 +123,18 @@ export class ListPage implements OnInit {
     private createDate(): string {
         const d = new Date();
         const months = [
-            'يناير', 'فبراير', 'مارس', 'ابريل', 'مايو', 'يونية', 'يوليو', 'اغسطس', 'سبتمبر', 'اكتوبر', 'نوفمبر', 'ديسمبر'
+            'يناير',
+            'فبراير',
+            'مارس',
+            'ابريل',
+            'مايو',
+            'يونية',
+            'يوليو',
+            'اغسطس',
+            'سبتمبر',
+            'اكتوبر',
+            'نوفمبر',
+            'ديسمبر'
         ];
 
         return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
