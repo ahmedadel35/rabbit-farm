@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-home',
@@ -9,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
     de: any = 'wasdasdxzad';
 
-    constructor(private http: HttpClient) {
+    constructor() {
         // this.http.get('assets/females.json').subscribe(x => {
         //     // @ts-ignore
         //     // console.log(x);
