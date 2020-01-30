@@ -12,12 +12,14 @@ export class FemalesPage implements OnInit {
     ngOnInit() {}
 
     addNewFemale() {
-        let pageData = {
-            showData: false
+        let page = {
+            id: 'females',
+            showData: false,
+            title: 'إنثى جديدة'
         };
         const navExt: NavigationExtras = {
             state: {
-                pageData
+                page
             }
         };
 

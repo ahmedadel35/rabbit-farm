@@ -1,9 +1,160 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>add-new</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>{{ title }}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-list>
+        <form #addFemale="ngForm" (ngSubmit)="save(addFemale)">
+            <ion-list-header color="primary">
+                <ion-label>
+                    معلومات الإنثى / الذكر
+                </ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-label position="floating">الإسم</ion-label>
+                <ion-input
+                    clearInput
+                    autofocus="true"
+                    ngModule
+                    name="name"
+                    type="text"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">الرقم</ion-label>
+                <ion-input
+                    clearInput
+                    ngModule
+                    name="num"
+                    type="number"
+                    [readonly]="showData"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">النوع</ion-label>
+                <ion-input
+                    clearInput
+                    ngModule
+                    name="type"
+                    type="text"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">تاريخ الميلاد</ion-label>
+                <ion-datetime
+                    displayFormat="DD MMMM YYYY"
+                    placeholder="أختر التاريخ"
+                    ngModule
+                    name="date"
+                    monthNames="يناير, فبراير, مارس, ابريل, مايو, يونيو, يوليهو, إغسطس, سبتمبر, أكتوبر, نوفمبر, ديسمبر"
+                    cancel-text="إلغاء"
+                    done-text="حفظ"
+                    [readonly]="showData"
+                    [disabled]="showData"
+                    required
+                ></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">المصدر</ion-label>
+                <ion-input
+                    clearInput
+                    ngModule
+                    name="source"
+                    type="text"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-list-header color="primary">
+                <ion-label>
+                    معلومات الأباء
+                </ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-label position="floating">رقم الأب</ion-label>
+                <ion-input
+                    ngModule
+                    name="father"
+                    type="number"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">رقم الأم</ion-label>
+                <ion-input
+                    ngModule
+                    name="mother"
+                    type="number"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-list-header color="primary">
+                <ion-label>
+                    معلومات المكان
+                </ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-label position="floating">رقم البوكس</ion-label>
+                <ion-input
+                    ngModule
+                    name="box"
+                    type="number"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">رقم العين</ion-label>
+                <ion-input
+                    ngModule
+                    name="eye"
+                    type="number"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-list-header color="primary">
+                <ion-label>
+                    معلومات الوزن
+                </ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-label position="floating">وزن</ion-label>
+                <ion-input
+                    ngModule
+                    name="weight"
+                    type="number"
+                    [readonly]="showData"
+                ></ion-input>
+            </ion-item>
+            <ion-item-divider>
+                <ion-row class="full-width">
+                    <ion-col size="6">
+                        <ion-button
+                            type="submit"
+                            fill="solid"
+                            color="primary"
+                            expand="block"
+                            size='large'
+                        >
+                            حفظ
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button
+                            type="reset"
+                            fill="solid"
+                            color="danger"
+                            expand="block"
+                            size='large'
+                        >
+                            مسح
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-item-divider>
+        </form>
+    </ion-list>
 </ion-content>
