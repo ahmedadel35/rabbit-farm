@@ -1,11 +1,20 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color='primary'>
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>
             {{ title }}
         </ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                color="light"
+                fill="outline"
+                (click)="showSum()"
+                [disabled]="doneSum"
+                >المجموع</ion-button
+            >
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

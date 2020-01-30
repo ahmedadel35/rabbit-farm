@@ -57,19 +57,13 @@ export class ListPage implements OnInit {
         this.loader.show();
 
         const f = form.value;
-        const d = new Date();
-        const months = [
-            'يناير', 'فبراير', 'مارس', 'ابريل', 'مايو', 'يونية', 'يوليو', 'اغسطس', 'سبتمبر', 'اكتوبر', 'نوفمبر', 'ديسمبر'
-        ];
-
-        const date = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 
         if (form.valid) {
             this.data.push({
                 value: f.value,
                 count: f.count,
                 info: f.info,
-                date,
+                date: this.createDate(),
                 type: this.pageId,
                 sum: false
             });
@@ -84,25 +78,35 @@ export class ListPage implements OnInit {
         }
     }
 
-    // showSum() {
-    //     let vc = 0,
-    //         tc = 0;
-    //     // @ts-ignore
-    //     this.data.map(current => {
-    //         if (!current.sum) {
-    //             vc += parseFloat(current.value);
-    //             tc += parseFloat(current.count);
-    //         }
-    //     });
-    //     // @ts-ignore
-    //     this.data.push({
-    //         value: vc,
-    //         count: tc,
-    //         notes: '=====',
-    //         date: '25 فبراير 2020',
-    //         sum: true
-    //     });
+    showSum() {
+        let vc = 0,
+            tc = 0;
+        this.data.map(current => {
+            if (!current.sum) {
+                // @ts-ignore
+                vc += parseFloat(current.value);
+                // @ts-ignore
+                tc += parseFloat(current.count);
+            }
+        });
+        this.data.push({
+            type: this.pageId,
+            value: vc,
+            count: tc,
+            info: '=====',
+            date: this.createDate(),
+            sum: true
+        });
 
-    //     this.doneSum = true;
-    // }
+        this.doneSum = true;
+    }
+
+    private createDate(): string {
+        const d = new Date();
+        const months = [
+            'يناير', 'فبراير', 'مارس', 'ابريل', 'مايو', 'يونية', 'يوليو', 'اغسطس', 'سبتمبر', 'اكتوبر', 'نوفمبر', 'ديسمبر'
+        ];
+
+        return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
 }
