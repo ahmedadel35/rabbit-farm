@@ -23,7 +23,7 @@ export class LoaderService {
             })
             .then(l => {
                 this.loader = l;
-                this.loader.present().then(p => console.log(p));
+                this.loader.present().then(p => p);
             });
     }
 
