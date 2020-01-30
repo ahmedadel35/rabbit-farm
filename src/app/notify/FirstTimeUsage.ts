@@ -1,6 +1,7 @@
 import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
 import Funds from '../interfaces/funds';
+import Females from '../interfaces/females';
 
 export const FirstTimeKey = 'first_time_use';
 
@@ -14,6 +15,7 @@ export class FirstTimeUsage {
     public run() {
         this.createConfigTB();
         this.createFundsTB();
+        this.createFemaelsTB();
         this.db.set(FirstTimeKey, true);
     }
 
@@ -35,28 +37,33 @@ export class FirstTimeUsage {
                 type: 'income',
                 value: 0,
                 info: '',
-                count: 0,
-                date: 'noDate',
-                sum: false
+                date: 'noDate'
             },
             {
                 type: 'outcome',
                 value: 0,
                 info: '',
-                count: 0,
-                date: 'noDate',
-                sum: false
+                date: 'noDate'
             },
             {
                 type: 'fetam',
                 value: 0,
                 info: '',
-                count: 0,
-                date: 'noDate',
-                sum: false
+                date: 'noDate'
             }
         ];
 
         this.db.set('funds', funds);
+    }
+
+    private createFemaelsTB() {
+        const females: Array<Females> = [
+            {
+                num: 5,
+                date: 'noDate'
+            }
+        ];
+
+        this.db.set('females', females);
     }
 }
