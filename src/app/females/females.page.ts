@@ -17,6 +17,9 @@ export class FemalesPage implements OnInit {
             showData: false,
             title: 'إنثى جديدة'
         };
+
+        page.id = 'males';
+        page.title = 'ذكر جديد';
         const navExt: NavigationExtras = {
             state: {
                 page
