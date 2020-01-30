@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
     selector: 'app-females',
@@ -6,11 +7,20 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./females.page.scss']
 })
 export class FemalesPage implements OnInit {
-    constructor() {}
+    constructor(private router: Router) {}
 
     ngOnInit() {}
 
     addNewFemale() {
-        console.log('some thing');
+        let pageData = {
+            showData: false
+        };
+        const navExt: NavigationExtras = {
+            state: {
+                pageData
+            }
+        };
+
+        this.router.navigate(['add-new'], navExt);
     }
 }

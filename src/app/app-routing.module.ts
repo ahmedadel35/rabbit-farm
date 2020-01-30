@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'mony',
     loadChildren: () => import('./mony/mony.module').then( m => m.MonyPageModule)
+  },
+  {
+    path: 'add-new',
+    loadChildren: () => import('./add-new/add-new.module').then( m => m.AddNewPageModule)
   }
 ];
 
