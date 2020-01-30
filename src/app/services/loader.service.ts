@@ -5,7 +5,7 @@ import { LoadingController } from '@ionic/angular';
     providedIn: 'root'
 })
 export class LoaderService {
-    public loader: Promise<HTMLIonLoadingElement>;
+    public loader: any = null;
 
     constructor(private loaderCtrl: LoadingController) {}
 
@@ -14,15 +14,17 @@ export class LoaderService {
      *
      * @memberof Loader
      */
-    async show() {
-        if (!this.loader) {
-            this.loader = await this.loaderCtrl.create({
+    show() {
+        this.loaderCtrl
+            .create({
                 backdropDismiss: false,
                 message: 'يرجى الإنتظار',
                 duration: 7000
+            })
+            .then(l => {
+                this.loader = l;
+                this.loader.present().then(p => console.log(p));
             });
-        }
-        await this.loader.present();
     }
 
     /**
@@ -30,9 +32,14 @@ export class LoaderService {
      *
      * @memberof Loader
      */
-    async hide() {
+    hide() {
         if (this.loader) {
-            await this.loader.dismiss();
+            this.loader.dismiss().then(d => d);
+        } else {
+            setTimeout(x => {
+                this.loader.dismiss().then(d => d);
+                this.loader = null;
+            }, 600);
         }
     }
 }
