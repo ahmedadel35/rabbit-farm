@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
+import Funds from '../interfaces/funds';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-list',
@@ -11,64 +13,76 @@ import { LoaderService } from '../services/loader.service';
 })
 export class ListPage implements OnInit {
     public title = '';
+    public data: Array<Funds> = [];
+    public doneSum = false;
+
     private pageId = '';
+    loader: LoaderService;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private storage: Storage,
         private db: DatabaseService,
-        private loader: LoaderService
+        public loader: LoaderService
     ) {
-        if (this.router.getCurrentNavigation().extras.state) {
+        if (!this.router.getCurrentNavigation().extras.state) {
+            this.router.navigate(['mony']);
+        } else {
             // get page name and id from state
             this.title = this.router.getCurrentNavigation().extras.state.page.title;
             this.pageId = this.router.getCurrentNavigation().extras.state.page.id;
-        } else {
-            this.router.navigate(['mony']);
+
+            this.loadByType(this.pageId);
+
+            // this.loader.show();
+            // setTimeout(x => this.loader.hide(), 1500);
         }
-
-        this.loadByType('income');
-
     }
 
     ngOnInit() {}
 
-    loadByType(type = this.pageId) {
-        this.db.get('config').then(d => {
+    loadByType(type: string) {
+        this.loader.show();
+        this.db.get('funds').then(d => {
+            d = (d as Array<Funds>).filter(x => (x.type === type && (x.date !== 'noDate')));
             console.log(d);
+            this.data = d as Array<Funds>;
+            // this.showSum();
+            this.loader.hide();
         });
     }
-    // add back when alpha.4 is out
-    // navigate(item) {
-    //   this.router.navigate(['/list', JSON.stringify(item)]);
-    // }
 
-    // loadData() {
-    //     this.data = this.db.get('mony');
-    //     console.log(this.data);
-    //     this.showSum();
-    // }
+    addToMony(form: NgForm) {
+        this.loader.show();
 
-    // addToMony(form) {
-    //     const f = form.value;
-    //     const d = new Date();
-    //     const date = d.getDate() + ' يناير ' + d.getFullYear();
+        const f = form.value;
+        const d = new Date();
+        const months = [
+            'يناير', 'فبراير', 'مارس', 'ابريل', 'مايو', 'يونية', 'يوليو', 'اغسطس', 'سبتمبر', 'اكتوبر', 'نوفمبر', 'ديسمبر'
+        ];
 
-    //     if (f.value && f.count) {
-    //         // @ts-ignore
-    //         this.data.push({
-    //             value: f.value,
-    //             count: f.count,
-    //             notes: f.notes,
-    //             date
-    //         });
+        const date = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 
-    //         // to save the sum: this.data.filter(x => x.sum !== true)
-    //         this.db.set('mony', this.data);
-    //         this.doneSum = false;
-    //     }
-    // }
+        if (form.valid) {
+            this.data.push({
+                value: f.value,
+                count: f.count,
+                info: f.info,
+                date,
+                type: this.pageId,
+                sum: false
+            });
+            console.log(this.data);
+
+            // to save the sum: this.data.filter(x => x.sum !== true)
+            this.db.set('funds', this.data);
+            this.loader.hide();
+            this.doneSum = false;
+            // reset form
+            form.resetForm();
+        }
+    }
 
     // showSum() {
     //     let vc = 0,
