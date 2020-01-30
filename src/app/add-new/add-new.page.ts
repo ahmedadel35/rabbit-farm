@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-add-new',
@@ -31,5 +32,11 @@ export class AddNewPage implements OnInit {
 
             console.log(this.router.getCurrentNavigation().extras.state.page);
         }
+    }
+
+    save(form: NgForm) {
+        const f = form.value;
+
+        console.log(f);
     }
 }

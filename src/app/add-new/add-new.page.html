@@ -17,7 +17,7 @@
                 <ion-input
                     clearInput
                     autofocus="true"
-                    ngModule
+                    [(ngModel)]="name"
                     name="name"
                     type="text"
                     [readonly]="showData"
@@ -26,8 +26,7 @@
             <ion-item>
                 <ion-label position="floating">الرقم</ion-label>
                 <ion-input
-                    clearInput
-                    ngModule
+                    [(ngModel)]="num"
                     name="num"
                     type="number"
                     [readonly]="showData"
@@ -38,7 +37,7 @@
                 <ion-label position="floating">النوع</ion-label>
                 <ion-input
                     clearInput
-                    ngModule
+                    [(ngModel)]="type"
                     name="type"
                     type="text"
                     [readonly]="showData"
@@ -49,7 +48,7 @@
                 <ion-datetime
                     displayFormat="DD MMMM YYYY"
                     placeholder="أختر التاريخ"
-                    ngModule
+                    [(ngModel)]="date"
                     name="date"
                     monthNames="يناير, فبراير, مارس, ابريل, مايو, يونيو, يوليهو, إغسطس, سبتمبر, أكتوبر, نوفمبر, ديسمبر"
                     cancel-text="إلغاء"
@@ -63,7 +62,7 @@
                 <ion-label position="floating">المصدر</ion-label>
                 <ion-input
                     clearInput
-                    ngModule
+                    [(ngModel)]="source"
                     name="source"
                     type="text"
                     [readonly]="showData"
@@ -77,7 +76,7 @@
             <ion-item>
                 <ion-label position="floating">رقم الأب</ion-label>
                 <ion-input
-                    ngModule
+                    [(ngModel)]="father"
                     name="father"
                     type="number"
                     [readonly]="showData"
@@ -86,7 +85,7 @@
             <ion-item>
                 <ion-label position="floating">رقم الأم</ion-label>
                 <ion-input
-                    ngModule
+                    [(ngModel)]="mother"
                     name="mother"
                     type="number"
                     [readonly]="showData"
@@ -100,7 +99,7 @@
             <ion-item>
                 <ion-label position="floating">رقم البوكس</ion-label>
                 <ion-input
-                    ngModule
+                    [(ngModel)]="box"
                     name="box"
                     type="number"
                     [readonly]="showData"
@@ -109,7 +108,7 @@
             <ion-item>
                 <ion-label position="floating">رقم العين</ion-label>
                 <ion-input
-                    ngModule
+                    [(ngModel)]="eye"
                     name="eye"
                     type="number"
                     [readonly]="showData"
@@ -123,7 +122,7 @@
             <ion-item>
                 <ion-label position="floating">وزن</ion-label>
                 <ion-input
-                    ngModule
+                    [(ngModel)]="weight"
                     name="weight"
                     type="number"
                     [readonly]="showData"
@@ -138,6 +137,7 @@
                             color="primary"
                             expand="block"
                             size='large'
+                            [disabled]="!num || !date"
                         >
                             حفظ
                         </ion-button>
