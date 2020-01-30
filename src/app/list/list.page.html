@@ -38,7 +38,7 @@
 
 <ion-footer>
     <ion-toolbar>
-        <form #monyForm="ngForm" (ngSubmit)="addToMony(monyForm)">
+        <form #monyForm="ngForm" (ngSubmit)="addToMony(monyForm)" (keyup.enter)="addToMony(monyForm)">
             <ion-row>
                 <ion-col size="3">
                     <ion-input
