@@ -10,12 +10,12 @@ export class HomePage {
     de: any = 'wasdasdxzad';
 
     constructor(private http: HttpClient) {
-        this.http.get('assets/females.json').subscribe(x => {
-            // @ts-ignore
-            // console.log(x);
-            // @ts-ignore
-            // this.de = x.name;
-        });
+        // this.http.get('assets/females.json').subscribe(x => {
+        //     // @ts-ignore
+        //     // console.log(x);
+        //     // @ts-ignore
+        //     // this.de = x.name;
+        // });
         // this.createData();
     }
 

@@ -17,7 +17,6 @@ export class ListPage implements OnInit {
     public allData: Array<Funds> = [];
     public doneSum = false;
     public pageId = '';
-    public loader: LoaderService;
 
     constructor(
         private router: Router,

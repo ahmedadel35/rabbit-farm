@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import Loader from '../helpers/Loader';
 import { LoaderService } from '../services/loader.service';
 import { DatabaseService } from '../services/database.service';
 import Funds from '../interfaces/funds';
-import { stat } from 'fs';
 
 @Component({
     selector: 'app-mony',
