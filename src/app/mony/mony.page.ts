@@ -35,7 +35,7 @@ export class MonyPage implements OnInit {
     }
 
     showReport() {
-        // this.loader.show();
+        this.loader.show();
 
         // load date from db
         this.db.get('funds').then(d => {
@@ -73,6 +73,7 @@ export class MonyPage implements OnInit {
 
             // show alert with report data
             this.showAlert(state, cssClass, income, outcome, inVal, ratio);
+            this.loader.hide();
         });
     }
 
