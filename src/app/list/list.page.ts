@@ -14,10 +14,10 @@ import { NgForm } from '@angular/forms';
 export class ListPage implements OnInit {
     public title = '';
     public data: Array<Funds> = [];
+    public allData: Array<Funds> = [];
     public doneSum = false;
-
-    private pageId = '';
-    loader: LoaderService;
+    public pageId = '';
+    public loader: LoaderService;
 
     constructor(
         private router: Router,
@@ -45,11 +45,18 @@ export class ListPage implements OnInit {
     loadByType(type: string) {
         this.loader.show();
         this.db.get('funds').then(d => {
+            // save all data into one object
+            this.allData = d as Array<Funds>;
+            // remove types other than this page id
             d = (d as Array<Funds>).filter(x => (x.type === type && (x.date !== 'noDate')));
             console.log(d);
             this.data = d as Array<Funds>;
-            // this.showSum();
             this.loader.hide();
+
+            // check if user has entered any funds
+            if (this.data.length > 1) {
+                this.showSum();
+            }
         });
     }
 
@@ -59,21 +66,35 @@ export class ListPage implements OnInit {
         const f = form.value;
 
         if (form.valid) {
-            this.data.push({
+            const obj = {
                 value: f.value,
                 count: f.count,
                 info: f.info,
                 date: this.createDate(),
                 type: this.pageId,
                 sum: false
-            });
+            };
+            this.data.push(obj);
+            this.allData.push(obj);
+
+            // add sold fetam to income
+            if (this.pageId === 'fetam') {
+                this.allData.push({
+                    type: 'income',
+                    value: f.value,
+                    count: 0,
+                    info: f.info,
+                    date: this.createDate(),
+                    sum: false
+                });
+            }
+
             console.log(this.data);
 
             // to save the sum: this.data.filter(x => x.sum !== true)
-            this.db.set('funds', this.data);
+            this.db.set('funds', this.allData);
             this.loader.hide();
             this.doneSum = false;
-            // reset form
             form.resetForm();
         }
     }
