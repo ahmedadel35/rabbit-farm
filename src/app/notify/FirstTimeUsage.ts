@@ -1,7 +1,7 @@
 import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
 import Funds from '../interfaces/funds';
-import Females from '../interfaces/females';
+import Rabbit from '../interfaces/rabbit';
 
 export const FirstTimeKey = 'first_time_use';
 
@@ -57,13 +57,15 @@ export class FirstTimeUsage {
     }
 
     private createFemaelsTB() {
-        const females: Array<Females> = [
+        const rabbit: Array<Rabbit> = [
             {
-                num: 5,
+                num: 1,
+                type: 'noType',
                 date: 'noDate'
             }
         ];
 
-        this.db.set('females', females);
+        this.db.set('females', rabbit);
+        this.db.set('males', rabbit);
     }
 }

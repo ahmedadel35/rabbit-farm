@@ -1,7 +1,7 @@
-export default interface Females {
+export default interface Rabbit {
     name?: string;
     num: number;
-    type?: string;
+    type: string;
     date: string;
     source?: string;
     father?: number;
