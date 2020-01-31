@@ -8,7 +8,40 @@
 </ion-header>
 
 <ion-content>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)='addNewFemale()'>
+    <ion-searchbar showCancelButton="focus"></ion-searchbar>
+    <ion-list>
+        <div *ngFor="let i of data; let inx = index">
+            <ion-item
+                *ngIf="i.date !== 'noDate'"
+                class="rabbit-item"
+                [color]="inx % 2 === 0 ? 'medium' : ''"
+                (click)="goToRabbit(i, inx)"
+            >
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-label>
+                    <h2>{{ i.name || 'رقم ' + i.num }}</h2>
+                    <h3>
+                        <ion-row>
+                            <ion-col> النوع: {{ i.type }} </ion-col>
+                            <ion-col> العمر: {{ i.date }} </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                الحالة: {{ i.state || 'فارغة' }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row> </ion-row>
+                    </h3>
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+    <ion-fab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        (click)="addNewFemale()"
+    >
         <ion-fab-button>
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

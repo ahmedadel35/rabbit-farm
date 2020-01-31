@@ -24,3 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.rabbit-item ion-label {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    h2 {
+        font-weight: bolder;
+    }
+}
