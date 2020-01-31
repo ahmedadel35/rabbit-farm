@@ -27,9 +27,14 @@ export class AppComponent {
       icon: 'notifications'
     },
     {
-      title: 'Females',
+      title: 'الإناث',
       url: '/females',
       icon: 'female'
+    },
+    {
+      title: 'الذكور',
+      url: '/males',
+      icon: 'male'
     },
     {
       title: 'المالية',

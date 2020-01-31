@@ -1,9 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>males</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>الذكور</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-searchbar
+        showCancelButton="focus"
+        (ionChange)="filterData($event.target.value)"
+        placeholder="الرقم أو الإسم"
+    ></ion-searchbar>
+    <ion-list>
+        <div *ngFor="let i of data; let inx = index">
+            <ion-item
+                *ngIf="i.date !== 'noDate'"
+                class="rabbit-item"
+                [color]="inx % 2 === 0 ? 'medium' : ''"
+                (click)="goToRabbit(i, inx)"
+            >
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-label>
+                    <h2>{{ i.name || 'رقم ' + i.num }}</h2>
+                    <h3>
+                        <ion-row>
+                            <ion-col>
+                                {{ i.name ? 'رقم ' + i.num : '' }}
+                            </ion-col>
+                            <ion-col>
+                                العمر: {{ ageForHumans(i.date) }}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row> </ion-row>
+                    </h3>
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+    <ion-fab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        (click)="addNewMale()"
+    >
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
