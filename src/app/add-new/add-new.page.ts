@@ -100,7 +100,8 @@ export class AddNewPage implements OnInit {
             this.db.add(this.pageId, obj).then(d => {
                 this.loader.hide();
                 this.showFeedback(obj.num, 2, 'success');
-                this.router.navigateByUrl('/' + this.pageId);
+                // TODO navigate to this rabbit own page
+                // this.router.navigateByUrl('/' + this.pageId);
             });
         });
     }
