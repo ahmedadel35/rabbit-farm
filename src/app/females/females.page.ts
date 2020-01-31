@@ -3,7 +3,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
-import { goToAddNew } from '../common/rabbit';
+import { goToAddNew, getAgeFromArabic } from '../common/rabbit';
 
 @Component({
     selector: 'app-females',
@@ -29,6 +29,10 @@ export class FemalesPage implements OnInit {
     }
 
     addNewFemale() {
-       goToAddNew(this.router);
+        goToAddNew(this.router);
+    }
+
+    ageForHumans(birth: string): string {
+        return getAgeFromArabic(birth);
     }
 }

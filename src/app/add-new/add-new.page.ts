@@ -5,6 +5,7 @@ import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
 import Rabbit from '../interfaces/rabbit';
 import { ToastController } from '@ionic/angular';
+import { ArabicMonths } from '../common/rabbit';
 
 @Component({
     selector: 'app-add-new',
@@ -106,22 +107,8 @@ export class AddNewPage implements OnInit {
 
     private createDate(utc: string): string {
         const d = new Date(utc);
-        const months = [
-            'يناير',
-            'فبراير',
-            'مارس',
-            'ابريل',
-            'مايو',
-            'يونية',
-            'يوليو',
-            'اغسطس',
-            'سبتمبر',
-            'اكتوبر',
-            'نوفمبر',
-            'ديسمبر'
-        ];
 
-        return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+        return d.getDate() + ' ' + ArabicMonths[d.getMonth()] + ' ' + d.getFullYear();
     }
 
     private showFeedback(
