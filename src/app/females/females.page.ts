@@ -12,6 +12,7 @@ import { goToAddNew, getAgeFromArabic } from '../common/rabbit';
 })
 export class FemalesPage implements OnInit {
     data: Array<Rabbit> = [];
+    oldData: Array<Rabbit> = [];
 
     constructor(
         private router: Router,
@@ -24,6 +25,7 @@ export class FemalesPage implements OnInit {
 
         this.db.get('females').then((d: Array<Rabbit>) => {
             this.data = d;
+            this.oldData = d;
             this.loader.hide();
         });
     }
@@ -34,5 +36,17 @@ export class FemalesPage implements OnInit {
 
     ageForHumans(birth: string): string {
         return getAgeFromArabic(birth);
+    }
+
+    filterData(s: string): void {
+        if (!s.length) {
+            this.data = this.oldData;
+            return;
+        }
+
+        // user serched for something
+        this.data = this.data.filter((x: Rabbit)=> {
+            return x.num === parseInt(s) || (x.name && x.name.indexOf(s) > -1);
+        });
     }
 }
