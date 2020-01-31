@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
@@ -101,7 +101,13 @@ export class AddNewPage implements OnInit {
                 this.loader.hide();
                 this.showFeedback(obj.num, 2, 'success');
                 // TODO navigate to this rabbit own page
-                // this.router.navigateByUrl('/' + this.pageId);
+                const st: NavigationExtras = {
+                    state: {
+                        obj
+                    }
+                };
+
+                this.router.navigate(['show'], st);
             });
         });
     }
