@@ -2,6 +2,7 @@ import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
 import Funds from '../interfaces/funds';
 import Rabbit from '../interfaces/rabbit';
+import State from '../interfaces/state';
 
 export const FirstTimeKey = 'first_time_use';
 
@@ -16,6 +17,7 @@ export class FirstTimeUsage {
         this.createConfigTB();
         this.createFundsTB();
         this.createFemaelsTB();
+        this.createStatesTB();
         this.db.set(FirstTimeKey, true);
     }
 
@@ -67,5 +69,23 @@ export class FirstTimeUsage {
 
         this.db.set('females', rabbit);
         this.db.set('males', rabbit);
+    }
+
+    private createStatesTB() {
+        const state: Array<State> = [
+            {
+                state: 1, // talqeh || 2=>gas || 3=>welada
+                positive: false,
+                num: 1,
+                maleNo: 1,
+                date: 'noDate',
+                child: {
+                    alive: 1,
+                    dead: 2
+                }
+            }
+        ];
+
+        this.db.set('state', state);
     }
 }
