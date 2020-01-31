@@ -3,6 +3,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
+import { goToAddNew } from '../common/rabbit';
 
 @Component({
     selector: 'app-females',
@@ -28,18 +29,6 @@ export class FemalesPage implements OnInit {
     }
 
     addNewFemale() {
-        let page = {
-            id: 'females',
-            showData: false,
-            title: 'إنثى جديدة'
-        };
-
-        const navExt: NavigationExtras = {
-            state: {
-                page
-            }
-        };
-
-        this.router.navigate(['add-new'], navExt);
+       goToAddNew(this.router);
     }
 }
