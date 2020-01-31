@@ -45,7 +45,7 @@ export class FemalesPage implements OnInit {
         }
 
         // user serched for something
-        this.data = this.data.filter((x: Rabbit)=> {
+        this.data = this.oldData.filter((x: Rabbit)=> {
             return x.num === parseInt(s) || (x.name && x.name.indexOf(s) > -1);
         });
     }
