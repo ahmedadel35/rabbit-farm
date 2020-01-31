@@ -40,7 +40,8 @@ export class AddNewPage implements OnInit {
     }
 
     save(form: NgForm) {
-        // this.loader.show();
+        this.loader.show();
+
         const f: Rabbit = form.value;
         const date = this.createDate(f.date);
 
@@ -58,20 +59,48 @@ export class AddNewPage implements OnInit {
             weight: f.weight
         };
 
-        console.log(obj);
-
         if (this.pageId === 'males') {
-            if (typeof f.mother !== 'undefined') {
+            if (typeof f.mother === 'number') {
                 // check if this female exists
                 this.db.get(this.pageId).then(d => {
-                    const found = (d as Array<Rabbit>).some(x => x.mother === f.mother);
-                    console.log(found);
-                });
-            }
-        }
+                    const found = (d as Array<Rabbit>).some(
+                        x => x.mother === f.mother
+                    );
+                    if (!found) {
+                        this.showFeedback(f.mother, 0);
+                        this.loader.hide();
+                        return false;
+                    }
 
-        this.db.add(this.pageId, obj).then(d => {
-            form.resetForm();
+                    this.saveData(obj, form);
+                });
+            } else {
+                this.saveData(obj, form);
+            }
+        } else {
+            this.saveData(obj, form);
+        }
+        console.log(obj);
+    }
+
+    private saveData(obj: Rabbit, form: NgForm) {
+        // before add check if this number exists
+        this.db.get(this.pageId).then(d => {
+            const found = (d as Array<Rabbit>).some(x => x.num === obj.num);
+
+            console.log(found);
+
+            if (found) {
+                this.showFeedback(obj.num, 1);
+                this.loader.hide();
+                return false;
+            }
+
+            this.db.add(this.pageId, obj).then(d => {
+                this.loader.hide();
+                this.showFeedback(obj.num, 2, 'success');
+                this.router.navigateByUrl('/' + this.pageId);
+            });
         });
     }
 
@@ -93,5 +122,25 @@ export class AddNewPage implements OnInit {
         ];
 
         return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    private showFeedback(
+        num: number,
+        mess: number,
+        color: string = 'danger'
+    ) {
+        const messages = [
+            'الإم رقم ' + num + ' غير موجودة',
+            'الأرنب رقم ' + num + ' مسجل بالفعل',
+            'تم الحفظ بنجاح'
+        ];
+        this.toastCtrl
+            .create({
+                message: messages[mess],
+                duration: 2000,
+                showCloseButton: true,
+                color
+            })
+            .then(ts => ts.present());
     }
 }
