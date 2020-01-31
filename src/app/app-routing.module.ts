@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'add-new',
     loadChildren: () => import('./add-new/add-new.module').then( m => m.AddNewPageModule)
+  },
+  {
+    path: 'males',
+    loadChildren: () => import('./males/males.module').then( m => m.MalesPageModule)
   }
 ];
 
