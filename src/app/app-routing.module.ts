@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'show',
     loadChildren: () => import('./show/show.module').then( m => m.ShowPageModule)
+  },
+  {
+    path: 'add-state',
+    loadChildren: () => import('./add-state/add-state.module').then( m => m.AddStatePageModule)
   }
 ];
 

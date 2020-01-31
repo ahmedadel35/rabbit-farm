@@ -11,6 +11,7 @@ import Rabbit from '../interfaces/rabbit';
 })
 export class ShowPage implements OnInit {
     rabbit: Rabbit;
+    title = '';
 
     constructor(
         private router: Router,
@@ -25,8 +26,19 @@ export class ShowPage implements OnInit {
         } else {
             // get page name and id from state
             this.rabbit = routerData.state.obj;
+            this.title += this.rabbit.name ? this.rabbit.name : 'رقم ' + this.rabbit.num;
 
             console.log(routerData.state.obj);
         }
+    }
+
+    addState() {
+        const d: NavigationExtras = {
+            state: {
+                rb: this.rabbit
+            }
+        };
+
+        this.router.navigate(['add-state'], d);
     }
 }
