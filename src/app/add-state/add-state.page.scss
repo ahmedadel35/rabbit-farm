@@ -1,0 +1,11 @@
+.divider {
+    height: 5px;
+    background: linear-gradient(to left, darkred, darkblue);
+    border-radius: 6px;
+}
+ion-row.inForm {
+    border-bottom: 1px solid #eee;
+    margin-top: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
