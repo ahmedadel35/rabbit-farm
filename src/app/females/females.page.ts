@@ -49,4 +49,13 @@ export class FemalesPage implements OnInit {
             return x.num === parseInt(s) || (x.name && x.name.indexOf(s) > -1);
         });
     }
+
+    show(obj: Rabbit): void {
+        const data: NavigationExtras = {
+            state: {
+                obj
+            }
+        };
+        this.router.navigate(['show'], data);
+    }
 }

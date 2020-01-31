@@ -19,13 +19,14 @@ export class ShowPage implements OnInit {
     ) {}
 
     ngOnInit() {
-        if (!this.router.getCurrentNavigation().extras.state) {
+        const routerData = this.router.getCurrentNavigation().extras;
+        if (!routerData.state || !routerData.state.obj) {
             this.router.navigate(['females']);
         } else {
             // get page name and id from state
-            this.rabbit = this.router.getCurrentNavigation().extras.state.obj;
+            this.rabbit = routerData.state.obj;
 
-            console.log(this.router.getCurrentNavigation().extras.state.obj);
+            console.log(routerData.state.obj);
         }
     }
 }

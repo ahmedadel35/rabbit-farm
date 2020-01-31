@@ -19,7 +19,7 @@
                 *ngIf="i.date !== 'noDate'"
                 class="rabbit-item"
                 [color]="inx % 2 === 0 ? 'medium' : ''"
-                (click)="goToRabbit(i, inx)"
+                (click)="show(i)"
             >
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-label>
