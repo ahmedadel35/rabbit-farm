@@ -42,7 +42,7 @@
         class="rabbitSlides"
     >
         <ion-slide>
-            <ion-grid>
+            <ion-grid class="firstSlide">
                 <ion-row>
                     <ion-col size="5">
                         <ion-label>
@@ -52,36 +52,47 @@
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
+                            الوزن:
+                            <span class="val"
+                                >{{ rabbit.weight || 0 }} كجم
+                            </span>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label>
                             تاريخ التشغيل:
                             <span class="val">{{ rabbit.date }}</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
+                <ion-row class="showText">
+                    <ion-col>
+                        <ion-label>
+                            معلومات التلقيحات و الولادة
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
                 <ion-row>
-                    <ion-col size="5">
+                    <ion-col size="6">
                         <ion-label>
                             التلقيحات:
                             <span class="val">{{ calc.talqeh.length }}</span>
                         </ion-label>
                     </ion-col>
-                    <ion-col size="7">
+                    <ion-col size="6">
                         <ion-label>
-                            الوزن:
-                            <span class="val">{{ rabbit.weight || 0 }} كجم </span>
+                            الجس:
+                            <span class="val">{{ calc.gas.length }}</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <ion-col size="5">
-                        <ion-label>
-                            الجس:
-                            <span class="val">{{calc.gas.length}}</span>
-                        </ion-label>
-                    </ion-col>
-                    <ion-col size="7">
+                    <ion-col size="12">
                         <ion-label>
                             نسبة الجس الموجب:
-                            <span class="val">{{calc.gasPercent}}%</span>
+                            <span class="val">{{ calc.gasPercent }}%</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -89,13 +100,55 @@
                     <ion-col size="5">
                         <ion-label>
                             مرات الولادة:
-                            <span class="val">{{calc.welada.length}}</span>
+                            <span class="val">{{ calc.welada.length }}</span>
                         </ion-label>
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
                             متوسط عدد الخلفة:
-                            <span class="val">{{calc.weladaMode || 0}}</span>
+                            <span class="val">{{ calc.weladaMode || 0 }}</span>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="showText">
+                    <ion-col>
+                        <ion-label>
+                            معلومات المكان
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="5">
+                        <ion-label>
+                            رقم البوكس:
+                            <span class="val">{{ rabbit.box || 0 }}</span>
+                        </ion-label>
+                    </ion-col>
+                    <ion-col size="7">
+                        <ion-label>
+                            رقم العين:
+                            <span class="val">{{ rabbit.eye || 0 }}</span>
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="showText">
+                    <ion-col>
+                        <ion-label>
+                            معلومات الأباء
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="5">
+                        <ion-label>
+                            رقم الأب:
+                            <span class="val">{{ rabbit.father || 0 }}</span>
+                        </ion-label>
+                    </ion-col>
+                    <ion-col size="7">
+                        <ion-label>
+                            رقم الأم:
+                            <span class="val">{{ rabbit.mother || 0 }}</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>

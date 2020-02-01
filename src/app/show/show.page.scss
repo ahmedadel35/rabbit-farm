@@ -4,15 +4,25 @@ ion-slides {
 .rabbitSlides ion-slide {
     align-items: baseline !important;
     text-align: right;
-    ion-row {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--ion-color-medium-tint);
-        span.val {
-            border: 2px solid var(--ion-color-danger);
-            color: var(--ion-color-tertiary);
-            padding: .3rem 1rem;
-            border-radius: 6px;
+    .firstSlide {
+        ion-row {
+            padding-top: .6rem;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid var(--ion-color-medium-tint);
+            span.val {
+                border: 2px solid var(--ion-color-danger);
+                color: var(--ion-color-tertiary);
+                padding: 0.3rem 0.5rem;
+                border-radius: 6px;
+            }
+            &.showText {
+                background-color: var(--ion-color-primary);
+                padding: 0;
+                color: var(--ion-color-light);
+            }
+            &:last-child, &:first-child {
+                border-bottom-width: 0;
+            }
         }
     }
 }

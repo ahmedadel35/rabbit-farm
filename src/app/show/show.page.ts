@@ -140,7 +140,7 @@ export class ShowPage implements OnInit {
 
             this.calc.talqeh = talqeh;
             this.calc.gas = gas;
-            this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(2) : '0';
+            this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(1) : '0';
             this.calc.welada = welada;
             this.calc.weladaMode = Math.round(
                 (alive.child.alive) / welada.length
