@@ -111,11 +111,11 @@ export class ShowPage implements OnInit {
 
         this.db.get('states').then((d: State[]) => {
             this.allData = d;
+
             // filter data to get states related to this female
             d = d.filter(x => x.num === this.rabbit.num);
 
-            console.log(d);
-            this.data = d;
+            this.data = d.reverse();
 
             this.doAllCalculations(this.data);
 
@@ -148,15 +148,13 @@ export class ShowPage implements OnInit {
 
         this.calc.talqeh = talqeh;
         this.calc.gas = gas;
-        this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(1) : '0';
+        this.calc.gasPercent = gas.length > 0 ? goodGasPercent.toFixed(1) : '0';
         this.calc.welada = welada;
-        this.calc.weladaMode = Math.round(
-            (alive.child.alive) / welada.length
-        );
+        this.calc.weladaMode = Math.round(alive.child.alive / welada.length);
     }
 
     getStateText(st: number): string {
-        return ['تلقيح', 'جس', 'ولادة'][st-1];
+        return ['تلقيح', 'جس', 'ولادة'][st - 1];
     }
 
     destroy(st: State, inx: number): void {
