@@ -8,7 +8,7 @@ import {
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, AlertController } from '@ionic/angular';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
 
@@ -48,7 +48,8 @@ export class ShowPage implements OnInit {
     constructor(
         private router: Router,
         private db: DatabaseService,
-        private loader: LoaderService
+        private loader: LoaderService,
+        private alertCtrl: AlertController
     ) {}
 
     ionViewDidEnter() {
@@ -80,9 +81,15 @@ export class ShowPage implements OnInit {
         }
         console.log(this.rabbit);
         this.loadData();
+        console.log(this.getTodayDate());
     }
 
-    addState() {
+    addState(): void {
+        if (this.sliderVal === 'ill') {
+            this.showAlert();
+            return;
+        }
+
         const d: NavigationExtras = {
             state: {
                 rb: this.rabbit
@@ -175,5 +182,85 @@ export class ShowPage implements OnInit {
 
         // save new data
         this.db.set('states', this.allData);
+    }
+
+    showAlert() {
+        const alert = this.alertCtrl
+            .create({
+                header: 'Alert',
+                message: `set`,
+                cssClass: 'fundsRepo',
+                inputs: [
+                    {
+                        name: 'type',
+                        // @ts-ignore
+                        type: 'text',
+                        placeholder: 'إسم المرض',
+                        required: true
+                    },
+                    {
+                        name: 'date',
+                        // @ts-ignore
+                        type: 'date',
+                        placeholder: 'التاريخ',
+                        value: this.getTodayDate(),
+                        required: true
+                    },
+                    {
+                        name: 'remined',
+                        // @ts-ignore
+                        type: 'number',
+                        placeholder: 'أيام التذكير'
+                    },
+                    {
+                        name: 'notes',
+                        // @ts-ignore
+                        type: 'text',
+                        placeholder: 'ملاحظات'
+                    }
+                ],
+                buttons: [
+                    {
+                        text: 'إلغاء',
+                        role: 'cancel',
+                        cssClass: 'danger'
+                    },
+                    {
+                        text: 'حفظ',
+                        handler: (a: Ill) => {
+                            console.log(a);
+                            // if user hasnot entered type or date
+                            if (!a.type.length || !a.date.length) {
+                                return false;
+                            }
+
+                            a.num = this.rabbit.num;
+
+                            // save this illness
+                            this.saveIll(a);
+                        }
+                    }
+                ]
+            })
+            .then(a => a.present());
+    }
+
+    getTodayDate(): string {
+        const d = new Date();
+        let m: number | string = d.getMonth() + 1,
+            i: number | string = d.getDate();
+
+        m = (m >= 10) ? m : `0${m}`;
+        i = (i >= 10) ? i : `0${i}`;
+
+        return `${d.getFullYear()}-${m}-${i}`;
+    }
+
+    saveIll(i: Ill) {
+        this.loader.show();
+        this.db.add('ill', i).then(_ => {
+            this.illData.unshift(i);
+            this.loader.hide();
+        });
     }
 }
