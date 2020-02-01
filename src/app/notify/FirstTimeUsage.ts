@@ -61,7 +61,7 @@ export class FirstTimeUsage {
     private createFemaelsTB() {
         const rabbit: Array<Rabbit> = [
             {
-                num: 1,
+                num: 0,
                 type: 'noType',
                 date: 'noDate'
             }
@@ -74,10 +74,10 @@ export class FirstTimeUsage {
     private createStatesTB() {
         const state: Array<State> = [
             {
-                state: 1, // talqeh || 2=>gas || 3=>welada
+                state: 0, // talqeh || 2=>gas || 3=>welada
                 positive: false,
-                num: 1,
-                maleNo: 1,
+                num: 0,
+                maleNo: 0,
                 date: 'noDate',
                 child: {
                     alive: 1,
