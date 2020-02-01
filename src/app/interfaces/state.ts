@@ -12,7 +12,7 @@ export default interface State {
     num: number;
     maleNo: number;
     date: string;
-    child: {
+    child?: {
         alive: number;
         dead: number;
     };
