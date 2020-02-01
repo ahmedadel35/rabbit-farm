@@ -4,10 +4,11 @@ ion-slides {
 .rabbitSlides ion-slide {
     align-items: baseline !important;
     text-align: right;
+    justify-content: normal !important;
     .firstSlide {
         ion-row {
-            padding-top: .6rem;
-            padding-bottom: .5rem;
+            padding-top: 0.6rem;
+            padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--ion-color-medium-tint);
             span.val {
                 border: 2px solid var(--ion-color-danger);
@@ -20,9 +21,19 @@ ion-slides {
                 padding: 0;
                 color: var(--ion-color-light);
             }
-            &:last-child, &:first-child {
+            &:last-child,
+            &:first-child {
                 border-bottom-width: 0;
             }
+        }
+    }
+    &.slideTwo {
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-bottom: 2rem;
+        ion-list {
+            width: 100% !important;
+            padding-bottom: 3rem;
         }
     }
 }

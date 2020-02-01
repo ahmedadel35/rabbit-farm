@@ -149,4 +149,8 @@ export class ShowPage implements OnInit {
             this.loader.hide();
         });
     }
+
+    getStateText(st: number): string {
+        return ['تلقيح', 'جس', 'ولادة'][st-1];
+    }
 }
