@@ -9,7 +9,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y='false'>
+<ion-content scroll-y="false">
     <ion-toolbar color="primary">
         <ion-segment
             scrollable
@@ -156,20 +156,37 @@
         </ion-slide>
         <ion-slide class="slideTwo">
             <ion-list>
-                <div *ngFor="let i of data;let inx = index">
-                    <ion-item *ngIf="i.date !== 'noDate'" [color]="i.positive ? 'success' : 'danger'">
+                <div *ngFor="let i of data; let inx = index">
+                    <ion-item
+                        *ngIf="i.date !== 'noDate'"
+                        [color]="i.positive ? 'success' : 'danger'"
+                    >
                         <ion-grid>
                             <ion-row>
-                                <ion-col size='5'>{{ i.date }}</ion-col>
-                                <ion-col size='2'>{{ getStateText(i.state) }}</ion-col>
-                                <ion-col size='3'>
-                                    <ion-icon name='male'></ion-icon>
+                                <ion-col size="5">{{ i.date }}</ion-col>
+                                <ion-col size="2">{{
+                                    getStateText(i.state)
+                                }}</ion-col>
+                                <ion-col size="3">
+                                    <ion-icon name="male"></ion-icon>
                                     {{ i.maleNo }}
                                 </ion-col>
-                                <ion-col size='2'>
-                                    <ion-button fill='outline' color='light' (click)="destroy(i, inx)">
-                                        <ion-icon name='close'></ion-icon>
+                                <ion-col size="2">
+                                    <ion-button
+                                        fill="outline"
+                                        color="light"
+                                        (click)="destroy(i, inx)"
+                                    >
+                                        <ion-icon name="close"></ion-icon>
                                     </ion-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row
+                                *ngIf="i.notes && i.notes.length"
+                                [class]="i.positive ? 'success' : 'danger'"
+                            >
+                                <ion-col>
+                                    {{ i.notes }}
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -177,8 +194,39 @@
                 </div>
             </ion-list>
         </ion-slide>
-        <ion-slide>
-            <h1>Slide 3</h1>
+        <ion-slide class="slideTwo">
+            <ion-list>
+                <div *ngFor="let i of data; let inx = index">
+                    <ion-item
+                        *ngIf="i.date !== 'noDate' && i.state === 3"
+                        [color]="i.positive ? 'success' : 'danger'"
+                    >
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="5">{{ i.date }}</ion-col>
+                                <ion-col size="5">
+                                    <span class="success">
+                                        {{ i.child.alive }} حى
+                                    </span>
+                                    &nbsp;|&nbsp;
+                                    <span class="danger">
+                                        {{ i.child.dead }} ميت
+                                    </span>
+                                </ion-col>
+                                <ion-col size="2">
+                                    <ion-button
+                                        fill="outline"
+                                        color="light"
+                                        (click)="destroy(i, inx)"
+                                    >
+                                        <ion-icon name="close"></ion-icon>
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </div>
+            </ion-list>
         </ion-slide>
         <ion-slide>
             <h1>Slide 4</h1>

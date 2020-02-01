@@ -5,6 +5,9 @@ ion-slides {
     align-items: baseline !important;
     text-align: right;
     justify-content: normal !important;
+    ion-row {
+        align-items: center;
+    }
     .firstSlide {
         ion-row {
             padding-top: 0.6rem;
@@ -34,6 +37,16 @@ ion-slides {
         ion-list {
             width: 100% !important;
             padding-bottom: 3rem;
+        }
+        .success {
+            background-color: var(--ion-color-success-shade);
+        }
+        .danger {
+            background-color: var(--ion-color-danger-shade);
+        }
+        span.success, span.danger {
+            padding: .3rem;
+            border-radius: 6px;
         }
     }
 }
