@@ -14,10 +14,10 @@
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <h2>الإسم: {{rabbit.name}}</h2>
+                    <h5>الإسم: {{ rabbit.name ? rabbit.name : '' }}</h5>
                 </ion-col>
                 <ion-col>
-                    <h2>رقم: {{rabbit.num}}</h2>
+                    <h5>رقم: {{ rabbit.num ? rabbit.num : '' }}</h5>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -65,8 +65,9 @@
                         <ion-label position="floating">رقم الذكر</ion-label>
                         <ion-input
                             type="number"
-                            ngModule
+                            [(ngModel)]="maleNo"
                             name="maleNo"
+                            [disabled]="state !== '1'"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
@@ -86,6 +87,44 @@
                             required
                         ></ion-datetime>
                     </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="inForm" *ngIf="state === '3'">
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating"
+                            >المواليد الأحياء</ion-label
+                        >
+                        <ion-input
+                            type="number"
+                            [(ngModel)]="alive"
+                            name="alive"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating"
+                            >المواليد الموتى</ion-label
+                        >
+                        <ion-input
+                            type="number"
+                            [(ngModel)]="dead"
+                            name="dead"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="inForm">
+                <ion-col>
+                    <ion-label position="floating">ملاحظات</ion-label>
+                    <ion-input
+                        type="text"
+                        [(ngModel)]="notes"
+                        name="notes"
+                    ></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row class="inForm">
