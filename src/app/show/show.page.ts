@@ -10,6 +10,7 @@ import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
 import { IonSlides } from '@ionic/angular';
 import State from '../interfaces/state';
+import Ill from '../interfaces/ill';
 
 @Component({
     selector: 'app-show',
@@ -24,6 +25,7 @@ export class ShowPage implements OnInit {
     };
     data: State[];
     allData: State[];
+    illData: Ill[];
     calc = {
         talqeh: {},
         gas: {},
@@ -118,6 +120,13 @@ export class ShowPage implements OnInit {
             this.data = d.reverse();
 
             this.doAllCalculations(this.data);
+
+            // load ill data
+            this.db.get('ill').then((i: Ill[]) => {
+                // i = i.filter(x => x.num === this.rabbit.num);
+                this.illData = i.reverse();
+                console.log(this.illData);
+            });
 
             this.loader.hide();
         });

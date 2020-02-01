@@ -236,8 +236,43 @@
                 </div>
             </ion-list>
         </ion-slide>
-        <ion-slide>
-            <h1>Slide 4</h1>
+        <ion-slide class="slideTwo">
+            <ion-list>
+                <div *ngFor="let i of illData; let inx = index">
+                    <ion-item [color]="i.healed ? 'success' : 'danger'">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="5">
+                                    {{ i.date }}
+                                </ion-col>
+                                <ion-col size="3">
+                                    <span>{{ i.type }}</span> |
+                                    <span>
+                                        <ion-icon name="calendar"></ion-icon
+                                        >{{ i.remined }}
+                                    </span>
+                                </ion-col>
+                                <ion-col>
+                                    <ion-button fill="solid" color="success">
+                                        <ion-icon name="checkmark"></ion-icon>
+                                    </ion-button>
+                                    <ion-button fill="solid" color="danger">
+                                        <ion-icon name="close"></ion-icon>
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row
+                                *ngIf="i.notes && i.notes.length"
+                                [class]="i.positive ? 'success' : 'danger'"
+                            >
+                                <ion-col>
+                                    {{ i.notes }}
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </div>
+            </ion-list>
         </ion-slide>
     </ion-slides>
     <ion-fab
