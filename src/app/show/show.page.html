@@ -47,13 +47,13 @@
                     <ion-col size="5">
                         <ion-label>
                             رقم الإنثى:
-                            <span class="val">{{ 9 }}</span>
+                            <span class="val">{{ rabbit.num }}</span>
                         </ion-label>
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
                             تاريخ التشغيل:
-                            <span class="val">{{ '22-5-2020' }}</span>
+                            <span class="val">{{ rabbit.date }}</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -61,13 +61,13 @@
                     <ion-col size="5">
                         <ion-label>
                             التلقيحات:
-                            <span class="val">{{ 5 }}</span>
+                            <span class="val">{{ calc.talqeh.length }}</span>
                         </ion-label>
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
                             الوزن:
-                            <span class="val">{{ 25 }} كجم </span>
+                            <span class="val">{{ rabbit.weight || 0 }} كجم </span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -75,13 +75,13 @@
                     <ion-col size="5">
                         <ion-label>
                             الجس:
-                            <span class="val">3</span>
+                            <span class="val">{{calc.gas.length}}</span>
                         </ion-label>
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
                             نسبة الجس الموجب:
-                            <span class="val">25.3%</span>
+                            <span class="val">{{calc.gasPercent}}%</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -89,13 +89,13 @@
                     <ion-col size="5">
                         <ion-label>
                             مرات الولادة:
-                            <span class="val">3</span>
+                            <span class="val">{{calc.welada.length}}</span>
                         </ion-label>
                     </ion-col>
                     <ion-col size="7">
                         <ion-label>
                             متوسط عدد الخلفة:
-                            <span class="val">7</span>
+                            <span class="val">{{calc.weladaMode || 0}}</span>
                         </ion-label>
                     </ion-col>
                 </ion-row>

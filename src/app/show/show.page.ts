@@ -23,7 +23,13 @@ export class ShowPage implements OnInit {
         type: 'asf'
     };
     data: State[];
-    calc = {};
+    calc = {
+        talqeh: {},
+        gas: {},
+        welada: {},
+        gasPercent: '0',
+        weladaMode: 0
+    };
     title = '';
     initHasPlayed = false;
     activeSlide = 0;
@@ -94,7 +100,7 @@ export class ShowPage implements OnInit {
         });
     }
 
-    changeSlide(inx) {
+    changeSlide(inx: string) {
         console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
@@ -113,12 +119,32 @@ export class ShowPage implements OnInit {
             const talqeh = d.filter(x => x.state === 1);
             const gas = d.filter(x => x.state === 2);
             const goodGas = gas.filter(x => x.positive);
-            const badGas = gas.filter(x => !x.positive);
+            // const badGas = gas.filter(x => !x.positive);
             const welada = d.filter(x => x.state === 3 && x.positive);
-            const alive = welada.reduce((t,c) => {t.child.alive += c.child.alive;return t}, {child:{alive:0}});
-            const dead = welada.reduce((t,c) => {t.child.dead += c.child.dead;return t}, {child:{dead:0}});
-            console.log(talqeh.length, gas.length, goodGas.length, badGas.length, welada.length, alive.child.alive, dead.child.dead);
-            // console.log(talqeh);
+            const alive = welada.reduce(
+                (t, c) => {
+                    t.child.alive += c.child.alive;
+                    return t;
+                },
+                { child: { alive: 0 } }
+            );
+            const dead = welada.reduce(
+                (t, c) => {
+                    t.child.dead += c.child.dead;
+                    return t;
+                },
+                { child: { dead: 0 } }
+            );
+            const goodGasPercent =
+                (goodGas.length / (goodGas.length + gas.length)) * 100;
+
+            this.calc.talqeh = talqeh;
+            this.calc.gas = gas;
+            this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(2) : '0';
+            this.calc.welada = welada;
+            this.calc.weladaMode = Math.round(
+                (alive.child.alive) / welada.length
+            );
 
             this.loader.hide();
         });
