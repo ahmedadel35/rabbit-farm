@@ -99,7 +99,7 @@
                             type="number"
                             [(ngModel)]="alive"
                             name="alive"
-                            required
+                            [required]="positive"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
@@ -112,7 +112,7 @@
                             type="number"
                             [(ngModel)]="dead"
                             name="dead"
-                            required
+                            [required]="positive"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
