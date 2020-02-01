@@ -223,6 +223,14 @@
                                     </ion-button>
                                 </ion-col>
                             </ion-row>
+                            <ion-row
+                                *ngIf="i.notes && i.notes.length"
+                                [class]="i.positive ? 'success' : 'danger'"
+                            >
+                                <ion-col>
+                                    {{ i.notes }}
+                                </ion-col>
+                            </ion-row>
                         </ion-grid>
                     </ion-item>
                 </div>
