@@ -8,6 +8,9 @@ ion-slides {
     overflow-x: hidden;
     overflow-y: auto;
     padding-bottom: 2rem;
+    ion-grid {
+        padding: 0;
+    }
     ion-row {
         align-items: center;
     }
