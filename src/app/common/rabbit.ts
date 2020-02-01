@@ -75,3 +75,23 @@ export function getAgeFromArabic(birth: string): string {
 
     return age.length ? age : 'اليوم';
 }
+
+export function createDate(date: string = ''): string {
+    const d = new Date(date);
+    const months = [
+        'يناير',
+        'فبراير',
+        'مارس',
+        'ابريل',
+        'مايو',
+        'يونية',
+        'يوليو',
+        'اغسطس',
+        'سبتمبر',
+        'اكتوبر',
+        'نوفمبر',
+        'ديسمبر'
+    ];
+
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}

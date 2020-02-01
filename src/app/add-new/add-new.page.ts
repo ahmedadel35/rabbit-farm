@@ -5,7 +5,7 @@ import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
 import Rabbit from '../interfaces/rabbit';
 import { ToastController } from '@ionic/angular';
-import { ArabicMonths } from '../common/rabbit';
+import { createDate } from '../common/rabbit';
 
 @Component({
     selector: 'app-add-new',
@@ -44,7 +44,7 @@ export class AddNewPage implements OnInit {
         this.loader.show();
 
         const f: Rabbit = form.value;
-        const date = this.createDate(f.date);
+        const date = createDate(f.date);
 
         // create rabbit object
         const obj: Rabbit = {
@@ -110,12 +110,6 @@ export class AddNewPage implements OnInit {
                 this.router.navigate(['show'], st);
             });
         });
-    }
-
-    private createDate(utc: string): string {
-        const d = new Date(utc);
-
-        return d.getDate() + ' ' + ArabicMonths[d.getMonth()] + ' ' + d.getFullYear();
     }
 
     private showFeedback(

@@ -5,6 +5,7 @@ import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Funds from '../interfaces/funds';
 import { NgForm } from '@angular/forms';
+import { createDate } from '../common/rabbit';
 
 @Component({
     selector: 'app-list',
@@ -68,7 +69,7 @@ export class ListPage implements OnInit {
                 value: f.value,
                 count: f.count,
                 info: f.info,
-                date: this.createDate(),
+                date: createDate(),
                 type: this.pageId,
                 sum: false
             };
@@ -82,7 +83,7 @@ export class ListPage implements OnInit {
                     value: f.value,
                     count: 0,
                     info: f.info,
-                    date: this.createDate(),
+                    date: createDate(),
                     sum: false
                 });
             }
@@ -113,30 +114,10 @@ export class ListPage implements OnInit {
             value: vc,
             count: tc,
             info: '=====',
-            date: this.createDate(),
+            date: createDate(),
             sum: true
         });
 
         this.doneSum = true;
-    }
-
-    private createDate(): string {
-        const d = new Date();
-        const months = [
-            'يناير',
-            'فبراير',
-            'مارس',
-            'ابريل',
-            'مايو',
-            'يونية',
-            'يوليو',
-            'اغسطس',
-            'سبتمبر',
-            'اكتوبر',
-            'نوفمبر',
-            'ديسمبر'
-        ];
-
-        return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
     }
 }
