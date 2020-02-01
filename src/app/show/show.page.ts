@@ -23,6 +23,7 @@ export class ShowPage implements OnInit {
         type: 'asf'
     };
     data: State[];
+    allData: State[];
     calc = {
         talqeh: {},
         gas: {},
@@ -109,48 +110,63 @@ export class ShowPage implements OnInit {
         this.loader.show();
 
         this.db.get('states').then((d: State[]) => {
-            // console.log(d);
+            this.allData = d;
             // filter data to get states related to this female
             d = d.filter(x => x.num === this.rabbit.num);
 
             console.log(d);
             this.data = d;
 
-            const talqeh = d.filter(x => x.state === 1);
-            const gas = d.filter(x => x.state === 2);
-            const goodGas = gas.filter(x => x.positive);
-            // const badGas = gas.filter(x => !x.positive);
-            const welada = d.filter(x => x.state === 3 && x.positive);
-            const alive = welada.reduce(
-                (t, c) => {
-                    t.child.alive += c.child.alive;
-                    return t;
-                },
-                { child: { alive: 0 } }
-            );
-            const dead = welada.reduce(
-                (t, c) => {
-                    t.child.dead += c.child.dead;
-                    return t;
-                },
-                { child: { dead: 0 } }
-            );
-            const goodGasPercent =
-                (goodGas.length / (goodGas.length + gas.length)) * 100;
-
-            this.calc.talqeh = talqeh;
-            this.calc.gas = gas;
-            this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(1) : '0';
-            this.calc.welada = welada;
-            this.calc.weladaMode = Math.round(
-                (alive.child.alive) / welada.length
-            );
+            this.doAllCalculations(this.data);
 
             this.loader.hide();
         });
     }
 
+    doAllCalculations(d: State[]) {
+        const talqeh = d.filter(x => x.state === 1);
+        const gas = d.filter(x => x.state === 2);
+        const goodGas = gas.filter(x => x.positive);
+        // const badGas = gas.filter(x => !x.positive);
+        const welada = d.filter(x => x.state === 3 && x.positive);
+        const alive = welada.reduce(
+            (t, c) => {
+                t.child.alive += c.child.alive;
+                return t;
+            },
+            { child: { alive: 0 } }
+        );
+        const dead = welada.reduce(
+            (t, c) => {
+                t.child.dead += c.child.dead;
+                return t;
+            },
+            { child: { dead: 0 } }
+        );
+        const goodGasPercent =
+            (goodGas.length / (goodGas.length + gas.length)) * 100;
+
+        this.calc.talqeh = talqeh;
+        this.calc.gas = gas;
+        this.calc.gasPercent = (gas.length > 0) ? goodGasPercent.toFixed(1) : '0';
+        this.calc.welada = welada;
+        this.calc.weladaMode = Math.round(
+            (alive.child.alive) / welada.length
+        );
+    }
+
     getStateText(st: number): string {
         return ['تلقيح', 'جس', 'ولادة'][st-1];
+    }
+
+    destroy(st: State, inx: number): void {
+        this.allData.splice(this.allData.indexOf(st), 1);
+        this.data.splice(inx, 1);
+
+        // reCalculate every thing
+        this.doAllCalculations(this.data);
+
+        // save new data
+        this.db.set('states', this.allData);
     }
 }
