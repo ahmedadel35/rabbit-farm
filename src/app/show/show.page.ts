@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import {
+    Router,
+    ActivatedRoute,
+    NavigationExtras,
+    Navigation
+} from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
@@ -12,6 +17,7 @@ import Rabbit from '../interfaces/rabbit';
 export class ShowPage implements OnInit {
     rabbit: Rabbit;
     title = '';
+    initHasPlayed = false;
 
     constructor(
         private router: Router,
@@ -19,17 +25,34 @@ export class ShowPage implements OnInit {
         private db: DatabaseService
     ) {}
 
-    ngOnInit() {
-        const routerData = this.router.getCurrentNavigation().extras;
-        if (!routerData.state || !routerData.state.obj) {
-            this.router.navigate(['females']);
-        } else {
-            // get page name and id from state
-            this.rabbit = routerData.state.obj;
-            this.title += this.rabbit.name ? this.rabbit.name : 'رقم ' + this.rabbit.num;
+    ionViewDidEnter() {
+       if (!this.initHasPlayed) this.ngOnInit();
+    }
+    ionViewWillLeave() {
+        this.initHasPlayed = false;
+    }
 
-            console.log(routerData.state.obj);
+    ngOnInit() {
+        this.initHasPlayed = true;
+
+        let routerData:
+            NavigationExtras
+            | Navigation = this.router.getCurrentNavigation();
+        if (routerData) {
+            routerData = routerData.extras;
+            if (!routerData.state || !routerData.state.obj) {
+                this.router.navigate(['females']);
+            } else {
+                // get page name and id from state
+                this.rabbit = routerData.state.obj;
+                this.title += this.rabbit.name
+                    ? this.rabbit.name
+                    : 'رقم ' + this.rabbit.num;
+
+                console.log(routerData.state.obj);
+            }
         }
+        console.log(this.rabbit);
     }
 
     addState() {
