@@ -25,6 +25,20 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+// change app font
+@font-face {
+    font-family: 'Cairo';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Cairo'), local('Cairo-Regular'), url(assets/cairo.woff2) format('woff2');
+    unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
+}
+html.md {
+    --ion-default-font: 'Cairo', Roboto, 'Helvetica Neue', Helvetica, sans-serif, 'Segoe UI', Arial;
+    font-size: .3rem;
+}
+
 .rabbit-item ion-label {
     padding: 0.5rem;
     margin-bottom: 1rem;
