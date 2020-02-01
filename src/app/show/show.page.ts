@@ -9,6 +9,7 @@ import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
 import { IonSlides } from '@ionic/angular';
+import State from '../interfaces/state';
 
 @Component({
     selector: 'app-show',
@@ -16,22 +17,29 @@ import { IonSlides } from '@ionic/angular';
     styleUrls: ['./show.page.scss']
 })
 export class ShowPage implements OnInit {
-    rabbit: Rabbit;
+    rabbit: Rabbit = {
+        num: 3,
+        date: '20 feb 2020',
+        type: 'asf'
+    };
+    data: State[];
+    calc = {};
     title = '';
     initHasPlayed = false;
     activeSlide = 0;
     sliderVal = 'home';
     slideOpts = {
-        speed: 400
+        speed: 400,
+        centeredSlides: false
     };
     slidesArr = ['home', 'report', 'child', 'ill'];
 
-    @ViewChild('rabbitSlides', {static: false}) slides: IonSlides;
+    @ViewChild('rabbitSlides', { static: false }) slides: IonSlides;
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
-        private db: DatabaseService
+        private db: DatabaseService,
+        private loader: LoaderService
     ) {}
 
     ionViewDidEnter() {
@@ -62,6 +70,7 @@ export class ShowPage implements OnInit {
             }
         }
         console.log(this.rabbit);
+        this.loadData();
     }
 
     addState() {
@@ -88,5 +97,30 @@ export class ShowPage implements OnInit {
     changeSlide(inx) {
         console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
+    }
+
+    loadData() {
+        this.loader.show();
+
+        this.db.get('states').then((d: State[]) => {
+            // console.log(d);
+            // filter data to get states related to this female
+            d = d.filter(x => x.num === this.rabbit.num);
+
+            console.log(d);
+            this.data = d;
+
+            const talqeh = d.filter(x => x.state === 1);
+            const gas = d.filter(x => x.state === 2);
+            const goodGas = gas.filter(x => x.positive);
+            const badGas = gas.filter(x => !x.positive);
+            const welada = d.filter(x => x.state === 3 && x.positive);
+            const alive = welada.reduce((t,c) => {t.child.alive += c.child.alive;return t}, {child:{alive:0}});
+            const dead = welada.reduce((t,c) => {t.child.dead += c.child.dead;return t}, {child:{dead:0}});
+            console.log(talqeh.length, gas.length, goodGas.length, badGas.length, welada.length, alive.child.alive, dead.child.dead);
+            // console.log(talqeh);
+
+            this.loader.hide();
+        });
     }
 }

@@ -1,3 +1,18 @@
 ion-slides {
     height: 100%;
 }
+.rabbitSlides ion-slide {
+    align-items: baseline !important;
+    text-align: right;
+    ion-row {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--ion-color-medium-tint);
+        span.val {
+            border: 2px solid var(--ion-color-danger);
+            color: var(--ion-color-tertiary);
+            padding: .3rem 1rem;
+            border-radius: 6px;
+        }
+    }
+}
