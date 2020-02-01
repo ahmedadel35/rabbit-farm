@@ -81,6 +81,6 @@ export class FirstTimeUsage {
             }
         ];
 
-        this.db.set('state', state);
+        this.db.set('states', state);
     }
 }
