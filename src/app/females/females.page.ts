@@ -13,6 +13,7 @@ import { goToAddNew, getAgeFromArabic } from '../common/rabbit';
 export class FemalesPage implements OnInit {
     data: Array<Rabbit> = [];
     oldData: Array<Rabbit> = [];
+    initHasPlayed = false;
 
     constructor(
         private router: Router,
@@ -20,7 +21,16 @@ export class FemalesPage implements OnInit {
         public loader: LoaderService
     ) {}
 
+    ionViewDidEnter() {
+        if (!this.initHasPlayed) this.ngOnInit();
+     }
+     ionViewWillLeave() {
+         this.initHasPlayed = false;
+     }
+
     ngOnInit() {
+        this.initHasPlayed = true;
+
         this.loader.show();
 
         this.db.get('females').then((d: Array<Rabbit>) => {

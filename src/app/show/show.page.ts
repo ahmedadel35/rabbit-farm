@@ -64,4 +64,8 @@ export class ShowPage implements OnInit {
 
         this.router.navigate(['add-state'], d);
     }
+
+    goBack() {
+        this.router.navigate(['females']);
+    }
 }
