@@ -14,7 +14,7 @@ import { ToastController } from '@ionic/angular';
     styleUrls: ['./add-state.page.scss']
 })
 export class AddStatePage implements OnInit {
-    state: number | string = '1';
+    state = '1';
     positive = true;
     date: string;
     rabbit: Rabbit;
@@ -52,12 +52,12 @@ export class AddStatePage implements OnInit {
         this.router.navigate(['show'], d);
     }
 
-    setState(v: number) {
+    setState(v: string) {
         this.state = v;
     }
 
-    setPositive(v: number): void {
-        this.positive = !!parseInt(v);
+    setPositive(v: string): void {
+        this.positive = !!parseInt(v, 10);
     }
 
     save(form: NgForm): void {
@@ -70,7 +70,7 @@ export class AddStatePage implements OnInit {
         }
 
         const state: State = {
-            state: parseInt(this.state),
+            state: parseInt(this.state, 10),
             num: this.rabbit.num,
             maleNo: f.maleNo,
             date: createDate(f.date),
