@@ -9,7 +9,50 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content scroll-y="false">
+    <ion-toolbar color="primary">
+        <ion-segment
+            scrollable
+            color="light"
+            [value]="sliderVal"
+            (ionChange)="changeSlide($event.detail.value)"
+        >
+            <ion-segment-button value="home">
+                <ion-icon name="home"></ion-icon>
+                <ion-label>المعلومات الأساسية</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="report">
+                <ion-icon name="star"></ion-icon>
+                <ion-label>تقارير</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="child">
+                <ion-icon name="heart"></ion-icon>
+                <ion-label>الصغار</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="ill">
+                <ion-icon name="call"></ion-icon>
+                <ion-label>الأمراض</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <ion-slides
+        #rabbitSlides
+        (ionSlideDidChange)="getIndex(rabbitSlides)"
+        [options]="slideOpts"
+    >
+        <ion-slide>
+            <h1>Slide 1</h1>
+        </ion-slide>
+        <ion-slide>
+            <h1>Slide 2</h1>
+        </ion-slide>
+        <ion-slide>
+            <h1>Slide 3</h1>
+        </ion-slide>
+        <ion-slide>
+            <h1>Slide 4</h1>
+        </ion-slide>
+    </ion-slides>
     <ion-fab
         vertical="bottom"
         horizontal="end"

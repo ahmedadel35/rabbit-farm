@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     Router,
     ActivatedRoute,
@@ -8,6 +8,7 @@ import {
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
     selector: 'app-show',
@@ -18,6 +19,14 @@ export class ShowPage implements OnInit {
     rabbit: Rabbit;
     title = '';
     initHasPlayed = false;
+    activeSlide = 0;
+    sliderVal = 'home';
+    slideOpts = {
+        speed: 400
+    };
+    slidesArr = ['home', 'report', 'child', 'ill'];
+
+    @ViewChild('rabbitSlides', {static: false}) slides: IonSlides;
 
     constructor(
         private router: Router,
@@ -26,7 +35,7 @@ export class ShowPage implements OnInit {
     ) {}
 
     ionViewDidEnter() {
-       if (!this.initHasPlayed) this.ngOnInit();
+        if (!this.initHasPlayed) this.ngOnInit();
     }
     ionViewWillLeave() {
         this.initHasPlayed = false;
@@ -36,12 +45,12 @@ export class ShowPage implements OnInit {
         this.initHasPlayed = true;
 
         let routerData:
-            NavigationExtras
+            | NavigationExtras
             | Navigation = this.router.getCurrentNavigation();
         if (routerData) {
             routerData = routerData.extras;
             if (!routerData.state || !routerData.state.obj) {
-                this.router.navigate(['females']);
+                // this.router.navigate(['females']);
             } else {
                 // get page name and id from state
                 this.rabbit = routerData.state.obj;
@@ -67,5 +76,17 @@ export class ShowPage implements OnInit {
 
     goBack() {
         this.router.navigate(['females']);
+    }
+
+    getIndex(slider: IonSlides) {
+        slider.getActiveIndex().then(v => {
+            console.log(v);
+            this.sliderVal = this.slidesArr[v];
+        });
+    }
+
+    changeSlide(inx) {
+        console.log(inx);
+        this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
 }
