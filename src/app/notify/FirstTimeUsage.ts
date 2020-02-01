@@ -3,6 +3,7 @@ import Config from '../interfaces/Config';
 import Funds from '../interfaces/funds';
 import Rabbit from '../interfaces/rabbit';
 import State from '../interfaces/state';
+import Ill from '../interfaces/ill';
 
 export const FirstTimeKey = 'first_time_use';
 
@@ -18,6 +19,7 @@ export class FirstTimeUsage {
         this.createFundsTB();
         this.createFemaelsTB();
         this.createStatesTB();
+        this.createIllTB();
         this.db.set(FirstTimeKey, true);
     }
 
@@ -82,5 +84,18 @@ export class FirstTimeUsage {
         ];
 
         this.db.set('states', state);
+    }
+
+    private createIllTB() {
+        const ill: Ill[] = [
+            {
+                num: 0,
+                type: '',
+                date: 'noDate',
+                healed: false
+            }
+        ];
+
+        this.db.set('ill', ill);
     }
 }
