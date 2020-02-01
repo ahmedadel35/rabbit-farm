@@ -42,7 +42,7 @@ export class LoaderService {
 
     private hideLoader(timeout: number): void {
         setTimeout(x => {
-            this.loader.dismiss().then(d => d);
+            if (this.loader) this.loader.dismiss().then(d => d);
             this.loader = null;
         }, timeout);
     }
