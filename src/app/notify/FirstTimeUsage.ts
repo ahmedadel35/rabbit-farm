@@ -71,6 +71,7 @@ export class FirstTimeUsage {
 
         this.db.set('females', rabbit);
         this.db.set('males', rabbit);
+        this.db.set('archive', rabbit);
     }
 
     private createStatesTB() {
