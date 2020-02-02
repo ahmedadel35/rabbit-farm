@@ -45,10 +45,10 @@
                 </ion-label>
             </ion-item>
             <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="share(item)">
+                <ion-item-option color="danger" (click)="destroy(i, inx)">
                     <ion-icon name="close"></ion-icon>&nbsp; حذف
                 </ion-item-option>
-                <ion-item-option color="warning" (click)="favorite(item)">
+                <ion-item-option color="warning" (click)="archive(i, inx)">
                     <ion-icon name="archive"></ion-icon>&nbsp; إستبعاد
                 </ion-item-option>
             </ion-item-options>

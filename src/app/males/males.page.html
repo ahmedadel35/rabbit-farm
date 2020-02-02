@@ -18,7 +18,7 @@
             <ion-item
                 *ngIf="i.date !== 'noDate'"
                 class="rabbit-item"
-                [color]="inx % 2 === 0 ? 'medium' : ''"
+                [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
                 (click)="goToRabbit(i, inx)"
             >
                 <ion-ripple-effect></ion-ripple-effect>
