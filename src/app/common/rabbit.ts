@@ -77,7 +77,7 @@ export function getAgeFromArabic(birth: string): string {
 }
 
 export function createDate(date: string = null): string {
-    const d = new Date(date);
+    const d = date ? new Date(date) : new Date();
     const months = [
         'يناير',
         'فبراير',
