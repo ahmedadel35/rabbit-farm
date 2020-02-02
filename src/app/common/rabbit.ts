@@ -91,8 +91,8 @@ export function toEngDate(
     return asStr ? (date as string[]).join('-') : date;
 }
 
-export function createDate(date: string = null): string {
-    const m = date ? moment(date, 'YYYY-MM-DD') : moment();
+export function createDate(date: string | Date = null, format = 'YYYY-MM-DD'): string {
+    const m = date ? moment(date, format) : moment();
     moment.locale('ar');
 
     return m.format('D MMMM YYYY');

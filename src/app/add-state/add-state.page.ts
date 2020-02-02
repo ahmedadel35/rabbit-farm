@@ -72,7 +72,7 @@ export class AddStatePage implements OnInit {
             state: parseInt(this.state, 10),
             num: this.rabbit.num,
             maleNo: f.maleNo,
-            date: createDate(f.date),
+            date: createDate(new Date(f.date)),
             positive: this.positive,
             child: {
                 alive: f.alive,
