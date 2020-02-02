@@ -14,6 +14,12 @@ export class FemalesPage implements OnInit {
     data: Array<Rabbit> = [];
     oldData: Array<Rabbit> = [];
     initHasPlayed = false;
+    states = [
+        'فارغة',
+        'ملقحة',
+        'موجبة',
+        'ولادة'
+    ];
 
     constructor(
         private router: Router,

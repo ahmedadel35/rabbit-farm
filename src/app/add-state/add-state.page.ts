@@ -100,21 +100,29 @@ export class AddStatePage implements OnInit {
         // save new state into database
         this.db.add('states', state).then(d => {
             // update this female state
-            this.db.get('females').then((f: Rabbit[]) => {
-                const allFemales = f.map(v => {
-                    if (v.num === this.rabbit.num) {
-                        v.state = parseInt(this.state, 10);
-                    }
-                    return v;
+            if (this.positive) {
+                this.db.get('females').then((f: Rabbit[]) => {
+                    const allFemales = f.map(v => {
+                        if (v.num === this.rabbit.num) {
+                            v.state = parseInt(this.state, 10);
+                        }
+                        return v;
+                    });
+
+                    this.db.set('females', allFemales);
+
+                    this.afterSaving();
                 });
-
-                this.db.set('females', allFemales);
-
-                this.loader.hide();
-                this.showFeedback(maleNo, 1, 'success');
-                this.goBack();
-            });
+            } else {
+                this.afterSaving();
+            }
         });
+    }
+
+    private afterSaving() {
+        this.loader.hide();
+        this.showFeedback(0, 1, 'success');
+        this.goBack();
     }
 
     private showFeedback(num: number, mess: number, color: string = 'danger') {
