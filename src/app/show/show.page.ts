@@ -23,6 +23,7 @@ export class ShowPage implements OnInit {
         date: '20 feb 2020',
         type: 'asf'
     };
+    isMale = false;
     data: State[];
     allData: State[];
     illData: Ill[];
@@ -79,6 +80,12 @@ export class ShowPage implements OnInit {
                 this.title += this.rabbit.name
                     ? this.rabbit.name
                     : 'رقم ' + this.rabbit.num;
+                this.isMale = routerData.state.male;
+
+                // if this rabbit is male
+                if (this.isMale) {
+                    this.slidesArr.splice(1, 2);
+                }
 
                 console.log(routerData.state.obj);
             }
@@ -104,7 +111,7 @@ export class ShowPage implements OnInit {
     }
 
     goBack() {
-        this.router.navigate(['females']);
+        this.router.navigate([this.isMale ? 'males' : 'females']);
     }
 
     getIndex(slider: IonSlides) {

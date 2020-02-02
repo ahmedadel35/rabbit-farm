@@ -45,7 +45,17 @@ export class MalesPage implements OnInit {
 
         // user serched for something
         this.data = this.oldData.filter((x: Rabbit)=> {
-            return x.num === parseInt(s) || (x.name && x.name.indexOf(s) > -1);
+            return x.num === parseInt(s, 10) || (x.name && x.name.indexOf(s) > -1);
         });
+    }
+
+    goToRabbit(obj: Rabbit): void {
+        const data: NavigationExtras = {
+            state: {
+                obj,
+                male: true
+            }
+        };
+        this.router.navigate(['show'], data);
     }
 }
