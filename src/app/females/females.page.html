@@ -4,6 +4,14 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>الإناث</ion-title>
+        <ion-buttons slot="end">
+            <ion-button fill="outline" [color]="isArchive ? 'success' : 'light'" (click)="loadData('archive')">
+                <ion-icon name="archive"></ion-icon>
+            </ion-button>
+            <ion-button fill="outline" [color]="isArchive ? 'light' : 'success'" (click)="loadData()">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -48,7 +56,7 @@
                 <ion-item-option color="danger" (click)="destroy(i, inx)">
                     <ion-icon name="close"></ion-icon>&nbsp; حذف
                 </ion-item-option>
-                <ion-item-option color="warning" (click)="archive(i, inx)">
+                <ion-item-option *ngIf='!isArchive' color="warning" (click)="archive(i, inx)">
                     <ion-icon name="archive"></ion-icon>&nbsp; إستبعاد
                 </ion-item-option>
             </ion-item-options>

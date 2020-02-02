@@ -17,6 +17,7 @@ export class FemalesPage implements OnInit {
     oldData: Array<Rabbit> = [];
     initHasPlayed = false;
     states = ['فارغة', 'ملقحة', 'موجبة', 'ولادة'];
+    isArchive = false;
 
     constructor(
         private router: Router,
@@ -34,9 +35,14 @@ export class FemalesPage implements OnInit {
     ngOnInit() {
         this.initHasPlayed = true;
 
+        this.loadData(this.isArchive ? 'archive' : 'females');
+    }
+
+    loadData(tb: string = 'females'): void {
+        this.isArchive = (tb === 'archive');
         this.loader.show();
 
-        this.db.get('females').then((d: Array<Rabbit>) => {
+        this.db.get(tb).then((d: Array<Rabbit>) => {
             this.data = d;
             this.oldData = [...d];
             this.loader.hide();
@@ -80,6 +86,9 @@ export class FemalesPage implements OnInit {
         console.log(this.oldData[inx]);
         this.loader.show();
         // create new number for this female
+        // and save in archive with this new number
+        // also change saved states to this new number
+        // so that it can be accessed any time without problems
         const oldNum = r.num;
         r.name = !r.name ? `رقم ${r.num}` : r.name + ' - ' + r.num;
         r.num *= Math.round(Math.random() * Math.random() * 100);
@@ -92,8 +101,6 @@ export class FemalesPage implements OnInit {
 
             // get all states for this female and change its number
             this.db.get('states').then((s: State[]) => {
-                // const d = [...s];
-                // s = s.filter(x => )
                 s = s.map(x => {
                     if (x.num === oldNum) {
                         x.num = r.num;
@@ -103,8 +110,21 @@ export class FemalesPage implements OnInit {
 
                 // save new states
                 this.db.set('states', s);
-                this.data.splice(inx, 1);
-                this.loader.hide();
+
+                // get all illness records for this female and change the number
+                this.db.get('ill').then((i: Ill[]) => {
+                    i = i.map(x => {
+                        if (x.num === oldNum) {
+                            x.num = r.num;
+                        }
+                        return x;
+                    });
+
+                    this.db.set('ill', i);
+
+                    this.data.splice(inx, 1);
+                    this.loader.hide();
+                });
             });
         });
     }
@@ -112,7 +132,7 @@ export class FemalesPage implements OnInit {
     destroy(r: Rabbit, inx: number): void {
         this.loader.show();
         this.oldData.splice(inx, 1);
-        this.db.set('females', this.oldData);
+        this.db.set(this.isArchive ? 'archive' : 'females', this.oldData);
 
         // remove all stats about this female
         this.db.get('states').then((s: State[]) => {
