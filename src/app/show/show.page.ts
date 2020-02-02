@@ -72,7 +72,7 @@ export class ShowPage implements OnInit {
         if (routerData) {
             routerData = routerData.extras;
             if (!routerData.state || !routerData.state.obj) {
-                // this.router.navigate(['females']);
+                this.router.navigate(['females']);
             } else {
                 // get page name and id from state
                 this.rabbit = routerData.state.obj;
