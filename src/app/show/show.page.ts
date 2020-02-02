@@ -146,7 +146,7 @@ export class ShowPage implements OnInit {
                 this.allIllData = i;
 
                 // get current rabbit illness
-                i = i.filter(x => x[this.rabbitAttr] === this.rabbit.num);
+                i = i.filter(x => x.num === this.rabbit.num);
                 this.illData = i.reverse();
                 console.log(this.illData);
             });
