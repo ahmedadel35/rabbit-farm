@@ -28,11 +28,14 @@ export class ShowPage implements OnInit {
     illData: Ill[];
     allIllData: Ill[];
     calc = {
-        talqeh: {},
-        gas: {},
-        welada: {},
+        talqeh: [],
+        gas: [],
+        welada: [],
         gasPercent: '0',
-        weladaMode: 0
+        weladaMode: 0,
+        alive: 0,
+        dead: 0,
+        allWelada: 0
     };
     title = '';
     initHasPlayed = false;
@@ -171,6 +174,9 @@ export class ShowPage implements OnInit {
         this.calc.gasPercent = gas.length > 0 ? goodGasPercent.toFixed(1) : '0';
         this.calc.welada = welada;
         this.calc.weladaMode = Math.round(alive.child.alive / welada.length);
+        this.calc.alive = alive.child.alive;
+        this.calc.dead = dead.child.dead;
+        this.calc.allWelada = alive.child.alive + dead.child.dead;
     }
 
     getStateText(st: number): string {
@@ -191,8 +197,8 @@ export class ShowPage implements OnInit {
     showAlert() {
         const alert = this.alertCtrl
             .create({
-                header: 'Alert',
-                message: `set`,
+                header: 'إضافة مرض',
+                message: ``,
                 cssClass: 'fundsRepo',
                 inputs: [
                     {
@@ -287,5 +293,49 @@ export class ShowPage implements OnInit {
         // save new data
         this.db.set('ill', this.allIllData);
         this.loader.hide();
+    }
+
+    showYoungRepo() {
+        const alert = this.alertCtrl
+            .create({
+                header: 'تقارير الولدة',
+                cssClass: 'fundsRepo',
+                message: `<ion-list>
+            <ion-item>
+                <ion-label>إجمالى الولدة</ion-label>
+                <ion-note slot="end" color='primary'>${
+                    this.calc.allWelada
+                }</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>الولدة الحية</ion-label>
+                <ion-note slot="end" color='success'>${
+                    this.calc.alive
+                }</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>الولدة الميتة</ion-label>
+                <ion-note slot="end" color='danger'>${this.calc.dead}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>نسبة الحى</ion-label>
+                <ion-note slot="end" color='tertiary'>
+                ${((this.calc.alive / this.calc.allWelada) * 100).toFixed(2)} %
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>نسبة الميت</ion-label>
+                <ion-note slot="end" color='tertiary'>
+                ${((this.calc.dead / this.calc.allWelada) * 100).toFixed(2)} %
+                </ion-note>
+            </ion-item>
+            </ion-list>`,
+                buttons: [
+                    {
+                        text: 'تم'
+                    }
+                ]
+            })
+            .then(a => a.present());
     }
 }
