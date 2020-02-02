@@ -7,8 +7,17 @@
         <ion-buttons slot="end">
             <ion-button
                 fill="outline"
+                [color]="onlyFree ? 'warning' : 'light'"
+                (click)="filterData('free')"
+                title="الإناث الفارغة"
+            >
+                <ion-icon name="rose"></ion-icon>
+            </ion-button>
+            <ion-button
+                fill="outline"
                 [color]="isArchive ? 'success' : 'light'"
                 (click)="loadData('archive')"
+                title="الإناث المستبعدة"
             >
                 <ion-icon name="archive"></ion-icon>
             </ion-button>
@@ -16,6 +25,7 @@
                 fill="outline"
                 [color]="isArchive ? 'light' : 'success'"
                 (click)="loadData()"
+                title="الكل"
             >
                 <ion-icon name="home"></ion-icon>
             </ion-button>

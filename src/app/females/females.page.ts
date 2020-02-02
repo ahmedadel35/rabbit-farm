@@ -18,6 +18,7 @@ export class FemalesPage implements OnInit {
     initHasPlayed = false;
     states = ['فارغة', 'ملقحة', 'موجبة', 'ولادة'];
     isArchive = false;
+    onlyFree = false;
 
     constructor(
         private router: Router,
@@ -40,6 +41,7 @@ export class FemalesPage implements OnInit {
 
     loadData(tb: string = 'females'): void {
         this.isArchive = (tb === 'archive');
+        this.onlyFree = false;
         this.loader.show();
 
         this.db.get(tb).then((d: Array<Rabbit>) => {
@@ -61,10 +63,16 @@ export class FemalesPage implements OnInit {
         if (!s.length) {
             this.data = [...this.oldData];
             return;
+        } else if (s === 'free') {
+            this.onlyFree = true;
         }
 
         // user serched for something
         const d = this.oldData.filter((x: Rabbit) => {
+            if (s === 'free') {
+                return !x.state || x.state === 0;
+            }
+
             return (
                 x.num === parseInt(s, 10) || (x.name && x.name.indexOf(s) > -1)
             );
