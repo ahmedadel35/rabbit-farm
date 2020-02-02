@@ -15,31 +15,31 @@
             <ion-segment-button value="talqeh">
                 <ion-label>
                     التلقيح
-                    <ion-badge color="danger">77</ion-badge>
+                    <ion-badge color="danger">{{ calc.t }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="gas">
                 <ion-label>
                     الجس
-                    <ion-badge color="danger">22</ion-badge>
+                    <ion-badge color="danger">{{ calc.g }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="welada">
                 <ion-label>
                     الولادة
-                    <ion-badge color="danger">22</ion-badge>
+                    <ion-badge color="danger">{{ calc.w }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="fetam">
                 <ion-label>
                     الفطام
-                    <ion-badge color="danger">22</ion-badge>
+                    <ion-badge color="danger">{{ calc.f }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="ill">
                 <ion-label>
                     الأمراض
-                    <ion-badge color="danger">22</ion-badge>
+                    <ion-badge color="danger">{{ calc.i }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
         </ion-segment>
@@ -53,29 +53,44 @@
         [options]="slideOpts"
         class="rabbitSlides"
     >
-        <ion-slide class="slideTwo" *ngFor="let slide of slidesArr">
+        <ion-slide
+            class="slideTwo"
+            *ngFor="let slide of slidesArr; let sInx = index"
+        >
             <ion-list>
-                <div *ngFor="let i of [1, 2, 3, 4]; let inx = index">
+                <div *ngFor="let i of slidesData[sInx]; let inx = index">
                     <ion-item
                         *ngIf="i.date !== 'noDate'"
                         [color]="i.positive ? 'success' : 'danger'"
                     >
                         <ion-grid>
                             <ion-row>
-                                <ion-col size="5">2 ديسمبر 2020</ion-col>
+                                <ion-col size="5">
+                                    {{ i.remined || i.toDate || i.date }}
+                                </ion-col>
                                 <ion-col size="2">
                                     <ion-icon name="female"></ion-icon>
-                                    5
+                                    {{ i.num }}
                                 </ion-col>
                                 <ion-col size="3">
-                                    <ion-icon name="male"></ion-icon>
-                                    9
+                                    <span
+                                        *ngIf="
+                                            [1, 2, 3].indexOf(sInx) > -1;
+                                            else showName
+                                        "
+                                    >
+                                        <ion-icon name="male"></ion-icon>
+                                        {{ i.maleNo }}
+                                    </span>
+                                    <ng-template #showName>
+                                        {{ i.name || i.type }}
+                                    </ng-template>
                                 </ion-col>
                                 <ion-col size="2">
                                     <ion-button
                                         fill="solid"
                                         color="success"
-                                        (click)="destroy(i, inx)"
+                                        (click)="update(i, inx)"
                                     >
                                         <ion-icon name="checkmark"></ion-icon>
                                     </ion-button>
