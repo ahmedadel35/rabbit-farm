@@ -11,6 +11,7 @@ import Rabbit from '../interfaces/rabbit';
 import { IonSlides, AlertController } from '@ionic/angular';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
+import { createDate } from '../common/rabbit';
 
 @Component({
     selector: 'app-show',
@@ -279,6 +280,7 @@ export class ShowPage implements OnInit {
 
     saveIll(i: Ill) {
         this.loader.show();
+        i.date = createDate(i.date);
         this.db.add('ill', i).then(_ => {
             this.allIllData.unshift(i);
             this.illData.unshift(i);

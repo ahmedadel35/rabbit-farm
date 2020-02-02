@@ -4,6 +4,25 @@ import { DatabaseService } from '../services/database.service';
 import Rabbit from '../interfaces/rabbit';
 import * as moment from 'moment';
 
+export const ArabicMonths = [
+    'يناير',
+    'فبراير',
+    'مارس',
+    'ابريل',
+    'مايو',
+    'يونية',
+    'يوليو',
+    'اغسطس',
+    'سبتمبر',
+    'اكتوبر',
+    'نوفمبر',
+    'ديسمبر'
+];
+
+moment.locale('ar',{
+    months: ArabicMonths
+});
+
 export function goToAddNew(
     router: Router,
     id: string = 'females',
@@ -24,21 +43,6 @@ export function goToAddNew(
 
     router.navigate(['add-new'], navExt);
 }
-
-export const ArabicMonths = [
-    'يناير',
-    'فبراير',
-    'مارس',
-    'ابريل',
-    'مايو',
-    'يونية',
-    'يوليو',
-    'اغسطس',
-    'سبتمبر',
-    'اكتوبر',
-    'نوفمبر',
-    'ديسمبر'
-];
 
 export function getAge(year, month, day) {
     const a = moment(new Date()),
@@ -88,21 +92,8 @@ export function toEngDate(
 }
 
 export function createDate(date: string = null): string {
-    const d = date ? new Date(date) : new Date();
-    const months = [
-        'يناير',
-        'فبراير',
-        'مارس',
-        'ابريل',
-        'مايو',
-        'يونية',
-        'يوليو',
-        'اغسطس',
-        'سبتمبر',
-        'اكتوبر',
-        'نوفمبر',
-        'ديسمبر'
-    ];
+    const m = date ? moment(date, 'YYYY-MM-DD') : moment();
+    moment.locale('ar');
 
-    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    return m.format('D MMMM YYYY');
 }
