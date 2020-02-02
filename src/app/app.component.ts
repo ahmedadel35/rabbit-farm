@@ -17,12 +17,7 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
-      title: 'Notifications',
+      title: 'إشعارات',
       url: '/notify',
       icon: 'notifications'
     },
@@ -39,7 +34,7 @@ export class AppComponent {
     {
       title: 'المالية',
       url: '/mony',
-      icon: 'star'
+      icon: 'cash'
     }
   ];
 
