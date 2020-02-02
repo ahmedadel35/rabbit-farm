@@ -14,13 +14,23 @@ import Ill from '../interfaces/ill';
 export class MalesPage implements OnInit {
     data: Array<Rabbit> = [];
     oldData: Array<Rabbit> = [];
+    initHasPlayed = false;
     constructor(
         private router: Router,
         private db: DatabaseService,
         public loader: LoaderService
     ) {}
 
+    ionViewDidEnter() {
+        if (!this.initHasPlayed) this.ngOnInit();
+    }
+    ionViewWillLeave() {
+        this.initHasPlayed = false;
+    }
+
     ngOnInit() {
+        this.initHasPlayed = true;
+
         this.loader.show();
 
         this.db.get('males').then((d: Array<Rabbit>) => {
