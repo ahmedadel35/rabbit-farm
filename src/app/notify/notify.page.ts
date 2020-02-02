@@ -52,9 +52,10 @@ export class NotifyPage implements OnInit {
     ngOnInit() {
         this.initHasPlayed = true;
 
-        // this.loader.show();
         this.plt.ready().then(rbd => {
             if (rbd) {
+                // this.loader.show();
+
                 // check if this first time to use the app
                 this.storage.get(FirstTimeKey).then(fth => {
                     if (fth) {
@@ -81,8 +82,8 @@ export class NotifyPage implements OnInit {
             welada = [],
             fetam = [];
 
-        this.statesData = states;
-        this.illData = ill;
+        this.statesData = states.reverse();
+        this.illData = ill.reverse();
 
         states.map(x => {
             if (!x.positive && !x.done) {
@@ -118,5 +119,9 @@ export class NotifyPage implements OnInit {
     changeSlide(inx: string) {
         console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
+    }
+
+    update(obj: State | Ill, inx: number) {
+
     }
 }
