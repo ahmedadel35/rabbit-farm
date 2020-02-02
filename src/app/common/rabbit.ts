@@ -63,17 +63,28 @@ export function getAge(year, month, day) {
         .replace('days', 'ايام');
 }
 
-export function getAgeFromArabic(birth: string): string {
-    // @ts-ignore
-    birth = birth.split(' ');
+export function getAgeFromArabic(birth: string | string[]): string {
+    birth = toEngDate(birth, false) as string[];
 
-    let age = getAge(
-        parseInt(birth[2]),
-        ArabicMonths.indexOf(birth[1]) + 1,
-        parseInt(birth[0])
+    const age = getAge(
+        birth[0],
+        birth[1],
+        birth[2]
     );
 
     return age.length ? age : 'اليوم';
+}
+
+export function toEngDate(
+    date: string | string[],
+    asStr: boolean = true
+): string[] | string {
+    date = (date as string).split(' ');
+
+    // @ts-ignore
+    date = [parseInt(date[2], 10),ArabicMonths.indexOf(date[1]) + 1,parseInt(date[0], 10)];
+
+    return asStr ? (date as string[]).join('-') : date;
 }
 
 export function createDate(date: string = null): string {
