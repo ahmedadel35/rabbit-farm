@@ -24,6 +24,7 @@ export class ShowPage implements OnInit {
         type: 'asf'
     };
     isMale = false;
+    rabbitAttr = 'num'; // defalut for female usage
     data: State[];
     allData: State[];
     illData: Ill[];
@@ -85,6 +86,7 @@ export class ShowPage implements OnInit {
                 // if this rabbit is male
                 if (this.isMale) {
                     this.slidesArr.splice(1, 2);
+                    this.rabbitAttr = 'maleNo';
                 }
 
                 console.log(routerData.state.obj);
@@ -96,7 +98,7 @@ export class ShowPage implements OnInit {
     }
 
     addState(): void {
-        if (this.sliderVal === 'ill') {
+        if (this.sliderVal === 'ill' || this.isMale) {
             this.showAlert();
             return;
         }
@@ -133,7 +135,7 @@ export class ShowPage implements OnInit {
             this.allData = d;
 
             // filter data to get states related to this female
-            d = d.filter(x => x.num === this.rabbit.num);
+            d = d.filter(x => x[this.rabbitAttr] === this.rabbit.num);
 
             this.data = d.reverse();
 
@@ -144,7 +146,7 @@ export class ShowPage implements OnInit {
                 this.allIllData = i;
 
                 // get current rabbit illness
-                i = i.filter(x => x.num === this.rabbit.num);
+                i = i.filter(x => x[this.rabbitAttr] === this.rabbit.num);
                 this.illData = i.reverse();
                 console.log(this.illData);
             });
