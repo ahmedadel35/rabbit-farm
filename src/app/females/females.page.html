@@ -5,10 +5,18 @@
         </ion-buttons>
         <ion-title>الإناث</ion-title>
         <ion-buttons slot="end">
-            <ion-button fill="outline" [color]="isArchive ? 'success' : 'light'" (click)="loadData('archive')">
+            <ion-button
+                fill="outline"
+                [color]="isArchive ? 'success' : 'light'"
+                (click)="loadData('archive')"
+            >
                 <ion-icon name="archive"></ion-icon>
             </ion-button>
-            <ion-button fill="outline" [color]="isArchive ? 'light' : 'success'" (click)="loadData()">
+            <ion-button
+                fill="outline"
+                [color]="isArchive ? 'light' : 'success'"
+                (click)="loadData()"
+            >
                 <ion-icon name="home"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -31,9 +39,11 @@
                 [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
                 (click)="show(i)"
             >
-                <ion-label>
-                    <h2>{{ i.name || 'رقم ' + i.num }}</h2>
-                    <h3>
+                <ion-label class="noMargin">
+                    <p>
+                        <strong>{{ i.name || 'رقم ' + i.num }}</strong>
+                    </p>
+                    <p>
                         <ion-row>
                             <ion-col>{{
                                 i.name ? 'رقم ' + i.num : ''
@@ -48,15 +58,18 @@
                                 الحالة: {{ states[i.state] || 'فارغة' }}
                             </ion-col>
                         </ion-row>
-                        <ion-row> </ion-row>
-                    </h3>
+                    </p>
                 </ion-label>
             </ion-item>
             <ion-item-options side="end">
                 <ion-item-option color="danger" (click)="destroy(i, inx)">
                     <ion-icon name="close"></ion-icon>&nbsp; حذف
                 </ion-item-option>
-                <ion-item-option *ngIf='!isArchive' color="warning" (click)="archive(i, inx)">
+                <ion-item-option
+                    *ngIf="!isArchive"
+                    color="warning"
+                    (click)="archive(i, inx)"
+                >
                     <ion-icon name="archive"></ion-icon>&nbsp; إستبعاد
                 </ion-item-option>
             </ion-item-options>
