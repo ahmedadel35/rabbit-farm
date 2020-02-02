@@ -103,7 +103,8 @@ export class AddNewPage implements OnInit {
                 // TODO navigate to this rabbit own page
                 const st: NavigationExtras = {
                     state: {
-                        obj
+                        obj,
+                        male: (this.pageId === 'males')
                     }
                 };
 

@@ -278,6 +278,7 @@ export class ShowPage implements OnInit {
     saveIll(i: Ill) {
         this.loader.show();
         this.db.add('ill', i).then(_ => {
+            this.allIllData.unshift(i);
             this.illData.unshift(i);
             this.loader.hide();
         });
