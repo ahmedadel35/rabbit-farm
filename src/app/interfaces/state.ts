@@ -17,4 +17,6 @@ export default interface State {
         dead: number;
     };
     notes?: string;
+    done?: boolean;
+    toDate?: string;
 }
