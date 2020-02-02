@@ -21,7 +21,6 @@ export class AddStatePage implements OnInit {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
         private db: DatabaseService,
         private loader: LoaderService,
         public toastCtrl: ToastController
@@ -100,9 +99,21 @@ export class AddStatePage implements OnInit {
     private saveDataToDb(maleNo: number, state: State) {
         // save new state into database
         this.db.add('states', state).then(d => {
-            this.loader.hide();
-            this.showFeedback(maleNo, 1, 'success');
-            this.goBack();
+            // update this female state
+            this.db.get('females').then((f: Rabbit[]) => {
+                const allFemales = f.map(v => {
+                    if (v.num === this.rabbit.num) {
+                        v.state = parseInt(this.state, 10);
+                    }
+                    return v;
+                });
+
+                this.db.set('females', allFemales);
+
+                this.loader.hide();
+                this.showFeedback(maleNo, 1, 'success');
+                this.goBack();
+            });
         });
     }
 
