@@ -26,6 +26,7 @@ export class ShowPage implements OnInit {
     data: State[];
     allData: State[];
     illData: Ill[];
+    allIllData: Ill[];
     calc = {
         talqeh: {},
         gas: {},
@@ -130,7 +131,10 @@ export class ShowPage implements OnInit {
 
             // load ill data
             this.db.get('ill').then((i: Ill[]) => {
-                // i = i.filter(x => x.num === this.rabbit.num);
+                this.allIllData = i;
+
+                // get current rabbit illness
+                i = i.filter(x => x.num === this.rabbit.num);
                 this.illData = i.reverse();
                 console.log(this.illData);
             });
@@ -250,8 +254,8 @@ export class ShowPage implements OnInit {
         let m: number | string = d.getMonth() + 1,
             i: number | string = d.getDate();
 
-        m = (m >= 10) ? m : `0${m}`;
-        i = (i >= 10) ? i : `0${i}`;
+        m = m >= 10 ? m : `0${m}`;
+        i = i >= 10 ? i : `0${i}`;
 
         return `${d.getFullYear()}-${m}-${i}`;
     }
@@ -262,5 +266,26 @@ export class ShowPage implements OnInit {
             this.illData.unshift(i);
             this.loader.hide();
         });
+    }
+
+    updateIll(i: Ill, inx: number) {
+        this.loader.show();
+        this.illData[inx].healed = true;
+        this.allIllData[this.allIllData.indexOf(i)].healed = true;
+        console.log(this.illData);
+
+        // save new data
+        this.db.set('ill', this.allIllData);
+        this.loader.hide();
+    }
+
+    deleteIll(i: Ill, inx: number) {
+        this.loader.show();
+        this.illData.splice(inx, 1);
+        this.allIllData.splice(this.allIllData.indexOf(i), 1);
+
+        // save new data
+        this.db.set('ill', this.allIllData);
+        this.loader.hide();
     }
 }

@@ -13,6 +13,10 @@ ion-slides {
     }
     ion-row {
         align-items: center;
+        ion-col {
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
     .firstSlide {
         ion-row {

@@ -242,30 +242,37 @@
                     <ion-item [color]="i.healed ? 'success' : 'danger'">
                         <ion-grid>
                             <ion-row>
-                                <ion-col size="5">
+                                <ion-col size="4">
                                     {{ i.date }}
                                 </ion-col>
-                                <ion-col size="3">
+                                <ion-col size="5">
                                     <span>{{ i.type }}</span> |
                                     <span>
-                                        <ion-icon name="calendar"></ion-icon
-                                        >{{ i.remined }}
+                                        <ion-icon name="calendar"></ion-icon>
+                                        {{ i.remined }}
                                     </span>
                                 </ion-col>
                                 <ion-col>
-                                    <ion-button fill="solid" color="success">
+                                    <ion-button
+                                        fill="solid"
+                                        color="success"
+                                        (click)="updateIll(i, inx)"
+                                    >
                                         <ion-icon name="checkmark"></ion-icon>
                                     </ion-button>
-                                    <ion-button fill="solid" color="danger">
+                                    <ion-button
+                                        fill="solid"
+                                        color="danger"
+                                        (click)="deleteIll(i, inx)"
+                                    >
                                         <ion-icon name="close"></ion-icon>
                                     </ion-button>
                                 </ion-col>
                             </ion-row>
-                            <ion-row
-                                *ngIf="i.notes && i.notes.length"
-                                [class]="i.positive ? 'success' : 'danger'"
-                            >
-                                <ion-col>
+                            <ion-row *ngIf="i.notes && i.notes.length">
+                                <ion-col
+                                    [class]="i.healed ? 'success' : 'danger'"
+                                >
                                     {{ i.notes }}
                                 </ion-col>
                             </ion-row>
