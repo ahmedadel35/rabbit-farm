@@ -83,22 +83,18 @@ export class AddStatePage implements OnInit {
         };
 
         // check if state is talqeh then check for male exsitance
-        if (this.state === '1') {
-            this.db.get('males').then(d => {
-                const found = (d as Rabbit[]).some(x => x.num === f.maleNo);
+        this.db.get('males').then(d => {
+            const found = (d as Rabbit[]).some(x => x.num === f.maleNo);
 
-                if (!found) {
-                    // male not found
-                    this.showFeedback(f.maleNo, 0);
-                    this.loader.hide();
-                    return;
-                }
+            if (!found) {
+                // male not found
+                this.showFeedback(f.maleNo, 0);
+                this.loader.hide();
+                return;
+            }
 
-                this.saveDataToDb(f.maleNo, state);
-            });
-        } else {
             this.saveDataToDb(f.maleNo, state);
-        }
+        });
     }
 
     private saveDataToDb(maleNo: number, state: State) {
