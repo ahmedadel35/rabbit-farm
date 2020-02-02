@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color='primary'>
+    <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -38,38 +38,48 @@
 
 <ion-footer>
     <ion-toolbar>
-        <form #monyForm="ngForm" (ngSubmit)="addToMony(monyForm)" (keyup.enter)="addToMony(monyForm)">
+        <form
+            #monyForm="ngForm"
+            (ngSubmit)="addToMony(monyForm)"
+            (keyup.enter)="addToMony(monyForm)"
+        >
             <ion-row>
                 <ion-col size="3">
-                    <ion-input
-                        type="number"
-                        placeholder="القيمة"
-                        autofocus="true"
-                        inputmode="decimal"
-                        ngModel
-                        name="value"
-                        color="primary"
-                        required="true"
-                    ></ion-input>
+                    <ion-item>
+                        <ion-label position="floating">القيمة</ion-label>
+                        <ion-input
+                            type="number"
+                            autofocus="true"
+                            inputmode="decimal"
+                            ngModel
+                            name="value"
+                            color="primary"
+                            required="true"
+                        ></ion-input>
+                    </ion-item>
                 </ion-col>
                 <ion-col size="3" *ngIf="pageId === 'fetam'">
-                    <ion-input
-                        type="number"
-                        placeholder="العدد"
-                        inputmode="decimal"
-                        ngModel
-                        name="count"
-                        color="tertiary"
-                        required="true"
-                    ></ion-input>
+                    <ion-item>
+                        <ion-label position="floating">العدد</ion-label>
+                        <ion-input
+                            type="number"
+                            inputmode="decimal"
+                            ngModel
+                            name="count"
+                            color="tertiary"
+                            required="true"
+                        ></ion-input>
+                    </ion-item>
                 </ion-col>
-                <ion-col size="{{pageId === 'fetam' ? '4' : '7'}}">
-                    <ion-input
-                        type="text"
-                        placeholder="ملاحظات"
-                        ngModel
-                        name="info"
-                    ></ion-input>
+                <ion-col size="{{ pageId === 'fetam' ? '4' : '7' }}">
+                    <ion-item>
+                        <ion-label position="floating">ملاحظات</ion-label>
+                        <ion-input
+                            type="text"
+                            ngModel
+                            name="info"
+                        ></ion-input>
+                    </ion-item>
                 </ion-col>
                 <ion-col size="2">
                     <ion-button type="submit" fill="solid">

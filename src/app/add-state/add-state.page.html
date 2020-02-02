@@ -99,7 +99,7 @@
                             type="number"
                             [(ngModel)]="alive"
                             name="alive"
-                            [value]="(state === '3' && !positive) ? '0' : ''"
+                            [value]="state === '3' && !positive ? '0' : ''"
                             [required]="positive"
                         ></ion-input>
                     </ion-item>
@@ -113,20 +113,22 @@
                             type="number"
                             [(ngModel)]="dead"
                             name="dead"
-                            [value]="(state === '3' && !positive) ? '0' : ''"
+                            [value]="state === '3' && !positive ? '0' : ''"
                             [required]="positive"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="inForm">
-                <ion-col>
-                    <ion-label position="floating">ملاحظات</ion-label>
-                    <ion-input
-                        type="text"
-                        [(ngModel)]="notes"
-                        name="notes"
-                    ></ion-input>
+                <ion-col size="12">
+                    <ion-item>
+                        <ion-label position="floating">ملاحظات</ion-label>
+                        <ion-input
+                            type="text"
+                            [(ngModel)]="notes"
+                            name="notes"
+                        ></ion-input>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="inForm">
