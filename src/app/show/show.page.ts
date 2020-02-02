@@ -24,6 +24,7 @@ export class ShowPage implements OnInit {
         type: 'asf'
     };
     isMale = false;
+    isArchive = false;
     rabbitAttr = 'num'; // defalut for female usage
     data: State[];
     allData: State[];
@@ -82,6 +83,7 @@ export class ShowPage implements OnInit {
                     ? this.rabbit.name
                     : 'رقم ' + this.rabbit.num;
                 this.isMale = routerData.state.male;
+                this.isArchive =  routerData.state.isArchive;
 
                 // if this rabbit is male
                 if (this.isMale) {

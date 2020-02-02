@@ -76,7 +76,8 @@ export class FemalesPage implements OnInit {
     show(obj: Rabbit): void {
         const data: NavigationExtras = {
             state: {
-                obj
+                obj,
+                isArchive: this.isArchive
             }
         };
         this.router.navigate(['show'], data);

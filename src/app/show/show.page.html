@@ -176,7 +176,7 @@
                                     <ion-icon name="male"></ion-icon>
                                     {{ i.maleNo }}
                                 </ion-col>
-                                <ion-col size="2">
+                                <ion-col size="2" *ngIf="!isArchive">
                                     <ion-button
                                         fill="outline"
                                         color="light"
@@ -218,7 +218,7 @@
                                         {{ i.child.dead }} ميت
                                     </span>
                                 </ion-col>
-                                <ion-col size="2">
+                                <ion-col size="2" *ngIf="!isArchive">
                                     <ion-button
                                         fill="outline"
                                         color="light"
@@ -257,7 +257,7 @@
                                         {{ i.remined }}
                                     </span>
                                 </ion-col>
-                                <ion-col>
+                                <ion-col *ngIf="!isArchive">
                                     <ion-button
                                         fill="solid"
                                         color="success"
@@ -288,6 +288,7 @@
         </ion-slide>
     </ion-slides>
     <ion-fab
+        *ngIf="!isArchive"
         vertical="bottom"
         horizontal="end"
         slot="fixed"
