@@ -5,6 +5,7 @@ import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
 import { goToAddNew, getAgeFromArabic } from '../common/rabbit';
 import State from '../interfaces/state';
+import Ill from '../interfaces/ill';
 
 @Component({
     selector: 'app-females',
@@ -75,9 +76,14 @@ export class FemalesPage implements OnInit {
         this.router.navigate(['show'], data);
     }
 
-    archive(r: Rabbit, inx: number) {
+    archive(r: Rabbit, inx: number): void {
         console.log(this.oldData[inx]);
         this.loader.show();
+        // create new number for this female
+        const oldNum = r.num;
+        r.name = !r.name ? `رقم ${r.num}` : r.name + ' - ' + r.num;
+        r.num *= Math.round(Math.random() * Math.random() * 100);
+
         this.db.add('archive', r).then(d => {
             this.oldData.splice(inx, 1);
 
@@ -89,8 +95,8 @@ export class FemalesPage implements OnInit {
                 // const d = [...s];
                 // s = s.filter(x => )
                 s = s.map(x => {
-                    if (x.num === r.num) {
-                        x.num = r.num * Math.round(Math.random() * 100);
+                    if (x.num === oldNum) {
+                        x.num = r.num;
                     }
                     return x;
                 });
@@ -103,7 +109,24 @@ export class FemalesPage implements OnInit {
         });
     }
 
-    destroy(r: Rabbit, inx: number) {
-        // this.a
+    destroy(r: Rabbit, inx: number): void {
+        this.loader.show();
+        this.oldData.splice(inx, 1);
+        this.db.set('females', this.oldData);
+
+        // remove all stats about this female
+        this.db.get('states').then((s: State[]) => {
+            s = s.filter(x => x.num !== r.num);
+            this.db.set('states', s);
+
+            // remove all illness of this female
+            this.db.get('ill').then((i: Ill[]) => {
+                i = i.filter(x => x.num !== r.num);
+                this.db.set('ill', i);
+
+                this.data.splice(inx, 1);
+                this.loader.hide();
+            });
+        });
     }
 }
