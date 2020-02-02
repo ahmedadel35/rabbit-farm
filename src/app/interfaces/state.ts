@@ -2,6 +2,7 @@
  * state == 1 ===> talqeh
  * state == 2 ===> gas
  * state == 3 ===> welada
+ * state == 4 ===> fetam
  *
  * @export
  * @interface State
