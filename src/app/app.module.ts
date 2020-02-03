@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 // import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    File
   ],
   bootstrap: [AppComponent]
 })
