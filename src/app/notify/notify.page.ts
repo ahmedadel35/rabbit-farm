@@ -96,25 +96,16 @@ export class NotifyPage implements OnInit {
         this.illData = ill.reverse();
 
         // console.log(states);
-        const [talqeh, gas, welada, fetam] = this.doCalc(states);
-
-        const illness = ill.filter(x => !x.healed);
-
-        this.slidesData = [talqeh, gas, welada, fetam, illness];
-
-        this.calc = {
-            t: talqeh,
-            g: gas,
-            w: welada,
-            f: fetam,
-            i: illness
-        };
+        this.doCalc(states, ill);
         // console.log(this.slidesData);
         // console.log(talqeh, gas, welada, fetam, illness);
         this.loader.hide();
     }
 
-    doCalc(states: State[] = this.statesData): Array<State[]> {
+    doCalc(
+        states: State[] = this.statesData,
+        ill: Ill[] = this.illData.reverse()
+    ): void {
         const talqeh = [],
             gas = [],
             welada = [],
@@ -134,7 +125,17 @@ export class NotifyPage implements OnInit {
             }
         });
 
-        return [talqeh, gas, welada, fetam];
+        const illness = ill.filter(x => !x.healed);
+
+        this.slidesData = [talqeh, gas, welada, fetam, illness];
+
+        this.calc = {
+            t: talqeh,
+            g: gas,
+            w: welada,
+            f: fetam,
+            i: illness
+        };
     }
 
     getIndex(slider: IonSlides) {
@@ -207,16 +208,20 @@ export class NotifyPage implements OnInit {
                 if (state < 4) {
                     this.saveNewState(obj as State, s, m, stateIndex, inx);
                 } else {
-                    this.showUpdatedData(stateIndex, inx);
+                    this.showUpdatedData(obj, inx);
                 }
             });
         }
     }
 
-    showUpdatedData(stateIndex: number, inx: number) {
-        this.statesData[stateIndex].done = true;
-        this.statesData[stateIndex].positive = true;
+    modifyState(obj: State | Ill, inx: number) {
+        this.update(obj, inx);
+    }
 
+    showUpdatedData(obj: State, inx: number) {
+        const si = this.statesData.indexOf(obj);
+        this.statesData[si].done = true;
+        this.statesData[si].positive = true;
         this.db.set('states', this.statesData.reverse());
         this.loader.hide();
         this.slidesData[this.activeSlide].splice(inx, 1);
@@ -251,7 +256,7 @@ export class NotifyPage implements OnInit {
                 newState
             );
 
-            this.showUpdatedData(stateIndex, inx);
+            this.showUpdatedData(obj, inx);
         });
     }
 
@@ -260,6 +265,7 @@ export class NotifyPage implements OnInit {
         (this.slidesData[this.activeSlide][inx] as State).done = true;
 
         this.db.set('states', this.statesData.reverse());
+        this.doCalc();
     }
 
     showRepo() {
@@ -269,10 +275,11 @@ export class NotifyPage implements OnInit {
             aper = ((a / sum) * 100).toFixed(2),
             dper = ((d / sum) * 100).toFixed(2);
 
-        const alert = this.alertCtrl.create({
-            header: 'تقارير الولدة',
-            cssClass: 'fundsRepo',
-            message: `<ion-list>
+        const alert = this.alertCtrl
+            .create({
+                header: 'تقارير الولدة',
+                cssClass: 'fundsRepo',
+                message: `<ion-list>
             <ion-item>
                 <ion-label>إجمالى الولدة</ion-label>
                 <ion-note slot="end" color='primary'>${sum}</ion-note>
@@ -298,12 +305,12 @@ export class NotifyPage implements OnInit {
                 </ion-note>
             </ion-item>
             </ion-list>`,
-            buttons: [
-                {
-                    text: 'تم'
-                }
-            ]
-        })
-        .then(a => a.present());
+                buttons: [
+                    {
+                        text: 'تم'
+                    }
+                ]
+            })
+            .then(a => a.present());
     }
 }
