@@ -193,7 +193,7 @@ export class ShowPage implements OnInit {
     }
 
     getStateText(st: number): string {
-        return ['تلقيح', 'جس', 'ولادة'][st - 1];
+        return ['تلقيح', 'جس', 'ولادة', 'فطام'][st - 1];
     }
 
     destroy(st: State, inx: number): void {
