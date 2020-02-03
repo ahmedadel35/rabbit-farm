@@ -3,6 +3,8 @@ import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
 import { AlertController } from '@ionic/angular';
 import { LoaderService } from '../services/loader.service';
+import { File } from '@ionic-native/file/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 
 @Component({
     selector: 'app-config',
@@ -17,7 +19,9 @@ export class ConfigPage implements OnInit {
     constructor(
         private db: DatabaseService,
         public alertCtrl: AlertController,
-        public loader: LoaderService
+        public loader: LoaderService,
+        public file: File,
+        public fileChr: FileChooser
     ) {}
 
     ionViewDidEnter() {
@@ -68,6 +72,8 @@ export class ConfigPage implements OnInit {
     }
 
     async loadAllData() {
+        this.loader.hide();
+
         const states = await this.db.get('states');
         const females = await this.db.get('females');
         const males = await this.db.get('males');
@@ -85,6 +91,39 @@ export class ConfigPage implements OnInit {
             ill
         };
 
-        // console.log(JSON.stringify(data));
+        this.file.writeFile(
+            this.file.externalRootDirectory,
+            'rabbitFarmDB.json',
+            JSON.stringify(data),
+            { replace: true }
+        );
+
+        this.loader.hide();
+    }
+
+    restore() {
+        this.loader.show();
+
+        this.file
+            .readAsText(this.file.externalRootDirectory, 'rabbitFarmDB.json')
+            .then(res => {
+                const data = JSON.parse(res);
+
+                for (const d in data) {
+                    if (d) {
+                        console.log(d, data[d]);
+                        this.db.set(d, data[d]);
+                        if (d === 'config') {
+                            this.config = data[d];
+                        }
+                    }
+                }
+
+                this.loader.hide();
+            })
+            .catch(err => {
+                console.log(err);
+                this.loader.hide();
+            });
     }
 }
