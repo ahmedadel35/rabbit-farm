@@ -7,6 +7,10 @@ import { FirstTimeUsage, FirstTimeKey } from './FirstTimeUsage';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
 import Config from '../interfaces/Config';
+import * as moment from 'moment';
+import { toEngDate, createDate } from '../common/rabbit';
+import { stat } from 'fs';
+import Rabbit from '../interfaces/rabbit';
 
 @Component({
     selector: 'app-notify',
@@ -22,16 +26,19 @@ export class NotifyPage implements OnInit {
         centeredSlides: false
     };
     slidesArr = ['talqeh', 'gas', 'welada', 'fetam', 'ill'];
+    config: Config;
     statesData: State[];
     illData: Ill[];
     slidesData: Array<State[] | Ill[]> = [];
     calc = {
-        t: 0,
-        g: 0,
-        w: 0,
-        f: 0,
-        i: 0
+        t: [],
+        g: [],
+        w: [],
+        f: [],
+        i: []
     };
+    alive = 0;
+    dead = 0;
 
     @ViewChild('notifySlides', { static: false }) slides: IonSlides;
 
@@ -54,7 +61,7 @@ export class NotifyPage implements OnInit {
 
         this.plt.ready().then(rbd => {
             if (rbd) {
-                // this.loader.show();
+                this.loader.show();
 
                 // check if this first time to use the app
                 this.storage.get(FirstTimeKey).then(fth => {
@@ -74,7 +81,9 @@ export class NotifyPage implements OnInit {
     }
 
     async loadData() {
-        const config = (await this.db.get('config')) as Config[];
+        // this.loader.show();
+        // @ts-ignore
+        const config = (await this.db.get('config')) as Config;
         const states = (await this.db.get('states')) as State[];
         const ill = (await this.db.get('ill')) as Ill[];
         const talqeh = [],
@@ -82,6 +91,7 @@ export class NotifyPage implements OnInit {
             welada = [],
             fetam = [];
 
+        this.config = config;
         this.statesData = states.reverse();
         this.illData = ill.reverse();
 
@@ -94,34 +104,136 @@ export class NotifyPage implements OnInit {
             }
         });
 
+        // console.log(states);
+
         const illness = ill.filter(x => !x.healed);
 
         this.slidesData = [talqeh, gas, welada, fetam, illness];
 
         this.calc = {
-            t: talqeh.length,
-            g: gas.length,
-            w: welada.length,
-            f: fetam.length,
-            i: illness.length
+            t: talqeh,
+            g: gas,
+            w: welada,
+            f: fetam,
+            i: illness
         };
-        console.log(this.slidesData);
-        console.log(talqeh, gas, welada, fetam, illness);
+        // console.log(this.slidesData);
+        // console.log(talqeh, gas, welada, fetam, illness);
+        this.loader.hide();
     }
 
     getIndex(slider: IonSlides) {
         slider.getActiveIndex().then(v => {
-            console.log(v);
+            // console.log(v);
             this.sliderVal = this.slidesArr[v];
+            this.activeSlide = v;
         });
     }
 
     changeSlide(inx: string) {
-        console.log(inx);
+        // console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
 
+    /**
+     * update state or illness and remove from notification area
+     *
+     * @param {(State | Ill)} obj
+     * @param {number} inx
+     * @memberof NotifyPage
+     */
     update(obj: State | Ill, inx: number) {
+        this.loader.show();
 
+        // check if object is state or illness
+        if ((obj as Ill).type) {
+            this.illData[this.illData.indexOf(obj as Ill)].healed = true;
+
+            // save ill data
+            this.db.set('ill', this.illData.reverse());
+            this.slidesData[this.activeSlide].splice(inx, 1);
+            this.loader.hide();
+        } else {
+            const state = (obj as State).state;
+            const stateIndex = this.statesData.indexOf(obj as State);
+
+            /**
+             * add new state for upcoming event
+             * ex. if this state is `talqeh`
+             * Then we will add an `gas` state
+             * so the user can know when will it happen
+             * using config number of days for this states
+             */
+            const m = moment(toEngDate(obj.date, true), 'YYYY-M-DD');
+            if (state === 1) {
+                m.add(this.config.gas, 'd');
+            } else if (state === 2) {
+                m.add(this.config.hamlMotaqa, 'd');
+            } else if (state === 3) {
+                m.add(this.config.fetam, 'd');
+            }
+
+            // increset state to next state IF state is fetam
+            // THEN assign 0 to it as free female state
+            const s = state < 4 ? state + 1 : 0;
+
+            // update female state
+            this.db.get('females').then((d: Rabbit[]) => {
+                d = d.map(x => {
+                    if (x.num === obj.num) {
+                        x.state = s > 1 ? s-1 : 0;
+                        console.log(x.state);
+                    }
+                    return x;
+                });
+                this.db.set('females', d);
+
+                // save new state if new state is not after fetam
+                if (state < 4) {
+                    this.saveNewState(obj as State, s, m, stateIndex, inx);
+                } else {
+                    this.showUpdatedData(stateIndex, inx);
+                }
+            });
+        }
+    }
+
+    showUpdatedData(stateIndex: number, inx: number) {
+        this.statesData[stateIndex].done = true;
+        this.statesData[stateIndex].positive = true;
+
+        this.db.set('states', this.statesData.reverse());
+        this.loader.hide();
+        this.slidesData[this.activeSlide].splice(inx, 1);
+    }
+
+    saveNewState(
+        obj: State,
+        sInd: number,
+        m: any,
+        stateIndex: number,
+        inx: number
+    ) {
+        const newState: State = {
+            state: sInd,
+            positive: false,
+            num: obj.num,
+            maleNo: obj.maleNo,
+            date: createDate(),
+            child: {
+                alive: this.alive,
+                dead: this.dead
+            },
+            notes: '',
+            done: false,
+            toDate: createDate(m.format('YYYY-MM-DD'))
+        };
+        console.log(newState);
+        this.db.add('states', newState).then(d => {
+            this.statesData.unshift(newState);
+            (this.slidesData[this.activeSlide + 1] as State[]).unshift(newState);
+
+            this.showUpdatedData(stateIndex, inx);
+        });
     }
 }

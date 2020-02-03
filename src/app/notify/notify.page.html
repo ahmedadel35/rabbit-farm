@@ -15,31 +15,31 @@
             <ion-segment-button value="talqeh">
                 <ion-label>
                     التلقيح
-                    <ion-badge color="danger">{{ calc.t }}</ion-badge>
+                    <ion-badge color="danger">{{ calc.t.length }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="gas">
                 <ion-label>
                     الجس
-                    <ion-badge color="danger">{{ calc.g }}</ion-badge>
+                    <ion-badge color="danger">{{ calc.g.length }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="welada">
                 <ion-label>
                     الولادة
-                    <ion-badge color="danger">{{ calc.w }}</ion-badge>
+                    <ion-badge color="danger">{{ calc.w.length }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="fetam">
                 <ion-label>
                     الفطام
-                    <ion-badge color="danger">{{ calc.f }}</ion-badge>
+                    <ion-badge color="danger">{{ calc.f.length }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
             <ion-segment-button value="ill">
                 <ion-label>
                     الأمراض
-                    <ion-badge color="danger">{{ calc.i }}</ion-badge>
+                    <ion-badge color="danger">{{ calc.i.length }}</ion-badge>
                 </ion-label>
             </ion-segment-button>
         </ion-segment>
@@ -75,7 +75,7 @@
                                 <ion-col size="3">
                                     <span
                                         *ngIf="
-                                            [1, 2, 3].indexOf(sInx) > -1;
+                                            [0, 1, 2, 3].indexOf(sInx) > -1;
                                             else showName
                                         "
                                     >
