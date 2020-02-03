@@ -206,13 +206,19 @@ export class NotifyPage implements OnInit {
              * so the user can know when will it happen
              * using config number of days for this states
              */
-            const m = moment(toEngDate(obj.date, true), 'YYYY-M-DD');
+            const m = moment(
+                toEngDate((obj as State).toDate || obj.date, true),
+                'YYYY-M-DD'
+            );
+            console.log(m.format('YYYY-MM-DD'));
             if (state === 1) {
                 m.add(this.config.gas, 'd');
             } else if (state === 2) {
                 m.add(this.config.hamlMotaqa, 'd');
             } else if (state === 3) {
                 m.add(this.config.fetam, 'd');
+            } else if (state === 4) {
+                m.add(this.config.talqeh, 'd');
             }
 
             // increset state to next state IF state is fetam
@@ -231,11 +237,13 @@ export class NotifyPage implements OnInit {
                 this.db.set('females', d);
 
                 // save new state if new state is not after fetam
-                if (state < 4) {
-                    this.saveNewState(obj as State, s, m, stateIndex, inx);
-                } else {
-                    this.showUpdatedData(obj as State, inx);
-                }
+                // if (state < 4) {
+                //     this.saveNewState(obj as State, s, m, stateIndex, inx);
+                // } else {
+                //     this.showUpdatedData(obj as State, inx);
+                // }
+
+                this.saveNewState(obj as State, s, m, stateIndex, inx);
             });
         }
     }
@@ -308,6 +316,10 @@ export class NotifyPage implements OnInit {
         stateIndex: number,
         inx: number
     ) {
+        sInd = sInd === 0 ? 1 : sInd;
+        // console.log(sInd);
+        // console.log(this.statesArr[sInd - 1]);
+
         const newState: State = {
             state: sInd,
             positive: false,
@@ -320,7 +332,7 @@ export class NotifyPage implements OnInit {
         console.log(newState);
         this.db.add('states', newState).then(d => {
             this.statesData.unshift(newState);
-            if (this.activeSlide +1 < 4) {
+            if (this.activeSlide + 1 < 4) {
                 (this.slidesData[this.activeSlide + 1] as State[]).unshift(
                     newState
                 );
