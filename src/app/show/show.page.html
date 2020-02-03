@@ -254,11 +254,12 @@
                                     <span>{{ i.type }}</span> |
                                     <span>
                                         <ion-icon name="calendar"></ion-icon>
-                                        {{ i.remined }}
+                                        {{ i.remined.slice(0, -5) }}
                                     </span>
                                 </ion-col>
                                 <ion-col *ngIf="!isArchive">
                                     <ion-button
+                                        *ngIf="!i.healed"
                                         fill="solid"
                                         color="success"
                                         (click)="updateIll(i, inx)"
