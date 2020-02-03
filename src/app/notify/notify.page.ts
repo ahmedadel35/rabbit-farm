@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform, IonSlides } from '@ionic/angular';
+import { Platform, IonSlides, AlertController } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { Storage } from '@ionic/storage';
@@ -9,7 +9,6 @@ import Ill from '../interfaces/ill';
 import Config from '../interfaces/Config';
 import * as moment from 'moment';
 import { toEngDate, createDate } from '../common/rabbit';
-import { stat } from 'fs';
 import Rabbit from '../interfaces/rabbit';
 
 @Component({
@@ -37,6 +36,10 @@ export class NotifyPage implements OnInit {
         f: [],
         i: []
     };
+    analys = {
+        alive: 0,
+        dead: 0
+    };
     alive = 0;
     dead = 0;
 
@@ -46,7 +49,8 @@ export class NotifyPage implements OnInit {
         private plt: Platform,
         private storage: Storage,
         private db: DatabaseService,
-        private loader: LoaderService
+        private loader: LoaderService,
+        public alertCtrl: AlertController
     ) {}
 
     ionViewDidEnter() {
@@ -86,25 +90,13 @@ export class NotifyPage implements OnInit {
         const config = (await this.db.get('config')) as Config;
         const states = (await this.db.get('states')) as State[];
         const ill = (await this.db.get('ill')) as Ill[];
-        const talqeh = [],
-            gas = [],
-            welada = [],
-            fetam = [];
 
         this.config = config;
         this.statesData = states.reverse();
         this.illData = ill.reverse();
 
-        states.map(x => {
-            if (!x.positive && !x.done) {
-                if (x.state === 1) talqeh.push(x);
-                else if (x.state === 2) gas.push(x);
-                else if (x.state === 3) welada.push(x);
-                else if (x.state === 4) fetam.push(x);
-            }
-        });
-
         // console.log(states);
+        const [talqeh, gas, welada, fetam] = this.doCalc(states);
 
         const illness = ill.filter(x => !x.healed);
 
@@ -120,6 +112,29 @@ export class NotifyPage implements OnInit {
         // console.log(this.slidesData);
         // console.log(talqeh, gas, welada, fetam, illness);
         this.loader.hide();
+    }
+
+    doCalc(states: State[] = this.statesData): Array<State[]> {
+        const talqeh = [],
+            gas = [],
+            welada = [],
+            fetam = [];
+
+        states.map(x => {
+            if (!x.positive && !x.done) {
+                if (x.state === 1) talqeh.push(x);
+                else if (x.state === 2) gas.push(x);
+                else if (x.state === 3) welada.push(x);
+                else if (x.state === 4) fetam.push(x);
+            }
+
+            if (x.positive && x.child && x.child.alive) {
+                this.analys.alive += x.child.alive;
+                this.analys.dead += x.child.dead;
+            }
+        });
+
+        return [talqeh, gas, welada, fetam];
     }
 
     getIndex(slider: IonSlides) {
@@ -181,7 +196,7 @@ export class NotifyPage implements OnInit {
             this.db.get('females').then((d: Rabbit[]) => {
                 d = d.map(x => {
                     if (x.num === obj.num) {
-                        x.state = s > 1 ? s-1 : 0;
+                        x.state = s > 1 ? s - 1 : 0;
                         console.log(x.state);
                     }
                     return x;
@@ -205,6 +220,7 @@ export class NotifyPage implements OnInit {
         this.db.set('states', this.statesData.reverse());
         this.loader.hide();
         this.slidesData[this.activeSlide].splice(inx, 1);
+        this.doCalc();
     }
 
     saveNewState(
@@ -231,7 +247,9 @@ export class NotifyPage implements OnInit {
         console.log(newState);
         this.db.add('states', newState).then(d => {
             this.statesData.unshift(newState);
-            (this.slidesData[this.activeSlide + 1] as State[]).unshift(newState);
+            (this.slidesData[this.activeSlide + 1] as State[]).unshift(
+                newState
+            );
 
             this.showUpdatedData(stateIndex, inx);
         });
@@ -242,5 +260,50 @@ export class NotifyPage implements OnInit {
         (this.slidesData[this.activeSlide][inx] as State).done = true;
 
         this.db.set('states', this.statesData.reverse());
+    }
+
+    showRepo() {
+        const a = this.analys.alive,
+            d = this.analys.dead,
+            sum = a + d,
+            aper = ((a / sum) * 100).toFixed(2),
+            dper = ((d / sum) * 100).toFixed(2);
+
+        const alert = this.alertCtrl.create({
+            header: 'تقارير الولدة',
+            cssClass: 'fundsRepo',
+            message: `<ion-list>
+            <ion-item>
+                <ion-label>إجمالى الولدة</ion-label>
+                <ion-note slot="end" color='primary'>${sum}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>الولدة الحية</ion-label>
+                <ion-note slot="end" color='success'>${a}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>الولدة الميتة</ion-label>
+                <ion-note slot="end" color='danger'>${d}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>نسبة الحى</ion-label>
+                <ion-note slot="end" color='tertiary'>
+                ${aper} %
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>نسبة الميت</ion-label>
+                <ion-note slot="end" color='tertiary'>
+                ${dper} %
+                </ion-note>
+            </ion-item>
+            </ion-list>`,
+            buttons: [
+                {
+                    text: 'تم'
+                }
+            ]
+        })
+        .then(a => a.present());
     }
 }
