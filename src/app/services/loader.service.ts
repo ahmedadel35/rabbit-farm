@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+// import { LoadingController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,7 @@ import { LoadingController } from '@ionic/angular';
 export class LoaderService {
     public loader: any = null;
 
-    constructor(private loaderCtrl: LoadingController) {}
+    constructor(private loaderCtrl: SpinnerDialog) {}
 
     /**
      * show ionic spinner loader
@@ -15,16 +16,18 @@ export class LoaderService {
      * @memberof Loader
      */
     show() {
-        this.loaderCtrl
-            .create({
-                backdropDismiss: false,
-                message: 'يرجى الإنتظار',
-                duration: 7000
-            })
-            .then(l => {
-                this.loader = l;
-                this.loader.present().then(p => p);
-            });
+        // this.loaderCtrl
+        //     .create({
+        //         backdropDismiss: false,
+        //         message: 'يرجى الإنتظار',
+        //         duration: 7000
+        //     })
+        //     .then(l => {
+        //         this.loader = l;
+        //         this.loader.present().then(p => p);
+        //     });
+
+        this.loaderCtrl.show();
     }
 
     /**
@@ -33,11 +36,12 @@ export class LoaderService {
      * @memberof Loader
      */
     hide() {
-        if (this.loader) {
-            this.hideLoader(700);
-        } else {
-            this.hideLoader(2500);
-        }
+        this.loaderCtrl.hide();
+        // if (this.loader) {
+        //     this.hideLoader(700);
+        // } else {
+        //     this.hideLoader(2500);
+        // }
     }
 
     private hideLoader(timeout: number): void {
