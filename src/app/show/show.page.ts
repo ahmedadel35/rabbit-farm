@@ -12,6 +12,7 @@ import { IonSlides, AlertController } from '@ionic/angular';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
 import { createDate } from '../common/rabbit';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-show',
@@ -84,7 +85,7 @@ export class ShowPage implements OnInit {
                     ? this.rabbit.name
                     : 'رقم ' + this.rabbit.num;
                 this.isMale = routerData.state.male;
-                this.isArchive =  routerData.state.isArchive;
+                this.isArchive = routerData.state.isArchive;
 
                 // if this rabbit is male
                 if (this.isMale) {
@@ -280,7 +281,16 @@ export class ShowPage implements OnInit {
 
     saveIll(i: Ill) {
         this.loader.show();
+
+        if (i.remined) {
+            const m = moment(i.date, 'YYYY-MM-DD');
+            m.add(i.remined, 'd');
+            m.locale('ar');
+            i.remined = m.format('D MMMM YYYY');
+        }
+
         i.date = createDate(i.date);
+
         this.db.add('ill', i).then(_ => {
             this.allIllData.unshift(i);
             this.illData.unshift(i);
