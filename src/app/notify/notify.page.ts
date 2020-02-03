@@ -236,4 +236,11 @@ export class NotifyPage implements OnInit {
             this.showUpdatedData(stateIndex, inx);
         });
     }
+
+    destroy(obj: State, inx: number) {
+        this.statesData[this.statesData.indexOf(obj)].done = true;
+        (this.slidesData[this.activeSlide][inx] as State).done = true;
+
+        this.db.set('states', this.statesData.reverse());
+    }
 }
