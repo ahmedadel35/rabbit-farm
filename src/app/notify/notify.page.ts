@@ -219,14 +219,61 @@ export class NotifyPage implements OnInit {
     }
 
     modifyState(obj: State | Ill, inx: number) {
-        this.update(obj, inx);
+        this.alive = this.dead = 0;
+
+        // check if this click comes from `welada` slide
+        if (this.activeSlide === 2) {
+            this.alertCtrl
+                .create({
+                    header: 'أعداد المواليد',
+                    cssClass: 'fundsRepo',
+                    backdropDismiss: false,
+                    keyboardClose: false,
+                    inputs: [
+                        {
+                            type: 'number',
+                            name: 'alive',
+                            placeholder: 'المواليد الحية'
+                        },
+                        {
+                            type: 'number',
+                            name: 'dead',
+                            placeholder: 'المواليد الميتة'
+                        }
+                    ],
+                    buttons: [
+                        {
+                            text: 'ok',
+                            handler: res => {
+                                if (!res || !res.alive || !res.dead) {
+                                    return false;
+                                }
+
+                                this.alive = parseInt(res.alive, 10);
+                                this.dead = parseInt(res.dead, 10);
+
+                                this.update(obj, inx);
+                            }
+                        }
+                    ]
+                })
+                .then(a => a.present());
+        } else {
+            this.update(obj, inx);
+        }
     }
 
     showUpdatedData(obj: State, inx: number) {
         const si = this.statesData.indexOf(obj);
         this.statesData[si].done = true;
         this.statesData[si].positive = true;
+        this.statesData[si].child = {
+            alive: this.alive,
+            dead: this.dead
+        };
+
         this.db.set('states', this.statesData.reverse());
+
         this.loader.hide();
         this.slidesData[this.activeSlide].splice(inx, 1);
         this.doCalc();
@@ -245,11 +292,6 @@ export class NotifyPage implements OnInit {
             num: obj.num,
             maleNo: obj.maleNo,
             date: createDate(),
-            child: {
-                alive: this.alive,
-                dead: this.dead
-            },
-            notes: '',
             done: false,
             toDate: createDate(m.format('YYYY-MM-DD'))
         };
@@ -265,7 +307,9 @@ export class NotifyPage implements OnInit {
     }
 
     destroy(obj: State, inx: number) {
-        this.statesData[this.statesData.indexOf(obj)].done = true;
+        const si = this.statesData.indexOf(obj);
+        this.statesData[si].done = true;
+
         (this.slidesData[this.activeSlide][inx] as State).done = true;
 
         this.db.set('states', this.statesData.reverse());
