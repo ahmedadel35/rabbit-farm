@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'add-state',
     loadChildren: () => import('./add-state/add-state.module').then( m => m.AddStatePageModule)
+  },
+  {
+    path: 'config',
+    loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule)
   }
 ];
 

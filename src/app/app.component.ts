@@ -17,7 +17,7 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'إشعارات',
+      title: 'الإشعارات',
       url: '/notify',
       icon: 'notifications'
     },
@@ -35,6 +35,11 @@ export class AppComponent {
       title: 'المالية',
       url: '/mony',
       icon: 'cash'
+    },
+    {
+      title: 'الإعدادات',
+      url: '/config',
+      icon: 'cog'
     }
   ];
 
