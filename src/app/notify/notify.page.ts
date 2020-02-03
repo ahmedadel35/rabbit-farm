@@ -212,7 +212,7 @@ export class NotifyPage implements OnInit {
                 if (state < 4) {
                     this.saveNewState(obj as State, s, m, stateIndex, inx);
                 } else {
-                    this.showUpdatedData((obj as State), inx);
+                    this.showUpdatedData(obj as State, inx);
                 }
             });
         }
@@ -321,7 +321,10 @@ export class NotifyPage implements OnInit {
             d = this.analys.dead,
             sum = a + d,
             aper = ((a / sum) * 100).toFixed(2),
-            dper = ((d / sum) * 100).toFixed(2);
+            dper = ((d / sum) * 100).toFixed(2),
+            fetam = this.statesData.filter(x => {
+                return x.state === 4 && x.date !== 'noDate' && x.done === true;
+            });
 
         const alert = this.alertCtrl
             .create({
@@ -350,6 +353,12 @@ export class NotifyPage implements OnInit {
                 <ion-label>نسبة الميت</ion-label>
                 <ion-note slot="end" color='tertiary'>
                 ${dper} %
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>إجمالى الفطام</ion-label>
+                <ion-note slot="end" color='tertiary'>
+                ${fetam.length}
                 </ion-note>
             </ion-item>
             </ion-list>`,
