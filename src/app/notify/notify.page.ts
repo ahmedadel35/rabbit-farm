@@ -320,9 +320,11 @@ export class NotifyPage implements OnInit {
         console.log(newState);
         this.db.add('states', newState).then(d => {
             this.statesData.unshift(newState);
-            (this.slidesData[this.activeSlide + 1] as State[]).unshift(
-                newState
-            );
+            if (this.activeSlide +1 < 4) {
+                (this.slidesData[this.activeSlide + 1] as State[]).unshift(
+                    newState
+                );
+            }
 
             this.addCalender(
                 ` ${this.statesArr[sInd - 1]} الأرنب رقم :${obj.num}`,
