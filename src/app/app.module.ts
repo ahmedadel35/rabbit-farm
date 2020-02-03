@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 // import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 // import { SQLite } from '@ionic-native/sqlite/ngx';
 
+import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
@@ -37,6 +39,7 @@ import { Calendar } from '@ionic-native/calendar/ngx';
     File,
     FileChooser,
     Calendar,
+    SpinnerDialog,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
