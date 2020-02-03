@@ -10,6 +10,7 @@ import Config from '../interfaces/Config';
 import * as moment from 'moment';
 import { toEngDate, createDate } from '../common/rabbit';
 import Rabbit from '../interfaces/rabbit';
+import { Calendar } from '@ionic-native/calendar/ngx';
 
 @Component({
     selector: 'app-notify',
@@ -20,6 +21,7 @@ export class NotifyPage implements OnInit {
     initHasPlayed = false;
     activeSlide = 0;
     sliderVal = 'talqeh';
+    statesArr = ['تلقيح', 'جس', 'ولادة', 'فطام'];
     slideOpts = {
         speed: 400,
         centeredSlides: false
@@ -50,7 +52,8 @@ export class NotifyPage implements OnInit {
         private storage: Storage,
         private db: DatabaseService,
         private loader: LoaderService,
-        public alertCtrl: AlertController
+        public alertCtrl: AlertController,
+        public calender: Calendar
     ) {}
 
     ionViewDidEnter() {
@@ -153,6 +156,25 @@ export class NotifyPage implements OnInit {
     changeSlide(inx: string) {
         // console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
+    }
+
+    async addCalender(
+        mess: string,
+        startDate: Date,
+        endDate: Date,
+        notes: string = '',
+        location = ''
+    ) {
+        const a = await this.calender.hasReadWritePermission();
+        if (!a) await this.calender.requestReadWritePermission();
+
+        const event = await this.calender.createEvent(
+            mess,
+            location,
+            notes,
+            new Date(startDate),
+            new Date(endDate)
+        );
     }
 
     /**
@@ -300,6 +322,13 @@ export class NotifyPage implements OnInit {
             this.statesData.unshift(newState);
             (this.slidesData[this.activeSlide + 1] as State[]).unshift(
                 newState
+            );
+
+            this.addCalender(
+                ` ${this.statesArr[sInd - 1]} الأرنب رقم :${obj.num}`,
+                m.format('YYYY-MM-DD'),
+                m.format('YYYY-MM-DD'),
+                `الذكر رقم ${obj.maleNo}`
             );
 
             this.showUpdatedData(obj, inx);
