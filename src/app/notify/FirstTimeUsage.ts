@@ -77,7 +77,8 @@ export class FirstTimeUsage {
     private createStatesTB() {
         const state: Array<State> = [
             {
-                state: 0, // 1=>talqeh || 2=>gas || 3=>welada
+                // 1=>talqeh || 2=>gas || 3=>welada || 4=>fetam
+                state: 0,
                 positive: false,
                 num: 0,
                 date: 'noDate',
