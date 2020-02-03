@@ -212,7 +212,7 @@ export class NotifyPage implements OnInit {
                 if (state < 4) {
                     this.saveNewState(obj as State, s, m, stateIndex, inx);
                 } else {
-                    this.showUpdatedData(obj, inx);
+                    this.showUpdatedData((obj as State), inx);
                 }
             });
         }
