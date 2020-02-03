@@ -111,6 +111,10 @@ export class NotifyPage implements OnInit {
             welada = [],
             fetam = [];
 
+        // reset every thing
+        this.analys.alive = 0;
+        this.analys.dead = 0;
+
         states.map(x => {
             if (!x.positive && !x.done) {
                 if (x.state === 1) talqeh.push(x);
