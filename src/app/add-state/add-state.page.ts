@@ -5,8 +5,10 @@ import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
 import { NgForm } from '@angular/forms';
 import State from '../interfaces/state';
-import { createDate } from '../common/rabbit';
+import { createDate, toEngDate } from '../common/rabbit';
 import { ToastController } from '@ionic/angular';
+import * as moment from 'moment';
+import Config from '../interfaces/Config';
 
 @Component({
     selector: 'app-add-state',
@@ -18,6 +20,7 @@ export class AddStatePage implements OnInit {
     positive = true;
     date: string;
     rabbit: Rabbit;
+    config: Config;
 
     constructor(
         private router: Router,
@@ -38,6 +41,10 @@ export class AddStatePage implements OnInit {
             this.rabbit = routerData.state.rb;
 
             console.log(routerData.state.rb);
+
+            this.db.get('config').then((c: any) => {
+                this.config = c;
+            });
         }
     }
 
@@ -62,6 +69,7 @@ export class AddStatePage implements OnInit {
     save(form: NgForm): void {
         this.loader.show();
         const f = form.value;
+        const s = parseInt(this.state, 10);
 
         if (form.invalid) {
             this.loader.hide();
@@ -69,7 +77,7 @@ export class AddStatePage implements OnInit {
         }
 
         const state: State = {
-            state: parseInt(this.state, 10),
+            state: s,
             num: this.rabbit.num,
             maleNo: f.maleNo,
             date: createDate(new Date(f.date)),
@@ -81,7 +89,38 @@ export class AddStatePage implements OnInit {
             notes: f.notes
         };
 
-        // check if state is talqeh then check for male exsitance
+        const sInd = s > 3 ? 1 : s + 1;
+        const d = new Date(f.date);
+        console.log(d);
+
+        const m = moment(
+            `${d.getFullYear()} ${d.getMonth() + 1} ${d.getDate()}`,
+            'YYYY MM DD'
+        );
+
+        if (s === 1) {
+            m.add(this.config.gas, 'd');
+        } else if (s === 2) {
+            m.add(this.config.hamlMotaqa, 'd');
+        } else if (s === 3) {
+            m.add(this.config.fetam, 'd');
+        } else if (s === 4) {
+            m.add(this.config.talqeh, 'd');
+        }
+
+        const newState: State = {
+            state: sInd,
+            positive: false,
+            num: this.rabbit.num,
+            maleNo: f.maleNo,
+            date: createDate(),
+            done: false,
+            toDate: createDate(m.format('YYYY MM DD'))
+        };
+        // console.log(newState);
+        // return;
+
+        // check for male exsitance
         this.db.get('males').then(d => {
             const found = (d as Rabbit[]).some(x => x.num === f.maleNo);
 
@@ -92,11 +131,11 @@ export class AddStatePage implements OnInit {
                 return;
             }
 
-            this.saveDataToDb(f.maleNo, state);
+            this.saveDataToDb(f.maleNo, state, newState);
         });
     }
 
-    private saveDataToDb(maleNo: number, state: State) {
+    private saveDataToDb(maleNo: number, state: State, newState: State) {
         // save new state into database
         this.db.add('states', state).then(d => {
             // update this female state
@@ -111,7 +150,10 @@ export class AddStatePage implements OnInit {
 
                     this.db.set('females', allFemales);
 
-                    this.afterSaving();
+                    // add the new state
+                    this.db.add('states', newState).then(_ => {
+                        this.afterSaving();
+                    });
                 });
             } else {
                 this.afterSaving();
