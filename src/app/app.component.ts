@@ -51,7 +51,9 @@ export class AppComponent {
       // this.statusBar.styleDefault();
       this.statusBar.styleBlackOpaque();
       this.statusBar.backgroundColorByHexString('#3171e0');
-      this.splashScreen.hide();
+      setTimeout(_ => {
+        this.splashScreen.hide();
+      }, 500);
     });
   }
 }
