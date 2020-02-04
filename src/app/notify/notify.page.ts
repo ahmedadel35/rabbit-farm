@@ -210,7 +210,7 @@ export class NotifyPage implements OnInit {
                 toEngDate((obj as State).toDate || obj.date, true),
                 'YYYY-M-DD'
             );
-            console.log(m.format('YYYY-MM-DD'));
+            // console.log(m.format('YYYY-MM-DD'));
             if (state === 1) {
                 m.add(this.config.gas, 'd');
             } else if (state === 2) {
@@ -230,7 +230,7 @@ export class NotifyPage implements OnInit {
                 d = d.map(x => {
                     if (x.num === obj.num) {
                         x.state = s > 1 ? s - 1 : 0;
-                        console.log(x.state);
+                        // console.log(x.state);
                     }
                     return x;
                 });
@@ -329,7 +329,7 @@ export class NotifyPage implements OnInit {
             done: false,
             toDate: createDate(m.format('YYYY-MM-DD'))
         };
-        console.log(newState);
+        // console.log(newState);
         this.db.add('states', newState).then(d => {
             this.statesData.unshift(newState);
             if (this.activeSlide + 1 < 4) {

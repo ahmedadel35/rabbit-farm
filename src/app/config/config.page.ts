@@ -111,7 +111,7 @@ export class ConfigPage implements OnInit {
 
                 for (const d in data) {
                     if (d) {
-                        console.log(d, data[d]);
+                        // console.log(d, data[d]);
                         this.db.set(d, data[d]);
                         if (d === 'config') {
                             this.config = data[d];
@@ -122,7 +122,7 @@ export class ConfigPage implements OnInit {
                 this.loader.hide();
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.loader.hide();
             });
     }

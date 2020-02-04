@@ -47,7 +47,7 @@ export class AddStatePage implements OnInit {
             // get page name and id from state
             this.rabbit = routerData.state.rb;
 
-            console.log(routerData.state.rb);
+            // console.log(routerData.state.rb);
 
             this.db.get('config').then((c: any) => {
                 this.config = c;
@@ -117,7 +117,7 @@ export class AddStatePage implements OnInit {
 
         const sInd = s > 3 ? 1 : s + 1;
         const d = new Date(f.date);
-        console.log(d);
+        // console.log(d);
 
         const m = moment(
             `${d.getFullYear()} ${d.getMonth() + 1} ${d.getDate()}`,

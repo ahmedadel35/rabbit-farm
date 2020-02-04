@@ -93,12 +93,12 @@ export class ShowPage implements OnInit {
                     this.rabbitAttr = 'maleNo';
                 }
 
-                console.log(routerData.state.obj);
+                // console.log(routerData.state.obj);
             }
         }
-        console.log(this.rabbit);
+        // console.log(this.rabbit);
         this.loadData();
-        console.log(this.getTodayDate());
+        // console.log(this.getTodayDate());
     }
 
     addState(): void {
@@ -122,13 +122,13 @@ export class ShowPage implements OnInit {
 
     getIndex(slider: IonSlides) {
         slider.getActiveIndex().then(v => {
-            console.log(v);
+            // console.log(v);
             this.sliderVal = this.slidesArr[v];
         });
     }
 
     changeSlide(inx: string) {
-        console.log(inx);
+        // console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
 
@@ -152,7 +152,7 @@ export class ShowPage implements OnInit {
                 // get current rabbit illness
                 i = i.filter(x => x.num === this.rabbit.num);
                 this.illData = i.reverse();
-                console.log(this.illData);
+                // console.log(this.illData);
             });
 
             this.loader.hide();
@@ -251,7 +251,7 @@ export class ShowPage implements OnInit {
                     {
                         text: 'حفظ',
                         handler: (a: Ill) => {
-                            console.log(a);
+                            // console.log(a);
                             // if user hasnot entered type or date
                             if (!a.type.length || !a.date.length) {
                                 return false;
@@ -302,7 +302,7 @@ export class ShowPage implements OnInit {
         this.loader.show();
         this.illData[inx].healed = true;
         this.allIllData[this.allIllData.indexOf(i)].healed = true;
-        console.log(this.illData);
+        // console.log(this.illData);
 
         // save new data
         this.db.set('ill', this.allIllData);

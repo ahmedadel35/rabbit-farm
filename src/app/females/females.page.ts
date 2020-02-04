@@ -92,7 +92,7 @@ export class FemalesPage implements OnInit {
     }
 
     archive(r: Rabbit, inx: number): void {
-        console.log(this.oldData[inx]);
+        // console.log(this.oldData[inx]);
         this.loader.show();
         // create new number for this female
         // and save in archive with this new number

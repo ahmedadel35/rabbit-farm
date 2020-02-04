@@ -47,10 +47,12 @@ export class AddNewPage implements OnInit {
             this.pageId = this.router.getCurrentNavigation().extras.state.page.id;
             this.showData = this.router.getCurrentNavigation().extras.state.page.showData;
 
-            console.log(this.router.getCurrentNavigation().extras.state.page);
+            // console.log(this.router.getCurrentNavigation().extras.state.page);
         }
 
-        this.db.get(this.pageId).then(x => console.log(x));
+        this.db.get(this.pageId).then(x => {
+            // console.log(x)
+        });
     }
 
     save(form: NgForm) {
@@ -98,7 +100,7 @@ export class AddNewPage implements OnInit {
         } else {
             this.saveData(obj, form);
         }
-        console.log(obj);
+        // console.log(obj);
     }
 
     private saveData(obj: Rabbit, form: NgForm) {
@@ -106,7 +108,7 @@ export class AddNewPage implements OnInit {
         this.db.get(this.pageId).then(d => {
             const found = (d as Array<Rabbit>).some(x => x.num === obj.num);
 
-            console.log(found);
+            // console.log(found);
 
             if (found) {
                 this.showFeedback(obj.num, 1);

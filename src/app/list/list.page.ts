@@ -48,7 +48,7 @@ export class ListPage implements OnInit {
             d = (d as Array<Funds>).filter(
                 x => x.type === type && x.date !== 'noDate'
             );
-            console.log(d);
+            // console.log(d);
             this.data = d as Array<Funds>;
             this.loader.hide();
 
@@ -88,7 +88,7 @@ export class ListPage implements OnInit {
                 });
             }
 
-            console.log(this.data);
+            // console.log(this.data);
 
             // to save the sum: this.data.filter(x => x.sum !== true)
             this.db.set('funds', this.allData);
