@@ -9,6 +9,7 @@ import { createDate, toEngDate } from '../common/rabbit';
 import { ToastController } from '@ionic/angular';
 import * as moment from 'moment';
 import Config from '../interfaces/Config';
+import { Calendar } from '@ionic-native/calendar/ngx';
 
 @Component({
     selector: 'app-add-state',
@@ -21,12 +22,14 @@ export class AddStatePage implements OnInit {
     date: string;
     rabbit: Rabbit;
     config: Config;
+    statesArr = ['تلقيح', 'جس', 'ولادة', 'فطام'];
 
     constructor(
         private router: Router,
         private db: DatabaseService,
         private loader: LoaderService,
-        public toastCtrl: ToastController
+        public toastCtrl: ToastController,
+        public calender: Calendar
     ) {}
 
     ngOnInit() {
@@ -64,6 +67,25 @@ export class AddStatePage implements OnInit {
 
     setPositive(v: string): void {
         this.positive = !!parseInt(v, 10);
+    }
+
+    async addCalender(
+        mess: string,
+        startDate: Date,
+        endDate: Date,
+        notes: string = '',
+        location = ''
+    ) {
+        const a = await this.calender.hasReadWritePermission();
+        if (!a) await this.calender.requestReadWritePermission();
+
+        const event = await this.calender.createEvent(
+            mess,
+            location,
+            notes,
+            new Date(startDate),
+            new Date(endDate)
+        );
     }
 
     save(form: NgForm): void {
@@ -131,11 +153,11 @@ export class AddStatePage implements OnInit {
                 return;
             }
 
-            this.saveDataToDb(f.maleNo, state, newState);
+            this.saveDataToDb(f.maleNo, state, newState, m);
         });
     }
 
-    private saveDataToDb(maleNo: number, state: State, newState: State) {
+    private saveDataToDb(maleNo: number, state: State, newState: State, m: any) {
         // save new state into database
         this.db.add('states', state).then(d => {
             // update this female state
@@ -152,6 +174,13 @@ export class AddStatePage implements OnInit {
 
                     // add the new state
                     this.db.add('states', newState).then(_ => {
+
+                        this.addCalender(
+                            ` ${this.statesArr[newState.state - 1]} الأرنب رقم :${newState.num}`,
+                            m.format('YYYY-MM-DD'),
+                            m.format('YYYY-MM-DD'),
+                            `الذكر رقم ${newState.maleNo}`
+                        );
                         this.afterSaving();
                     });
                 });
