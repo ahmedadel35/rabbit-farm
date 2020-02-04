@@ -57,7 +57,11 @@ export class AddNewPage implements OnInit {
         this.loader.show();
 
         const f: Rabbit = form.value;
-        const date = createDate(f.date);
+        const d = new Date(f.date);
+        const date = createDate(
+            `${d.getFullYear()} ${d.getMonth()+1} ${d.getDate()}`
+        );
+        // console.log(date, f.date);
 
         // create rabbit object
         const obj: Rabbit = {
