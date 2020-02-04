@@ -16,6 +16,16 @@ export class AddNewPage implements OnInit {
     pageId = 'females';
     title = 'إنثى جديدة';
     showData = false;
+    name: string;
+    num: number;
+    type: string;
+    date: string;
+    source: string;
+    father: number;
+    mother: number;
+    box: number;
+    eye: number;
+    weight: number;
 
     constructor(
         private router: Router,
@@ -26,6 +36,9 @@ export class AddNewPage implements OnInit {
     ) {}
 
     ngOnInit() {
+        // set default date to today
+        this.date = new Date().toDateString();
+
         if (!this.router.getCurrentNavigation().extras.state) {
             this.router.navigate(['females']);
         } else {

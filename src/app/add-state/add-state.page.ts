@@ -17,12 +17,16 @@ import { Calendar } from '@ionic-native/calendar/ngx';
     styleUrls: ['./add-state.page.scss']
 })
 export class AddStatePage implements OnInit {
-    state = '1';
-    positive = true;
-    date: string;
     rabbit: Rabbit;
     config: Config;
     statesArr = ['تلقيح', 'جس', 'ولادة', 'فطام'];
+    state = '1';
+    positive = true;
+    date: string;
+    alive: number;
+    dead: number;
+    maleNo: number;
+    notes: string;
 
     constructor(
         private router: Router,
