@@ -1,8 +1,11 @@
 export default interface Funds {
+    src: number;
     type: string;
+    seller: string;
     value: number;
-    info: string;
-    count?: number;
+    weight: number;
     date: string;
+    info?: string;
+    count?: number;
     sum?: boolean;
 }

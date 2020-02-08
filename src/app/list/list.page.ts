@@ -73,19 +73,19 @@ export class ListPage implements OnInit {
                 type: this.pageId,
                 sum: false
             };
-            this.data.push(obj);
-            this.allData.push(obj);
+            // this.data.push(obj);
+            // this.allData.push(obj);
 
             // add sold fetam to income
             if (this.pageId === 'fetam') {
-                this.allData.push({
-                    type: 'income',
-                    value: f.value,
-                    count: 0,
-                    info: f.info,
-                    date: createDate(),
-                    sum: false
-                });
+                // this.allData.push({
+                //     type: 'income',
+                //     value: f.value,
+                //     count: 0,
+                //     info: f.info,
+                //     date: createDate(),
+                //     sum: false
+                // });
             }
 
             // console.log(this.data);
@@ -109,14 +109,14 @@ export class ListPage implements OnInit {
                 tc += parseFloat(current.count);
             }
         });
-        this.data.push({
-            type: this.pageId,
-            value: vc,
-            count: tc,
-            info: '=====',
-            date: createDate(),
-            sum: true
-        });
+        // this.data.push({
+        //     type: this.pageId,
+        //     value: vc,
+        //     count: tc,
+        //     info: '=====',
+        //     date: createDate(),
+        //     sum: true
+        // });
 
         this.doneSum = true;
     }

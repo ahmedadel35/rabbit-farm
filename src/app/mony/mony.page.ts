@@ -4,6 +4,8 @@ import { AlertController } from '@ionic/angular';
 import { LoaderService } from '../services/loader.service';
 import { DatabaseService } from '../services/database.service';
 import Funds from '../interfaces/funds';
+import { NgForm } from '@angular/forms';
+import { createDate } from '../common/rabbit';
 
 @Component({
     selector: 'app-mony',
@@ -11,6 +13,10 @@ import Funds from '../interfaces/funds';
     styleUrls: ['./mony.page.scss']
 })
 export class MonyPage implements OnInit {
+    public data: Array<Funds> = [];
+    public allData: Array<Funds> = [];
+    initHasPlayed = false;
+
     constructor(
         private router: Router,
         public alertCtrl: AlertController,
@@ -18,7 +24,36 @@ export class MonyPage implements OnInit {
         private db: DatabaseService
     ) {}
 
-    ngOnInit() {}
+    ionViewDidEnter() {
+        if (!this.initHasPlayed) this.ngOnInit();
+    }
+    ionViewWillLeave() {
+        this.initHasPlayed = false;
+    }
+
+    ngOnInit() {
+        this.initHasPlayed = true;
+
+        this.loader.show();
+
+        this.db.get('funds').then(d => {
+            // console.log(d);
+            // save all data into one object
+            this.allData = d as Array<Funds>;
+            // remove types other than this page id
+            d = (d as Array<Funds>).filter(x => x.date !== 'noDate');
+            console.log(d);
+            this.data = d as Array<Funds>;
+            this.loader.hide();
+
+            // check if user has entered any funds
+            if (this.data.length > 1) {
+                // this.showSum();
+            }
+        });
+
+        this.loader.hide();
+    }
 
     openPage(id: string, title: string) {
         const page = {
@@ -92,8 +127,8 @@ export class MonyPage implements OnInit {
                 message:
                     `<ion-list>
                 <ion-list-header class='` +
-                cssClass +
-                `'>
+                    cssClass +
+                    `'>
                 <ion-label>` +
                     state +
                     `</ion-label>

@@ -38,23 +38,25 @@ export class FirstTimeUsage {
     private createFundsTB() {
         const funds: Array<Funds> = [
             {
-                type: 'income',
+                src: 1,
+                type: '',
+                seller: '',
                 value: 0,
-                info: '',
-                date: 'noDate'
-            },
-            {
-                type: 'outcome',
-                value: 0,
-                info: '',
-                date: 'noDate'
-            },
-            {
-                type: 'fetam',
-                value: 0,
-                info: '',
+                weight: 0,
                 date: 'noDate'
             }
+            // ,{
+            //     type: 'outcome',
+            //     value: 0,
+            //     info: '',
+            //     date: 'noDate'
+            // },
+            // {
+            //     type: 'fetam',
+            //     value: 0,
+            //     info: '',
+            //     date: 'noDate'
+            // }
         ];
 
         this.db.set('funds', funds);

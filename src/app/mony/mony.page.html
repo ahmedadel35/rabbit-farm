@@ -14,7 +14,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item-group>
+        <!-- <ion-item-group>
             <ion-item-divider>
                 <ion-label color="primary">أساسى</ion-label>
             </ion-item-divider>
@@ -34,6 +34,11 @@
                 <ion-ripple-effect></ion-ripple-effect>
                 الفطام المباع
             </ion-item>
-        </ion-item-group>
+        </ion-item-group> -->
+        <ion-item *ngFor="let i of data">
+            <ion-label>
+                {{i.type}}
+            </ion-label>
+        </ion-item>
     </ion-list>
 </ion-content>
