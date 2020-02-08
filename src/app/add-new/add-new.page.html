@@ -53,10 +53,11 @@
                 <ion-label position="floating" color='danger'>تاريخ الميلاد</ion-label>
                 <ion-datetime
                     displayFormat="DD MMMM YYYY"
+                    pickerFormat="DD MMMM YYYY"
                     placeholder="أختر التاريخ"
                     [(ngModel)]="date"
                     name="date"
-                    monthNames="يناير, فبراير, مارس, ابريل, مايو, يونيو, يوليهو, إغسطس, سبتمبر, أكتوبر, نوفمبر, ديسمبر"
+                    monthNames="يناير-1, فبراير-2, مارس-3, ابريل-4, مايو-5, يونيو-6, يوليو-7, إغسطس-8, سبتمبر-9, أكتوبر-10, نوفمبر-11, ديسمبر-12"
                     cancel-text="إلغاء"
                     done-text="حفظ"
                     [readonly]="showData"
