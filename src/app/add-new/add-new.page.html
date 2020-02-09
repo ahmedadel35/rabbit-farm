@@ -25,7 +25,6 @@
                     [(ngModel)]="name"
                     name="name"
                     type="text"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-item>
@@ -35,6 +34,7 @@
                     name="num"
                     type="number"
                     [readonly]="showData"
+                    [disabled]="showData"
                     required
                 ></ion-input>
             </ion-item>
@@ -46,6 +46,7 @@
                     name="type"
                     type="text"
                     [readonly]="showData"
+                    [disabled]="showData"
                     required
                 ></ion-input>
             </ion-item>
@@ -72,7 +73,6 @@
                     [(ngModel)]="source"
                     name="source"
                     type="text"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-list-header color="primary">
@@ -86,7 +86,6 @@
                     [(ngModel)]="father"
                     name="father"
                     type="number"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-item>
@@ -95,7 +94,6 @@
                     [(ngModel)]="mother"
                     name="mother"
                     type="number"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-list-header color="primary">
@@ -109,7 +107,6 @@
                     [(ngModel)]="box"
                     name="box"
                     type="number"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-item>
@@ -118,7 +115,6 @@
                     [(ngModel)]="eye"
                     name="eye"
                     type="number"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-list-header color="primary">
@@ -132,7 +128,6 @@
                     [(ngModel)]="weight"
                     name="weight"
                     type="number"
-                    [readonly]="showData"
                 ></ion-input>
             </ion-item>
             <ion-item-divider>
