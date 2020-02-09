@@ -11,7 +11,7 @@ import Rabbit from '../interfaces/rabbit';
 import { IonSlides, AlertController } from '@ionic/angular';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
-import { createDate } from '../common/rabbit';
+import { createDate, goToAddNew } from '../common/rabbit';
 import * as moment from 'moment';
 
 @Component({
@@ -114,6 +114,17 @@ export class ShowPage implements OnInit {
         };
 
         this.router.navigate(['add-state'], d);
+    }
+
+    editRabbit(): void {
+        goToAddNew(
+            this.router,
+            undefined,
+            `تعديل الإنثى رقم: ${this.rabbit.num}`,
+            true,
+            true,
+            this.rabbit
+        );
     }
 
     goBack() {

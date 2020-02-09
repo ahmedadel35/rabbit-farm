@@ -27,12 +27,16 @@ export function goToAddNew(
     router: Router,
     id: string = 'females',
     title: string = 'إنثى جديدة',
-    showData: boolean = false
+    showData: boolean = false,
+    isEdit: boolean = false,
+    rb: any = {}
 ): void {
     let page = {
         id,
         title,
-        showData
+        showData,
+        isEdit,
+        rb
     };
 
     const navExt: NavigationExtras = {
