@@ -99,7 +99,7 @@ export class AddNewPage implements OnInit {
             weight: f.weight
         };
 
-        console.log(obj);
+        // console.log(obj);
 
         if (this.pageId === 'males') {
             if (typeof f.mother === 'number') {
@@ -130,18 +130,18 @@ export class AddNewPage implements OnInit {
         this.db.get(this.pageId).then((d: Rabbit[]) => {
             // TODO updata if data was edited
             if (this.isEdit) {
-                // console.log(d);
+                console.log(d);
                 d = d.map(x => {
                     if (x.num === obj.num) {
                         x = obj;
-                        // console.log(x);
+                        console.log(x);
                     }
                     return x;
                 });
-                // console.log(d);
+                console.log(d);
                 this.db.set(this.pageId, d);
                 this.loader.hide();
-                console.log(obj);
+                // console.log(obj);
                 setTimeout(() => this.showRabbit(obj, true), 300);
             } else {
                 const found = d.some(x => x.num === obj.num);

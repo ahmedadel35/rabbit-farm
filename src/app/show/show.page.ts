@@ -117,10 +117,11 @@ export class ShowPage implements OnInit {
     }
 
     editRabbit(): void {
+        const rabbitGender = this.isMale ? 'الذكر' : 'الإنثى';
         goToAddNew(
             this.router,
-            undefined,
-            `تعديل الإنثى رقم: ${this.rabbit.num}`,
+            this.isMale ? 'males' : 'females',
+            `تعديل ${rabbitGender} رقم: ${this.rabbit.num}`,
             true,
             true,
             this.rabbit

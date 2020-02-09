@@ -19,7 +19,7 @@ export const ArabicMonths = [
     'ديسمبر'
 ];
 
-moment.locale('ar',{
+moment.locale('ar', {
     months: ArabicMonths
 });
 
@@ -74,11 +74,7 @@ export function getAge(year, month, day) {
 export function getAgeFromArabic(birth: string | string[]): string {
     birth = toEngDate(birth, false) as string[];
 
-    const age = getAge(
-        birth[0],
-        birth[1],
-        birth[2]
-    );
+    const age = getAge(birth[0], birth[1], birth[2]);
 
     return age.length ? age : 'اليوم';
 }
@@ -90,12 +86,19 @@ export function toEngDate(
     date = (date as string).split(' ');
 
     // @ts-ignore
-    date = [parseInt(date[2], 10),ArabicMonths.indexOf(date[1]) + 1,parseInt(date[0], 10)];
+    date = [
+        parseInt(date[2], 10),
+        ArabicMonths.indexOf(date[1]) + 1,
+        parseInt(date[0], 10)
+    ];
 
     return asStr ? (date as string[]).join('-') : date;
 }
 
-export function createDate(date: string | Date = null, format = 'YYYY-MM-DD'): string {
+export function createDate(
+    date: string | Date = null,
+    format = 'YYYY-MM-DD'
+): string {
     const m = date ? moment(date, format) : moment();
     moment.locale('ar');
 

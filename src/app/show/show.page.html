@@ -6,8 +6,8 @@
             </ion-button>
         </ion-buttons>
         <ion-title>{{ title }}</ion-title>
-        <ion-buttons slot="end" *ngIf="!isMale">
-            <ion-button fill="clear" color="light" (click)="showYoungRepo()">
+        <ion-buttons slot="end">
+            <ion-button fill="clear" color="light" (click)="showYoungRepo()" *ngIf="!isMale">
                 <ion-icon name="analytics"></ion-icon>
             </ion-button>
             <ion-button fill="clear" color="light" (click)="editRabbit()">
