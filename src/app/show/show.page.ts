@@ -21,9 +21,9 @@ import * as moment from 'moment';
 })
 export class ShowPage implements OnInit {
     rabbit: Rabbit = {
-        num: 3,
-        date: '20 feb 2020',
-        type: 'asf'
+        num: 0,
+        date: '',
+        type: ''
     };
     isMale = false;
     isArchive = false;
