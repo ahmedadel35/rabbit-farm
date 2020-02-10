@@ -81,6 +81,9 @@
 }
 
 .fundsRepo {
+  ion-label {
+    white-space: normal !important;
+  }
   .alert-message {
     max-height: 60%;
   }
