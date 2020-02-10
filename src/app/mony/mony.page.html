@@ -14,31 +14,13 @@
 
 <ion-content>
     <ion-list>
-        <!-- <ion-item-group>
-            <ion-item-divider>
-                <ion-label color="primary">أساسى</ion-label>
-            </ion-item-divider>
-            <ion-item class="ion-activatable" (click)="openPage('income', 'الإيرادات')">
-                <ion-ripple-effect></ion-ripple-effect>
-                الإيرادات
-            </ion-item>
-            <ion-item class="ion-activatable" (click)="openPage('outcome', 'المصروفات')">
-                <ion-ripple-effect></ion-ripple-effect>
-                المصروفات
-            </ion-item>
-
-            <ion-item-divider>
-                <ion-label color="warning">أخرى</ion-label>
-            </ion-item-divider>
-            <ion-item class="ion-activatable" (click)="openPage('fetam', 'الفطام المباع')">
-                <ion-ripple-effect></ion-ripple-effect>
-                الفطام المباع
-            </ion-item>
-        </ion-item-group> -->
         <ion-item
             *ngFor="let i of data"
             [color]="i.src === 'sell' ? 'success' : 'danger'"
+            class="ion-activatable"
+            (click)="showInfo(i)"
         >
+            <ion-ripple-effect></ion-ripple-effect>
             <ion-grid>
                 <ion-row>
                     <ion-col size="8">{{ i.date }}</ion-col>
