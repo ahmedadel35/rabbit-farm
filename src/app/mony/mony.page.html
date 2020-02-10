@@ -1,14 +1,14 @@
 <ion-header>
-    <ion-toolbar color='primary'>
+    <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>المالية</ion-title>
-        <ion-buttons slot='end'>
+        <!-- <ion-buttons slot='end'>
             <ion-button (click)="showReport()" color='light' fill='outline'>
                 تقرير
             </ion-button>
-        </ion-buttons>
+        </ion-buttons> -->
     </ion-toolbar>
 </ion-header>
 
@@ -35,11 +35,53 @@
                 الفطام المباع
             </ion-item>
         </ion-item-group> -->
-        
+        <ion-item
+            *ngFor="let i of data"
+            [color]="i.src === 'sell' ? 'success' : 'danger'"
+        >
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="8">{{ i.date }}</ion-col>
+                    <ion-col size="4">{{
+                        i.src === 'sell' ? 'بيع' : 'شراء'
+                    }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="7">{{ i.type }}</ion-col>
+                    <ion-col>{{ i.value }}</ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
     </ion-list>
-    <ion-fab vertical="bottom" horizontal="start" slot="fixed" color='primary' (click)='openPage()'>
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
 </ion-content>
+<ion-footer>
+    <ion-list>
+        <ion-item>
+            <ion-label>إجمالى المشتريات</ion-label>
+            <ion-note slot="end" color="danger">{{ totalBuy }}</ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>إجمالى المبيعات</ion-label>
+            <ion-note slot="end" color="success">{{ totalSell }}</ion-note>
+        </ion-item>
+        <ion-item class="text-center">
+            <ion-label
+                >{{ diff }} جنيه
+                <span [class]="totalSell > totalBuy ? 'success' : 'danger'">{{
+                    state
+                }}</span></ion-label
+            >
+        </ion-item>
+    </ion-list>
+    <ion-fab
+        vertical="bottom"
+        horizontal="start"
+        slot="fixed"
+        color="primary"
+        (click)="openPage()"
+    >
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-footer>

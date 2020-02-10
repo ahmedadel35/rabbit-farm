@@ -10,3 +10,18 @@ form ion-col {
 form ion-col ion-input {
     border: 1px solid #0088d8;
 }
+ion-note {
+    font-size: large;
+}
+.text-center {
+    text-align: center;
+}
+.success {
+    color: var(--ion-color-success);
+}
+.danger {
+    color: var(--ion-color-danger);
+}
+.hydrated {
+    padding: 0;
+}

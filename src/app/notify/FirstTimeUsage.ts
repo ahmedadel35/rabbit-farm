@@ -38,7 +38,7 @@ export class FirstTimeUsage {
     private createFundsTB() {
         const funds: Array<Funds> = [
             {
-                src: 1,
+                src: 'sell',
                 type: '',
                 seller: '',
                 value: 0,

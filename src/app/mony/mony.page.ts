@@ -16,6 +16,10 @@ export class MonyPage implements OnInit {
     public data: Array<Funds> = [];
     public allData: Array<Funds> = [];
     initHasPlayed = false;
+    totalSell = 0;
+    totalBuy = 0;
+    diff = 0;
+    state = '';
 
     constructor(
         private router: Router,
@@ -48,7 +52,24 @@ export class MonyPage implements OnInit {
 
             // check if user has entered any funds
             if (this.data.length > 1) {
-                // this.showSum();
+                let sell = 0,
+                    buy = 0;
+                d.map((x: Funds) => {
+                    if (x.src === 'sell') {
+                        sell += x.value;
+                    } else if (x.src === 'buy') {
+                        buy += x.value
+                    }
+                });
+
+                this.totalSell = sell;
+                this.totalBuy = buy;
+                this.diff = Math.abs(this.totalSell - this.totalBuy); 
+                if (this.totalSell > this.totalBuy) {
+                    this.state = 'مكسب';
+                } else {
+                    this.state = 'خسارة';
+                }
             }
         });
 
