@@ -4,39 +4,105 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>
-            {{ title }}
+            إضافة إلى المالية
         </ion-title>
-        <ion-buttons slot="end">
-            <ion-button
-                color="light"
-                fill="outline"
-                (click)="showSum()"
-                [disabled]="doneSum"
-                >المجموع</ion-button
-            >
-        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-segment
+        (ionChange)="getSgment($event.target.value)"
+        color="primary"
+        value="sell"
+    >
+        <ion-segment-button value="sell">
+            <ion-label>بيع</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="buy">
+            <ion-label>شراء</ion-label>
+        </ion-segment-button>
+    </ion-segment>
     <ion-list>
-        <ion-item
-            *ngFor="let i of data"
-            color="{{ i.sum ? 'danger' : 'primary' }}"
-        >
-            <ion-label>
-                <ion-row>
-                    <ion-col>{{ i.value }}</ion-col>
-                    <ion-col *ngIf="pageId === 'fetam'">{{ i.count }}</ion-col>
-                    <ion-col>{{ i.info }}</ion-col>
-                    <ion-col>{{ i.date }}</ion-col>
-                </ion-row>
-            </ion-label>
-        </ion-item>
+        <form #addFund="ngForm" (ngSubmit)="save(addFund)">
+            <ion-item>
+                <ion-label position="floating">النوع</ion-label>
+                <ion-input
+                    clearInput
+                    autofocus="true"
+                    [(ngModel)]="type"
+                    name="type"
+                    type="text"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">إسم المشترى</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="seller"
+                    name="seller"
+                    type="text"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">العدد</ion-label>
+                <ion-input
+                    [(ngModel)]="count"
+                    name="count"
+                    type="number"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">الوزن</ion-label>
+                <ion-input
+                    [(ngModel)]="weight"
+                    name="weight"
+                    type="number"
+                    required
+                ></ion-input>
+                <ion-item>
+                <ion-label position="floating">السعر</ion-label>
+                <ion-input
+                    [(ngModel)]="value"
+                    name="value"
+                    type="number"
+                    required
+                ></ion-input>
+            </ion-item>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">ملاحظات</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="info"
+                    name="info"
+                    type="number"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>التاريخ</ion-label>
+                <ion-datetime
+                    displayFormat="DD MMMM YYYY"
+                    placeholder="أختر التاريخ"
+                    monthNames="يناير-1, فبراير-2, مارس-3, ابريل-4, مايو-5, يونيو-6, يوليو-7, إغسطس-8, سبتمبر-9, أكتوبر-10, نوفمبر-11, ديسمبر-12"
+                    cancel-text="إلغاء"
+                    done-text="حفظ"
+                    [(ngModel)]="date"
+                    name="date"
+                    required
+                ></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-button type='submit' color='primary'>حفظ</ion-button>
+            </ion-item>
+        </form>
     </ion-list>
 </ion-content>
 
-<ion-footer>
+<!-- <ion-footer>
     <ion-toolbar>
         <form
             #monyForm="ngForm"
@@ -49,6 +115,7 @@
                         <ion-label position="floating">القيمة</ion-label>
                         <ion-input
                             type="number"
+                            required
                             autofocus="true"
                             inputmode="decimal"
                             ngModel
@@ -63,6 +130,7 @@
                         <ion-label position="floating">العدد</ion-label>
                         <ion-input
                             type="number"
+                            required
                             inputmode="decimal"
                             ngModel
                             name="count"
@@ -76,6 +144,7 @@
                         <ion-label position="floating">ملاحظات</ion-label>
                         <ion-input
                             type="text"
+                            required
                             ngModel
                             name="info"
                         ></ion-input>
@@ -92,4 +161,4 @@
             </ion-row>
         </form>
     </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

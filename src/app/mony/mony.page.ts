@@ -55,18 +55,8 @@ export class MonyPage implements OnInit {
         this.loader.hide();
     }
 
-    openPage(id: string, title: string) {
-        const page = {
-            id,
-            title
-        };
-
-        const navExt: NavigationExtras = {
-            state: {
-                page
-            }
-        };
-        this.router.navigate(['list'], navExt);
+    openPage() {
+        this.router.navigate(['list']);
     }
 
     showReport() {

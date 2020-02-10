@@ -1,5 +1,5 @@
 export default interface Funds {
-    src: number;
+    src: string; // sell | buy
     type: string;
     seller: string;
     value: number;
