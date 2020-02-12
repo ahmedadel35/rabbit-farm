@@ -4,6 +4,7 @@ import Funds from '../interfaces/funds';
 import Rabbit from '../interfaces/rabbit';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
+import Fetam from '../interfaces/fetam';
 
 export const FirstTimeKey = 'first_time_use';
 
@@ -20,6 +21,7 @@ export class FirstTimeUsage {
         this.createFemaelsTB();
         this.createStatesTB();
         this.createIllTB();
+        this.createFetamTB();
         this.db.set(FirstTimeKey, true);
     }
 
@@ -101,5 +103,19 @@ export class FirstTimeUsage {
         ];
 
         this.db.set('ill', ill);
+    }
+
+    private createFetamTB() {
+        const fetam: Fetam[] = [
+            {
+                patchNo: 0,
+                count: 0,
+                weight: 0,
+                age: 0,
+                date: 'noDate'
+            }
+        ];
+
+        this.db.set('fetam', fetam);
     }
 }
