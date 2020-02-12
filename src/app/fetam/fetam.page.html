@@ -26,9 +26,6 @@
                     <p>عدد الخلفات: {{ f.count }}</p>
                     <p>{{ f.date }}</p>
                 </ion-label>
-                <ion-label>
-                    <ion-button (click)='destroy(f, inx)'>x</ion-button>
-                </ion-label>
                 <ion-item-options side="end">
                     <ion-item-option color="danger" (click)="destroy(f, inx)">
                         <ion-icon name="close"></ion-icon>&nbsp; حذف
