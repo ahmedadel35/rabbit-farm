@@ -32,10 +32,15 @@ export class AppComponent {
       icon: 'cash'
     },
     {
+      title: 'دليل الأمراض وعلاجها',
+      url: '/illness',
+      icon: 'bug'
+    },
+    {
       title: 'الإعدادات',
       url: '/config',
       icon: 'cog'
-    }
+    },
   ];
 
   constructor(
