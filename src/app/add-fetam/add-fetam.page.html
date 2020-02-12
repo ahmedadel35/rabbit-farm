@@ -13,7 +13,7 @@
     <ion-list>
         <form #addFetam="ngForm" (submit)="add(addFetam)">
             <ion-item>
-                <ion-label position="floating">رقم دفعة الفطام</ion-label>
+                <ion-label position="floating" color='danger'>رقم دفعة الفطام</ion-label>
                 <ion-input
                     clearInput
                     [(ngModel)]="patchNo"
@@ -24,7 +24,7 @@
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">عدد الفطام</ion-label>
+                <ion-label position="floating" color='danger'>عدد الفطام</ion-label>
                 <ion-input
                     clearInput
                     [(ngModel)]="count"
@@ -52,7 +52,7 @@
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>التاريخ</ion-label>
+                <ion-label color='danger' position='floating'>التاريخ</ion-label>
                 <ion-datetime
                     displayFormat="DD MMMM YYYY"
                     placeholder="أختر التاريخ"
@@ -71,6 +71,7 @@
                         color="primary"
                         size="block"
                         type="submit"
+                        [disabled]="!addFetam.valid"
                         >حفظ</ion-button
                     >
                 </ion-label>
