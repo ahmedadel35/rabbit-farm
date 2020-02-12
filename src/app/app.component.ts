@@ -27,6 +27,11 @@ export class AppComponent {
       icon: 'male'
     },
     {
+      title: 'الفطام',
+      url: '/fetam',
+      icon: 'male'
+    },
+    {
       title: 'المالية',
       url: '/mony',
       icon: 'cash'

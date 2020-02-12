@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'illness',
     loadChildren: () => import('./illness/illness.module').then( m => m.IllnessPageModule)
+  },
+  {
+    path: 'fetam',
+    loadChildren: () => import('./fetam/fetam.module').then( m => m.FetamPageModule)
   }
 ];
 
