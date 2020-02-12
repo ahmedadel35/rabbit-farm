@@ -119,20 +119,22 @@ export class NotifyPage implements OnInit {
         this.analys.dead = 0;
 
         states.map(x => {
-            if (!x.positive && !x.done) {
-                if (x.state === 1) talqeh.push(x);
-                else if (x.state === 2) gas.push(x);
-                else if (x.state === 3) welada.push(x);
-                else if (x.state === 4) fetam.push(x);
-            }
+            if (x.positive && x.date !== 'noDate') {
+                if (!x.done) {
+                    if (x.state === 1) talqeh.push(x);
+                    else if (x.state === 2) gas.push(x);
+                    else if (x.state === 3) welada.push(x);
+                    else if (x.state === 4) fetam.push(x);
+                }
 
-            if (x.positive && x.child && x.child.alive) {
-                this.analys.alive += x.child.alive;
-                this.analys.dead += x.child.dead;
+                if (x.child && x.child.alive) {
+                    this.analys.alive += x.child.alive;
+                    this.analys.dead += x.child.dead;
+                }
             }
         });
 
-        const illness = ill.filter(x => !x.healed);
+        const illness = ill.filter(x => !x.healed && x.date !== 'noDate');
 
         this.slidesData = [talqeh, gas, welada, fetam, illness];
 
