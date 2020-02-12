@@ -24,9 +24,12 @@
             <ion-grid>
                 <ion-row>
                     <ion-col size="8">{{ i.date }}</ion-col>
-                    <ion-col size="4">{{
+                    <ion-col size="2">{{
                         i.src === 'sell' ? 'بيع' : 'شراء'
                     }}</ion-col>
+                    <ion-col>
+                        <ion-button fill='solid' size='small' color='danger'>x</ion-button>
+                    </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="7">{{ i.type }}</ion-col>
