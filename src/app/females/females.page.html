@@ -47,6 +47,7 @@
                 *ngIf="i.date !== 'noDate'"
                 class="rabbit-item"
                 [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
+                detail='true'
                 (click)="show(i)"
             >
                 <ion-label class="noMargin">

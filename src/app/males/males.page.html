@@ -21,6 +21,7 @@
                 *ngIf="i.date !== 'noDate'"
                 class="rabbit-item"
                 [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
+                detail='true'
                 (click)="goToRabbit(i)"
             >
                 <ion-ripple-effect></ion-ripple-effect>
