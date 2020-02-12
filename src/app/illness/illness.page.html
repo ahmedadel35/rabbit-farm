@@ -7,4 +7,11 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+    <ion-list>
+        <ion-item [color]="inx %2 === 0 ? 'tertiary' : 'primary'" *ngFor="let i of data; let inx = index">
+            <ion-label> إسم المرض: {{ i.name }} </ion-label>
+            <ion-label> العلاج: {{ i.vac }} </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
