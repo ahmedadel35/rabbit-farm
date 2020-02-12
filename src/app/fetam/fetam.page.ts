@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Fetam from '../interfaces/fetam';
 import { DatabaseService } from '../services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-fetam',
@@ -11,7 +12,7 @@ export class FetamPage implements OnInit {
     initHasPlayed = false;
     data: Fetam[] = [];
 
-    constructor(private db: DatabaseService) {}
+    constructor(private router: Router, private db: DatabaseService) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -29,5 +30,9 @@ export class FetamPage implements OnInit {
             this.data = d;
             console.log(d);
         });
+    }
+
+    addNewFetam() {
+        this.router.navigate(['add-fetam']);
     }
 }
