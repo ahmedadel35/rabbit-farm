@@ -247,8 +247,8 @@
             </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
-            <ion-list>
-                <div *ngFor="let i of illData; let inx = index">
+            <ion-list class='illness'>
+            <div *ngFor="let i of illData; let inx = index">
                     <ion-item [color]="i.healed ? 'success' : 'danger'">
                         <ion-grid>
                             <ion-row>
@@ -256,11 +256,7 @@
                                     {{ i.date }}
                                 </ion-col>
                                 <ion-col size="5">
-                                    <span>{{ i.type }}</span> |
-                                    <span>
-                                        <ion-icon name="calendar"></ion-icon>
-                                        {{ i.remined.slice(0, -5) }}
-                                    </span>
+                                    <span>{{ i.type }}</span>
                                 </ion-col>
                                 <ion-col *ngIf="!isArchive">
                                     <ion-button
@@ -278,6 +274,11 @@
                                     >
                                         <ion-icon name="close"></ion-icon>
                                     </ion-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    العلاج: {{i.anti}}
                                 </ion-col>
                             </ion-row>
                             <ion-row *ngIf="i.notes && i.notes.length">

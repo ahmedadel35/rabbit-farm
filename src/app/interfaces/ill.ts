@@ -3,6 +3,6 @@ export default interface Ill {
     type: string;
     date: string;
     healed: boolean;
-    remined?: string;
+    anti?: string;
     notes?: string;
 }

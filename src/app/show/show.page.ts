@@ -242,10 +242,10 @@ export class ShowPage implements OnInit {
                         required: true
                     },
                     {
-                        name: 'remined',
+                        name: 'anti',
                         // @ts-ignore
-                        type: 'number',
-                        placeholder: 'أيام التذكير'
+                        type: 'string',
+                        placeholder: 'العلاج'
                     },
                     {
                         name: 'notes',
@@ -293,13 +293,7 @@ export class ShowPage implements OnInit {
 
     saveIll(i: Ill) {
         this.loader.show();
-
-        if (i.remined) {
-            const m = moment(i.date, 'YYYY-MM-DD');
-            m.add(i.remined, 'd');
-            m.locale('ar');
-            i.remined = m.format('D MMMM YYYY');
-        }
+        console.log(i);
 
         i.date = createDate(i.date);
 
