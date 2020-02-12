@@ -1,12 +1,80 @@
 <ion-header>
-    <ion-toolbar color='primary'>
-        <ion-buttons slot='start'>
-            <ion-button fill='clear' color='light' (click)='goBack()'>
-                <ion-icon name='arrow-forward'></ion-icon>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" color="light" (click)="goBack()">
+                <ion-icon name="arrow-forward"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>إضافة فطام</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+    <ion-list>
+        <form #addFetam="ngForm" (submit)="add(addFetam)">
+            <ion-item>
+                <ion-label position="floating">رقم دفعة الفطام</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="patchNo"
+                    name="patchNo"
+                    autofocus="true"
+                    type="number"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">عدد الفطام</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="count"
+                    name="count"
+                    type="number"
+                    required
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">متوسط الوزن (جرام)</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="weight"
+                    name="weight"
+                    type="number"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">متوسط العمر (يوم)</ion-label>
+                <ion-input
+                    clearInput
+                    [(ngModel)]="age"
+                    name="age"
+                    type="number"
+                ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>التاريخ</ion-label>
+                <ion-datetime
+                    displayFormat="DD MMMM YYYY"
+                    placeholder="أختر التاريخ"
+                    monthNames="يناير-1, فبراير-2, مارس-3, ابريل-4, مايو-5, يونيو-6, يوليو-7, إغسطس-8, سبتمبر-9, أكتوبر-10, نوفمبر-11, ديسمبر-12"
+                    cancel-text="إلغاء"
+                    done-text="حفظ"
+                    [(ngModel)]="date"
+                    name="date"
+                    required
+                ></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-button
+                        fill="solid"
+                        color="primary"
+                        size="block"
+                        type="submit"
+                        >حفظ</ion-button
+                    >
+                </ion-label>
+            </ion-item>
+        </form>
+    </ion-list>
+</ion-content>

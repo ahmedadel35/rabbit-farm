@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-fetam.page.scss'],
 })
 export class AddFetamPage implements OnInit {
+  // form inputs
+  patchNo?: number = null;
+  count: number = null;
+  weight: number = null;;
+  age: number = null;;
+  date: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.date = (new Date()).toDateString()
   }
 
 }
