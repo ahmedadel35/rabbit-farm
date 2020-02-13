@@ -207,4 +207,15 @@ export class ShowFetamPage implements OnInit {
         this.doCalc();
         this.loader.hide();
     }
+
+    addState() {
+        const addFS: NavigationExtras = {
+            state: {
+                f: this.f,
+                slide: this.activeSlide
+            }
+        };
+
+        this.router.navigate(['add-fetam-state'], addFS);
+    }
 }
