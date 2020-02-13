@@ -122,14 +122,14 @@ export class FirstTimeUsage {
     }
 
     private createFetamStateTB() {
-        const fs: FetamState = {
+        const fs: FetamState[] = [{
             patchNo: 0,
             src: 'sell',
             count: 0,
             str: '',
             value: 0,
             date: 'noDate'
-        };
+        }];
 
         this.db.set('fetamState', fs);
     }
