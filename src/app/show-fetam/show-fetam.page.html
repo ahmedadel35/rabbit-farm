@@ -166,9 +166,9 @@
         <ion-slide class="slideTwo">
             <ion-list>
                 <ion-item
-                    *ngFor="let d of death; let dinx = index"
-                    [color]="dinx % 2 === 0 ? 'tertiary' : 'primary'"
-                    [class]="dinx % 2 === 0 ? 'tertiary' : 'primary'"
+                    *ngFor="let d of death; let ddInx = index"
+                    [color]="ddInx % 2 === 0 ? 'tertiary' : 'primary'"
+                    [class]="ddInx % 2 === 0 ? 'tertiary' : 'primary'"
                 >
                     <ion-grid>
                         <ion-row>
@@ -180,7 +180,7 @@
                                 <ion-row class='notes'>{{d.date}}</ion-row>
                             </ion-col>
                             <ion-col size='2'>
-                                <ion-button fill='solid' color='danger' class="pull-end" (click)="destroy(d, dinx, 'death')">x</ion-button>
+                                <ion-button fill='solid' color='danger' class="pull-end" (click)="destroy(d, ddInx, 'death')">x</ion-button>
                             </ion-col>
                         </ion-row>
                     </ion-grid>

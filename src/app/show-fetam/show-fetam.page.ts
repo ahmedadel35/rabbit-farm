@@ -29,9 +29,9 @@ export class ShowFetamPage implements OnInit {
         centeredSlides: false
     };
     data: FetamState[];
-    sell: FetamState[];
-    vaccine: FetamState[];
-    death: FetamState[];
+    sell: FetamState[] = [];
+    vaccine: FetamState[] = [];
+    death: FetamState[] = [];
     calc = {
         sell: 0,
         death: 0,
@@ -192,10 +192,15 @@ export class ShowFetamPage implements OnInit {
 
     destroy(fs: FetamState, inx: number, type: 'sell' | 'vaccine' | 'death') {
         this.loader.show();
+        console.log(inx, this[type]);
         this.data.splice(this.data.indexOf(fs), 1);
         // console.log(this.data);
-        this.db.set('fetamState', this.data);
+        // this.db.set('fetamState', this.data);
+        // TODO fix splice cuts more than one row
         this[type].splice(inx, 1);
+
+        console.log(this.sell);
+        this.doCalc();
         this.loader.hide();
     }
 }
