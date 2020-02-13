@@ -95,23 +95,33 @@
         </ion-slide>
         <ion-slide class="slideTwo">
             <ion-list>
-                <ion-item *ngFor="let s of sell;let inx = index" [color]="inx%2===0 ? 'tertiary' : 'primary'"
-                [class]="inx%2===0 ? 'tertiary' : 'primary'">
+                <ion-item
+                    *ngFor="let s of sell; let inx = index"
+                    [color]="inx % 2 === 0 ? 'tertiary' : 'primary'"
+                    [class]="inx % 2 === 0 ? 'tertiary' : 'primary'"
+                >
                     <ion-grid>
                         <ion-row>
-                            <ion-col size="9">
-                                إسم المشترى: {{ s.str }}
-                            </ion-col>
                             <ion-col>
-                                <ion-button fill='solid' color='danger' (click)="destroy(s, inx, 'sell')">x</ion-button>
+                                {{ s.date }}
                             </ion-col>
+                            <ion-col> إسم المشترى: {{ s.str }} </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col> السعر: {{ s.value }} </ion-col>
                             <ion-col> الوزن: {{ s.weight }} </ion-col>
                             <ion-col> العدد: {{ s.count }} </ion-col>
+                            <ion-col>
+                                <ion-button
+                                    fill="solid"
+                                    color="danger"
+                                    (click)="destroy(s, inx, 'sell')"
+                                    class="pull-end"
+                                    >x</ion-button
+                                >
+                            </ion-col>
                         </ion-row>
-                        <ion-row *ngIf='s.notes'>
+                        <ion-row *ngIf="s.notes">
                             <ion-col class="notes">{{ s.notes }}</ion-col>
                         </ion-row>
                     </ion-grid>
