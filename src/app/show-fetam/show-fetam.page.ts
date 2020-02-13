@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import Fetam from '../interfaces/fetam';
 import { Router, NavigationExtras, Navigation } from '@angular/router';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
     selector: 'app-show-fetam',
@@ -8,6 +9,9 @@ import { Router, NavigationExtras, Navigation } from '@angular/router';
     styleUrls: ['./show-fetam.page.scss']
 })
 export class ShowFetamPage implements OnInit {
+    initHasPlayed = false;
+    title = '';
+    activeSlide = 0;
     f: Fetam = {
         age: 10,
         count: 34,
@@ -15,10 +19,14 @@ export class ShowFetamPage implements OnInit {
         patchNo: 2,
         weight: 22,
     };
-    initHasPlayed = false;
-    title = '';
-    sliderArr = ['info', 'sell', 'vaccine', 'death'];
+    slidesArr = ['info', 'sell', 'vaccine', 'death'];
     sliderVal = 'info';
+    slideOpts = {
+        speed: 400,
+        centeredSlides: false
+    };
+
+    @ViewChild('fetamSlides', { static: false }) slides: IonSlides;
 
     constructor(private router: Router) {}
 
@@ -48,5 +56,18 @@ export class ShowFetamPage implements OnInit {
             // console.log(routerData.state.f);
         }
         this.title = `دفعه رقم: ${this.f.patchNo}`;
+    }
+
+    getIndex(slider: IonSlides) {
+        slider.getActiveIndex().then(v => {
+            // console.log(v);
+            this.sliderVal = this.slidesArr[v];
+            this.activeSlide = v;
+        });
+    }
+
+    changeSlide(inx: string) {
+        // console.log(inx);
+        this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
 }
