@@ -129,7 +129,39 @@
             </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
-            3
+            <ion-list>
+                <ion-item
+                    *ngFor="let v of vaccine; let inxx = index"
+                    [color]="inxx % 2 === 0 ? 'tertiary' : 'primary'"
+                    [class]="inxx % 2 === 0 ? 'tertiary' : 'primary'"
+                >
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col>
+                                <ion-badge color='secondary'>
+                                    {{vaccineStr[v.count - 1]}}
+                                </ion-badge>
+                            </ion-col>
+                            <ion-col>
+                                {{ v.date }}
+                            </ion-col>
+                            <ion-col>
+                                <ion-button
+                                    fill="solid"
+                                    color="danger"
+                                    class="pull-end"
+                                    (click)="destroy(v, inxx, 'vaccine')"
+                                    >x</ion-button
+                                >
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col> العلاج: {{ v.notes }} </ion-col>
+                            <ion-col> الجرعه: {{ v.value }} </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
             4

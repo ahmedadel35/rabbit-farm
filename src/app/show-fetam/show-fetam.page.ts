@@ -37,6 +37,7 @@ export class ShowFetamPage implements OnInit {
         death: 0,
         remain: 0
     };
+    vaccineStr = ['علاج', 'تحصين', 'أخرى'];
 
     @ViewChild('fetamSlides', { static: false }) slides: IonSlides;
 
@@ -72,7 +73,7 @@ export class ShowFetamPage implements OnInit {
             // console.log(routerData.state.f);
         }
         this.title = `دفعه رقم: ${this.f.patchNo}`;
-        // this.fakeData();
+        // this.fakedData();
         this.loadData();
     }
 
@@ -146,6 +147,7 @@ export class ShowFetamPage implements OnInit {
         const vaccine: FetamState = {
             patchNo: 444,
             src: 'vaccine',
+            count: 1,
             str: 'جرب الأرانب',
             notes: 'ريبوفلافين',
             value: 55,
@@ -153,6 +155,7 @@ export class ShowFetamPage implements OnInit {
         };
 
         await this.db.add(tb, vaccine);
+        vaccine.count = 2;
         vaccine.str = 'الحمى القلاعية';
         vaccine.notes = 'تشسيشسىي شسيشسي';
         vaccine.value = 32;
