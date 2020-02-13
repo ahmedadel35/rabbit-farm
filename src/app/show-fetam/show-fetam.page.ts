@@ -4,6 +4,7 @@ import { Router, NavigationExtras, Navigation } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import FetamState from '../interfaces/fetamState';
 import { DatabaseService } from '../services/database.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-show-fetam',
@@ -27,6 +28,7 @@ export class ShowFetamPage implements OnInit {
         speed: 400,
         centeredSlides: false
     };
+    data: FetamState[];
     sell: FetamState[];
     vaccine: FetamState[];
     death: FetamState[];
@@ -38,7 +40,11 @@ export class ShowFetamPage implements OnInit {
 
     @ViewChild('fetamSlides', { static: false }) slides: IonSlides;
 
-    constructor(private router: Router, public db: DatabaseService) {}
+    constructor(
+        private router: Router,
+        public db: DatabaseService,
+        private loader: LoaderService
+    ) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -87,6 +93,7 @@ export class ShowFetamPage implements OnInit {
         });
 
         // set
+        this.data = states;
         this.sell = sell;
         this.vaccine = vaccine;
         this.death = death;
@@ -95,14 +102,22 @@ export class ShowFetamPage implements OnInit {
     }
 
     doCalc() {
-        this.calc.sell = (this.sell.reduce((t, c) => {
-            t.count += c.count;
-            return t;
-        }, {count: 0})).count;
-        this.calc.death = (this.death.reduce((t, c) => {
-            t.count += c.count;
-            return t;
-        }, {count: 0})).count;
+        this.calc.sell = this.sell.reduce(
+            (t, c) => {
+                t.count += c.count;
+                return t;
+            },
+            { count: 0 }
+        ).count;
+
+        this.calc.death = this.death.reduce(
+            (t, c) => {
+                t.count += c.count;
+                return t;
+            },
+            { count: 0 }
+        ).count;
+
         this.calc.remain = Math.abs(
             this.f.count - (this.calc.sell + this.calc.death)
         );
@@ -170,5 +185,14 @@ export class ShowFetamPage implements OnInit {
     changeSlide(inx: string) {
         // console.log(inx);
         this.slides.slideTo(this.slidesArr.indexOf(inx));
+    }
+
+    destroy(fs: FetamState, inx: number, type: 'sell' | 'vaccine' | 'death') {
+        this.loader.show();
+        this.data.splice(this.data.indexOf(fs), 1);
+        // console.log(this.data);
+        this.db.set('fetamState', this.data);
+        this[type].splice(inx, 1);
+        this.loader.hide();
     }
 }
