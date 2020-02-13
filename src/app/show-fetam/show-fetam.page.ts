@@ -17,7 +17,8 @@ export class ShowFetamPage implements OnInit {
     };
     initHasPlayed = false;
     title = '';
-    sliderVal = ['info', 'sell', 'vaccine', 'death'];
+    sliderArr = ['info', 'sell', 'vaccine', 'death'];
+    sliderVal = 'info';
 
     constructor(private router: Router) {}
 
@@ -44,7 +45,7 @@ export class ShowFetamPage implements OnInit {
                 this.title = `دفعه رقم: ${this.f.patchNo}`;
             }
 
-            console.log(routerData.state.f);
+            // console.log(routerData.state.f);
         }
         this.title = `دفعه رقم: ${this.f.patchNo}`;
     }

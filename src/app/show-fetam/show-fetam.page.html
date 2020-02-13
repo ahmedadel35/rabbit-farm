@@ -12,6 +12,35 @@
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-segment
+            scrollable
+            color="light"
+            [value]="sliderVal"
+            (ionChange)="changeSlide($event.detail.value)"
+        >
+            <ion-segment-button value="info">
+                <ion-label>
+                    المعلومات الرئيسية
+                </ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="sell">
+                <ion-label>
+                    بيع
+                </ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="vaccine">
+                <ion-label>
+                    أدوية وتحصينات
+                </ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="death">
+                <ion-label>
+                    وفاة خلفة
+                </ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content> </ion-content>
