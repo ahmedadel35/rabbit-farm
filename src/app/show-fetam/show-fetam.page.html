@@ -102,10 +102,10 @@
                 >
                     <ion-grid>
                         <ion-row>
-                            <ion-col size='5'>
+                            <ion-col size='5' class='notes'>
                                 {{ s.date }}
                             </ion-col>
-                            <ion-col> إسم المشترى: {{ s.str }} </ion-col>
+                            <ion-col> <ion-icon name='person'></ion-icon> {{ s.str }} </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col> السعر: {{ s.value }} </ion-col>
@@ -142,7 +142,7 @@
                                     {{ vaccineStr[v.count - 1] }}
                                 </ion-badge>
                             </ion-col>
-                            <ion-col>
+                            <ion-col class='notes'>
                                 {{ v.date }}
                             </ion-col>
                             <ion-col size='2'>
@@ -177,7 +177,7 @@
                             </ion-col>
                             <ion-col>
                                 <ion-row>{{d.str}}</ion-row>
-                                <ion-row>{{d.date}}</ion-row>
+                                <ion-row class='notes'>{{d.date}}</ion-row>
                             </ion-col>
                             <ion-col size='2'>
                                 <ion-button fill='solid' color='danger' class="pull-end" (click)="destroy(d, dinx, 'death')">x</ion-button>
