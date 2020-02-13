@@ -5,3 +5,9 @@ ion-list, ion-item {
     font-weight: bold;
     float: left;
 }
+.tertiary .notes {
+    background-color: var(--ion-color-tertiary-shade);
+}
+.primary .notes {
+    background-color: var(--ion-color-primary-shade);
+}

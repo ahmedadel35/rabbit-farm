@@ -53,44 +53,70 @@
         <ion-slide class="firstSlide">
             <ion-list>
                 <ion-item>
-                    <ion-label color='secondary'>
+                    <ion-label color="secondary">
                         تاريخ فطام الدفعة: <span class="val">{{ f.date }}</span>
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label color='tertiary'>
+                    <ion-label color="tertiary">
                         متوسط العمر: <span class="val">{{ f.age }} يوم</span>
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label color='tertiary'>
-                       متوسط الوزن: <span class="val">{{ f.weight }} جرام</span>
+                    <ion-label color="tertiary">
+                        متوسط الوزن:
+                        <span class="val">{{ f.weight }} جرام</span>
                     </ion-label>
                 </ion-item>
-                <ion-item color='primary'>
+                <ion-item color="primary">
                     <ion-label>
                         أعداد الأرانب
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label color='warning'>
-                        عدد الفطام المباع: <span class="val">{{calc.sell}} أرنب</span>
+                    <ion-label color="warning">
+                        عدد الفطام المباع:
+                        <span class="val">{{ calc.sell }} أرنب</span>
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label color='danger'>
-                        عدد الفطام الميت: <span class="val">{{calc.death}} أرنب</span>
+                    <ion-label color="danger">
+                        عدد الفطام الميت:
+                        <span class="val">{{ calc.death }} أرنب</span>
                     </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label color='success'>
-                        عدد الفطام المتبقى: <span class="val">{{calc.remain}} أرنب</span>
+                    <ion-label color="success">
+                        عدد الفطام المتبقى:
+                        <span class="val">{{ calc.remain }} أرنب</span>
                     </ion-label>
                 </ion-item>
             </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
-            2
+            <ion-list>
+                <ion-item *ngFor="let s of sell;let inx = index" [color]="inx%2===0 ? 'tertiary' : 'primary'"
+                [class]="inx%2===0 ? 'tertiary' : 'primary'">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="9">
+                                إسم المشترى: {{ s.str }}
+                            </ion-col>
+                            <ion-col>
+                                <ion-button fill='solid' color='danger'>x</ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col> السعر: {{ s.value }} </ion-col>
+                            <ion-col> الوزن: {{ s.weight }} </ion-col>
+                            <ion-col> العدد: {{ s.count }} </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf='s.notes'>
+                            <ion-col class="notes">{{ s.notes }}</ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
             3
