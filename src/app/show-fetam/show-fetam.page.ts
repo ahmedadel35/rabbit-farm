@@ -77,6 +77,10 @@ export class ShowFetamPage implements OnInit {
         this.loadData();
     }
 
+    goBack() {
+        this.router.navigate(['fetam']);
+    }
+
     async loadData() {
         const states: FetamState[] = (await this.db.get(
             'fetamState'
