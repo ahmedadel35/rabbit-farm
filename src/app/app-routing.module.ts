@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'add-fetam',
     loadChildren: () => import('./add-fetam/add-fetam.module').then( m => m.AddFetamPageModule)
+  },
+  {
+    path: 'show-fetam',
+    loadChildren: () => import('./show-fetam/show-fetam.module').then( m => m.ShowFetamPageModule)
   }
 ];
 
