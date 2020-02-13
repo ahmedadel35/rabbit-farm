@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Fetam from '../interfaces/fetam';
 import { DatabaseService } from '../services/database.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
@@ -25,6 +25,10 @@ export class FetamPage implements OnInit {
 
     ngOnInit() {
         this.initHasPlayed = true;
+        this.loadData();
+    }
+
+    loadData() {
         this.db.get('fetam').then((d: Fetam[]) => {
             // console.log(d);
             d = d.filter(x => x.date !== 'noDate');
@@ -45,5 +49,15 @@ export class FetamPage implements OnInit {
         this.db.set('fetam', this.oldData);
         this.data = [...this.oldData];
         this.loader.hide();
+    }
+
+    show(f: Fetam) {
+        const se: NavigationExtras = {
+            state: {
+                f
+            }
+        };
+
+        this.router.navigate(['show-fetam'], se);
     }
 }
