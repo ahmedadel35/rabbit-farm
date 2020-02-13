@@ -102,7 +102,7 @@
                 >
                     <ion-grid>
                         <ion-row>
-                            <ion-col>
+                            <ion-col size='5'>
                                 {{ s.date }}
                             </ion-col>
                             <ion-col> إسم المشترى: {{ s.str }} </ion-col>
@@ -111,7 +111,7 @@
                             <ion-col> السعر: {{ s.value }} </ion-col>
                             <ion-col> الوزن: {{ s.weight }} </ion-col>
                             <ion-col> العدد: {{ s.count }} </ion-col>
-                            <ion-col>
+                            <ion-col size='2'>
                                 <ion-button
                                     fill="solid"
                                     color="danger"
@@ -138,14 +138,14 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col>
-                                <ion-badge color='secondary'>
-                                    {{vaccineStr[v.count - 1]}}
+                                <ion-badge color="secondary">
+                                    {{ vaccineStr[v.count - 1] }}
                                 </ion-badge>
                             </ion-col>
                             <ion-col>
                                 {{ v.date }}
                             </ion-col>
-                            <ion-col>
+                            <ion-col size='2'>
                                 <ion-button
                                     fill="solid"
                                     color="danger"
@@ -156,7 +156,7 @@
                             </ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col> العلاج: {{ v.notes }} </ion-col>
+                            <ion-col size='7'> العلاج: {{ v.notes }} </ion-col>&nbsp;&nbsp;|&nbsp;&nbsp;
                             <ion-col> الجرعه: {{ v.value }} </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -164,7 +164,28 @@
             </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
-            4
+            <ion-list>
+                <ion-item
+                    *ngFor="let d of death; let dinx = index"
+                    [color]="dinx % 2 === 0 ? 'tertiary' : 'primary'"
+                    [class]="dinx % 2 === 0 ? 'tertiary' : 'primary'"
+                >
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size='3'>
+                                <h2>{{d.count}}</h2>
+                            </ion-col>
+                            <ion-col>
+                                <ion-row>{{d.str}}</ion-row>
+                                <ion-row>{{d.date}}</ion-row>
+                            </ion-col>
+                            <ion-col size='2'>
+                                <ion-button fill='solid' color='danger' class="pull-end" (click)="destroy(d, dinx, 'death')">x</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
         </ion-slide>
     </ion-slides>
 </ion-content>
