@@ -90,7 +90,7 @@ export class ShowFetamPage implements OnInit {
             death = [];
 
         states.map(x => {
-            if (x.date !== 'noDate') {
+            if (x.date !== 'noDate' && x.patchNo === this.f.patchNo) {
                 if (x.src === 'sell') sell.push(x);
                 else if (x.src === 'vaccine') vaccine.push(x);
                 else death.push(x);
