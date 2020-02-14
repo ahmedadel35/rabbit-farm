@@ -117,4 +117,8 @@ export class MonyPage implements OnInit {
                 a.present();
             });
     }
+
+    destroy(i: Funds, inx: number) {
+        
+    }
 }

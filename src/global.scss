@@ -111,9 +111,16 @@ ion-item .notes:last-child {
 .notes {
     padding: .5rem 1rem;
 }
-.tertiary .notes {
+.ion-color-tertiary .notes {
     background-color: var(--ion-color-tertiary-shade);
 }
-.primary .notes {
+.ion-color-primary .notes {
     background-color: var(--ion-color-primary-shade);
 }
+.ion-color-danger .notes {
+    background: var(--ion-color-danger-shade);
+}
+.ion-color-success .notes {
+    background: var(--ion-color-success-shade);
+}
+

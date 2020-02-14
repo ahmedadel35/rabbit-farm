@@ -5,10 +5,10 @@
         </ion-buttons>
         <ion-title>الإشعارات</ion-title>
         <ion-buttons slot="end">
-                <ion-button fill='clear' color='light' (click)='showRepo()'>
-                    <ion-icon name="analytics"></ion-icon>
-                </ion-button>
-            </ion-buttons>
+            <ion-button fill="clear" color="light" (click)="showRepo()">
+                <ion-icon name="analytics"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="primary">
         <ion-segment
@@ -71,10 +71,14 @@
                         <ion-grid>
                             <ion-row>
                                 <ion-col size="5">
-                                    {{ i.remined || i.toDate || i.date }}
+                                    <span class="notes">
+                                        {{ i.remined || i.toDate || i.date }}
+                                    </span>
                                 </ion-col>
                                 <ion-col size="2">
-                                    <ion-icon [name]="sInx === 4 ? 'bug' : 'female'"></ion-icon>
+                                    <ion-icon
+                                        [name]="sInx === 4 ? 'bug' : 'female'"
+                                    ></ion-icon>
                                     {{ i.num }}
                                 </ion-col>
                                 <ion-col [size]="sInx === 4 ? 3 : 2">
@@ -91,7 +95,7 @@
                                         {{ i.name || i.type }}
                                     </ng-template>
                                 </ion-col>
-                                <ion-col [size]="sInx === 4 ? 2 : 3">
+                                <ion-col [size]="sInx === 4 ? 2 : 3" class="notes">
                                     <ion-button
                                         fill="solid"
                                         color="success"
@@ -109,9 +113,7 @@
                                     </ion-button>
                                 </ion-col>
                             </ion-row>
-                            <ion-row>
-                                العلاج: {{i.anti}}
-                            </ion-row>
+                            <ion-row *ngIf="sInx === 4"> العلاج: {{ i.anti }} </ion-row>
                         </ion-grid>
                     </ion-item>
                 </div>
