@@ -4,6 +4,8 @@ import Fetam from '../interfaces/fetam';
 import { NgForm } from '@angular/forms';
 import { createDate } from '../common/rabbit';
 import FetamState from '../interfaces/fetamState';
+import { DatabaseService } from '../services/database.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-add-fetam-state',
@@ -38,7 +40,7 @@ export class AddFetamStatePage implements OnInit {
     notes = null;
     date = null;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private db:DatabaseService, public loader: LoaderService) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -90,6 +92,8 @@ export class AddFetamStatePage implements OnInit {
     }
 
     save(form: NgForm) {
+        this.loader.show();
+
         const f: FetamState = form.value;
         // console.log(f);
         const d = new Date(f.date || this.date);
@@ -111,5 +115,10 @@ export class AddFetamStatePage implements OnInit {
         };
 
         console.log(fs);
+
+        this.db.add('fetamState', fs).then(d => {
+            this.loader.hide();
+            this.goBack();
+        });
     }
 }
