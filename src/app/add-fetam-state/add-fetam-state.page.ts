@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, Navigation } from '@angular/router';
 import Fetam from '../interfaces/fetam';
 
 @Component({
@@ -8,6 +8,8 @@ import Fetam from '../interfaces/fetam';
     styleUrls: ['./add-fetam-state.page.scss']
 })
 export class AddFetamStatePage implements OnInit {
+    initHasPlayed = false;
+    title = '';
     f: Fetam = {
         age: 10,
         count: 34,
@@ -15,10 +17,39 @@ export class AddFetamStatePage implements OnInit {
         patchNo: 2,
         weight: 22
     };
+    slide = 2;
+    slideStr = ['بيع', 'دواء أو تحصين', 'وفاة فطام'];
 
     constructor(private router: Router) {}
 
-    ngOnInit() {}
+    ionViewDidEnter() {
+        if (!this.initHasPlayed) this.ngOnInit();
+    }
+    ionViewWillLeave() {
+        this.initHasPlayed = false;
+    }
+
+    ngOnInit() {
+        this.initHasPlayed = true;
+
+        let routerData:
+            | NavigationExtras
+            | Navigation = this.router.getCurrentNavigation();
+        if (routerData) {
+            routerData = routerData.extras;
+            if (!routerData.state || !routerData.state.f) {
+                // this.router.navigate(['fetam']);
+            } else {
+                console.log(routerData.state);
+                // get page name and id from state
+                this.f = routerData.state.f;
+                this.slide = routerData.state.slide;
+                this.title = `إضافة ${this.slideStr[this.slide]}`;
+            }
+        }
+
+        this.title = `إضافة ${this.slideStr[this.slide]}`;
+    }
 
     goBack() {
         const b: NavigationExtras = {
