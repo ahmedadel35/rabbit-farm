@@ -102,8 +102,10 @@
                 >
                     <ion-grid>
                         <ion-row>
-                            <ion-col size="5" class="notes">
-                                {{ s.date }}
+                            <ion-col size="5">
+                                <span class="notes">
+                                    {{ s.date }}
+                                </span>
                             </ion-col>
                             <ion-col>
                                 <ion-icon name="person"></ion-icon> {{ s.str }}
@@ -124,7 +126,11 @@
                             </ion-col>
                         </ion-row>
                         <ion-row *ngIf="s.notes">
-                            <ion-col class="notes">{{ s.notes }}</ion-col>
+                            <ion-col>
+                                <span class="notes">
+                                    {{ s.notes }}
+                                </span>
+                            </ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-item>
@@ -193,7 +199,9 @@
                             </ion-col>
                         </ion-row>
                         <ion-row *ngIf="d.notes">
-                            <ion-col class="notes">{{ d.notes }}</ion-col>
+                            <ion-col>
+                                <span class="notes">{{ d.notes }}</span>
+                            </ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-item>
