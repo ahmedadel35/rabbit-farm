@@ -88,18 +88,78 @@
                     ></ion-input>
                 </ion-item>
             </div>
-            <!-- <div *ngIf="slide === 1">
+            <div *ngIf="slide === 1">
                 <ion-item>
-                    <ion-label position="floating"></ion-label>
+                    <ion-segment
+                        (ionChange)="setVaccineSlide($event.target.value)"
+                        value="1"
+                        color="tertiary"
+                    >
+                        <ion-segment-button value="1">
+                            <ion-label>علاج</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="2">
+                            <ion-label>تحصين</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="3">
+                            <ion-label>أخرى</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating" color="danger">
+                        {{ vaccineStr.str[vaccineSlide - 1] }}
+                    </ion-label>
                     <ion-input
                         clearInput
                         autofocus="true"
                         [(ngModel)]="str"
                         name="str"
                         type="text"
+                        required
                     ></ion-input>
                 </ion-item>
-            </div> -->
+                <ion-item>
+                    <ion-label position="floating">
+                        {{ vaccineStr.notes[vaccineSlide - 1] }}
+                    </ion-label>
+                    <ion-input
+                        clearInput
+                        [(ngModel)]="notes"
+                        name="notes"
+                        type="text"
+                    ></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">
+                        {{ vaccineStr.value[vaccineSlide - 1] }}
+                    </ion-label>
+                    <ion-input
+                        clearInput
+                        [(ngModel)]="value"
+                        name="value"
+                        type="number"
+                    ></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating" color="danger"
+                        >التاريخ</ion-label
+                    >
+                    <ion-datetime
+                        displayFormat="DD MMMM YYYY"
+                        pickerFormat="DD MMMM YYYY"
+                        placeholder="أختر التاريخ"
+                        [(ngModel)]="date"
+                        name="date"
+                        monthNames="يناير-1, فبراير-2, مارس-3, ابريل-4, مايو-5, يونيو-6, يوليو-7, إغسطس-8, سبتمبر-9, أكتوبر-10, نوفمبر-11, ديسمبر-12"
+                        cancel-text="إلغاء"
+                        done-text="حفظ"
+                        [readonly]="showData"
+                        [disabled]="showData"
+                        required
+                    ></ion-datetime>
+                </ion-item>
+            </div>
             <div *ngIf="slide === 2">
                 <ion-item>
                     <ion-label position="floating" color="danger"

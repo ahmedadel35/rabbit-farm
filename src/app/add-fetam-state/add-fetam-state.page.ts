@@ -17,8 +17,17 @@ export class AddFetamStatePage implements OnInit {
         patchNo: 2,
         weight: 22
     };
-    slide = 2;
+    slide = 1;
     slideStr = ['بيع', 'دواء أو تحصين', 'وفاة فطام'];
+    vaccineSlide = 1;
+    vaccineStr = {
+        str: ['إسم المرض', 'تحصين ضد', 'السبب'],
+        notes: ['إسم العلاج', 'إسم التحصين', 'الإسم'],
+        value: ['الجرعة', 'جرعة التحصين', 'الكمية']
+    };
+
+    // form props
+
 
     constructor(private router: Router) {}
 
@@ -59,5 +68,9 @@ export class AddFetamStatePage implements OnInit {
         };
 
         this.router.navigate(['show-fetam']);
+    }
+
+    setVaccineSlide(v: number) {
+        this.vaccineSlide = v;
     }
 }
