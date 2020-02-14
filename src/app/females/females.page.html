@@ -40,16 +40,19 @@
         placeholder="الرقم أو الإسم"
     ></ion-searchbar>
     <ion-list>
-        <ion-item-sliding *ngFor="let i of data; let inx = index">
+        <ion-item-sliding
+            *ngFor="let i of data; let inx = index"
+            class="ion-activatable"
+        >
             <ion-ripple-effect></ion-ripple-effect>
-
             <ion-item
                 *ngIf="i.date !== 'noDate'"
-                class="rabbit-item"
+                class="rabbit-item ion-activatable"
                 [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
-                detail='true'
+                detail="true"
                 (click)="show(i)"
             >
+                <ion-ripple-effect></ion-ripple-effect>
                 <ion-label class="noMargin">
                     <p>
                         <strong>{{ i.name || 'رقم ' + i.num }}</strong>
