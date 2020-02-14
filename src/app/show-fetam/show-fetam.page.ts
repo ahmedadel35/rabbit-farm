@@ -29,9 +29,9 @@ export class ShowFetamPage implements OnInit {
         centeredSlides: false
     };
     data: FetamState[];
-    sell: FetamState[] = [];
-    vaccine: FetamState[] = [];
-    death: FetamState[] = [];
+    sell: FetamState[];
+    vaccine: FetamState[];
+    death: FetamState[];
     calc = {
         sell: 0,
         death: 0,
@@ -56,6 +56,10 @@ export class ShowFetamPage implements OnInit {
 
     ngOnInit() {
         this.initHasPlayed = true;
+        this.data = [];
+        this.sell = [];
+        this.vaccine = [];
+        this.death = [];
 
         let routerData:
             | NavigationExtras
@@ -98,30 +102,24 @@ export class ShowFetamPage implements OnInit {
         });
 
         // set
-        this.data = states;
-        this.sell = sell;
-        this.vaccine = vaccine;
-        this.death = death;
+        this.data = [...states];
+        this.sell = [...sell];
+        this.vaccine = [...vaccine];
+        this.death = [...death];
 
         this.doCalc();
     }
 
     doCalc() {
-        this.calc.sell = this.sell.reduce(
-            (t, c) => {
-                t.count += c.count;
-                return t;
-            },
-            { count: 0 }
-        ).count;
+        this.calc.sell = this.sell.reduce((t, c) => {
+            t.count += c.count;
+            return t;
+        }, {count: 0}).count;
 
-        this.calc.death = this.death.reduce(
-            (t, c) => {
-                t.count += c.count;
-                return t;
-            },
-            { count: 0 }
-        ).count;
+        this.calc.death = this.death.reduce((t, c) => {
+            t.count += c.count;
+            return t;
+        }, {count: 0}).count;
 
         this.calc.remain = this.f.count - (this.calc.sell + this.calc.death);
     }
@@ -194,15 +192,14 @@ export class ShowFetamPage implements OnInit {
 
     destroy(fs: FetamState, inx: number, type: 'sell' | 'vaccine' | 'death') {
         this.loader.show();
-        console.log(inx, this[type]);
         this.data.splice(this.data.indexOf(fs), 1);
-        // console.log(this.data);
-        // this.db.set('fetamState', this.data);
-        // TODO fix splice cuts more than one row
+
         this[type].splice(inx, 1);
 
-        console.log(this.sell);
         this.doCalc();
+
+        this.db.set('fetamState', this.data);
+
         this.loader.hide();
     }
 

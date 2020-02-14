@@ -70,6 +70,10 @@ export class ShowPage implements OnInit {
 
     ngOnInit() {
         this.initHasPlayed = true;
+        this.data = [];
+        this.allData = [];
+        this.illData = [];
+        this.allIllData = [];
 
         let routerData:
             | NavigationExtras
