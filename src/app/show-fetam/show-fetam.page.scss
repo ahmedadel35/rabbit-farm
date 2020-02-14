@@ -20,3 +20,6 @@ ion-item .notes:last-child {
 .hydrated {
     padding: 0;
 }
+ion-badge {
+    padding: var(--padding-top) var(--padding-end) var(--padding-bottom) var(--padding-start) !important;
+}
