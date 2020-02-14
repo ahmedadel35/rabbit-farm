@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, Navigation } from '@angular/router';
 import Fetam from '../interfaces/fetam';
+import { NgForm } from '@angular/forms';
+import { createDate } from '../common/rabbit';
+import FetamState from '../interfaces/fetamState';
 
 @Component({
     selector: 'app-add-fetam-state',
@@ -17,6 +20,7 @@ export class AddFetamStatePage implements OnInit {
         patchNo: 2,
         weight: 22
     };
+    srcArr = ['sell', 'vaccine', 'death'];
     slide = 1;
     slideStr = ['بيع', 'دواء أو تحصين', 'وفاة فطام'];
     vaccineSlide = 1;
@@ -27,7 +31,12 @@ export class AddFetamStatePage implements OnInit {
     };
 
     // form props
-
+    str = null;
+    count = null;
+    weight = null;
+    value = null;
+    notes = null;
+    date = null;
 
     constructor(private router: Router) {}
 
@@ -41,6 +50,8 @@ export class AddFetamStatePage implements OnInit {
     ngOnInit() {
         this.initHasPlayed = true;
 
+        this.date = new Date().toDateString();
+
         let routerData:
             | NavigationExtras
             | Navigation = this.router.getCurrentNavigation();
@@ -49,7 +60,6 @@ export class AddFetamStatePage implements OnInit {
             if (!routerData.state || !routerData.state.f) {
                 // this.router.navigate(['fetam']);
             } else {
-                console.log(routerData.state);
                 // get page name and id from state
                 this.f = routerData.state.f;
                 this.slide = routerData.state.slide;
@@ -70,7 +80,36 @@ export class AddFetamStatePage implements OnInit {
         this.router.navigate(['show-fetam']);
     }
 
-    setVaccineSlide(v: number) {
-        this.vaccineSlide = v;
+    setVaccineSlide(v: string) {
+        this.vaccineSlide = parseInt(v, 10);
+
+        // reset form
+        this.str = null;
+        this.notes = null;
+        this.value = null;
+    }
+
+    save(form: NgForm) {
+        const f: FetamState = form.value;
+        // console.log(f);
+        const d = new Date(f.date || this.date);
+        const date = createDate(
+            `${d.getFullYear()} ${d.getMonth() + 1} ${d.getDate()}`
+        );
+        // console.log(date);
+        // console.log(this.slide);
+
+        const fs: FetamState = {
+            patchNo: this.f.patchNo,
+            src: this.srcArr[this.slide],
+            str: f.str,
+            count: f.count || this.vaccineSlide,
+            weight: f.weight,
+            value: f.value,
+            date,
+            notes: f.notes
+        };
+
+        console.log(fs);
     }
 }
