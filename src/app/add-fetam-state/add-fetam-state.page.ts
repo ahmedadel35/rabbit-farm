@@ -7,6 +7,7 @@ import FetamState from '../interfaces/fetamState';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { Toast } from '@ionic-native/toast/ngx';
+import Funds from '../interfaces/funds';
 
 @Component({
     selector: 'app-add-fetam-state',
@@ -119,9 +120,26 @@ export class AddFetamStatePage implements OnInit {
         console.log(fs);
 
         this.db.add('fetamState', fs).then(d => {
-            this.loader.hide();
-            this.toast.show('تم الحفظ بنجاح', '2000', 'center');
-            this.goBack();
+            const fu: Funds = {
+                src: 'sell',
+                seller: f.str,
+                type: `فطام مباع دفعة: ${this.f.patchNo}`,
+                value: f.value,
+                weight: f.weight,
+                count: f.count,
+                date,
+                info: f.notes
+            };
+
+            console.log(fu);
+
+            // save to funds table
+            this.db.add('funds', fu).then(d => {
+                this.loader.hide();
+                this.toast.show('تم الحفظ بنجاح', '2000', 'center');
+                form.resetForm();
+                this.goBack();
+            });
         });
     }
 }
