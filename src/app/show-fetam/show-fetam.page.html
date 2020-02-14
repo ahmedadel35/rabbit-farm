@@ -102,16 +102,18 @@
                 >
                     <ion-grid>
                         <ion-row>
-                            <ion-col size='5' class='notes'>
+                            <ion-col size="5" class="notes">
                                 {{ s.date }}
                             </ion-col>
-                            <ion-col> <ion-icon name='person'></ion-icon> {{ s.str }} </ion-col>
+                            <ion-col>
+                                <ion-icon name="person"></ion-icon> {{ s.str }}
+                            </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col> السعر: {{ s.value }} </ion-col>
                             <ion-col> الوزن: {{ s.weight }} </ion-col>
                             <ion-col> العدد: {{ s.count }} </ion-col>
-                            <ion-col size='2'>
+                            <ion-col size="2">
                                 <ion-button
                                     fill="solid"
                                     color="danger"
@@ -142,10 +144,10 @@
                                     {{ vaccineStr[v.count - 1] }}
                                 </ion-badge>
                             </ion-col>
-                            <ion-col class='notes'>
+                            <ion-col class="notes">
                                 {{ v.date }}
                             </ion-col>
-                            <ion-col size='2'>
+                            <ion-col size="2">
                                 <ion-button
                                     fill="solid"
                                     color="danger"
@@ -156,7 +158,8 @@
                             </ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size='7'> العلاج: {{ v.notes }} </ion-col>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <ion-col size="7"> العلاج: {{ v.notes }} </ion-col
+                            >&nbsp;&nbsp;|&nbsp;&nbsp;
                             <ion-col> الجرعه: {{ v.value }} </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -172,16 +175,25 @@
                 >
                     <ion-grid>
                         <ion-row>
-                            <ion-col size='3'>
-                                <h2>{{d.count}}</h2>
+                            <ion-col size="3">
+                                <h2>{{ d.count }}</h2>
                             </ion-col>
                             <ion-col>
-                                <ion-row>{{d.str}}</ion-row>
-                                <ion-row class='notes'>{{d.date}}</ion-row>
+                                <ion-row>{{ d.str }}</ion-row>
+                                <ion-row class="notes">{{ d.date }}</ion-row>
                             </ion-col>
-                            <ion-col size='2'>
-                                <ion-button fill='solid' color='danger' class="pull-end" (click)="destroy(d, ddInx, 'death')">x</ion-button>
+                            <ion-col size="2">
+                                <ion-button
+                                    fill="solid"
+                                    color="danger"
+                                    class="pull-end"
+                                    (click)="destroy(d, ddInx, 'death')"
+                                    >x</ion-button
+                                >
                             </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="d.notes">
+                            <ion-col class="notes">{{ d.notes }}</ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-item>
