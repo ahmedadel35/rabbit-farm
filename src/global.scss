@@ -123,4 +123,10 @@ ion-item .notes:last-child {
 .ion-color-success .notes {
     background: var(--ion-color-success-shade);
 }
+.m-0 {
+    margin: 0;
+}
+.m-0 .ion-activatable {
+    margin: 1rem 0;
+}
 

@@ -19,40 +19,46 @@
             [color]="finx % 2 == 0 ? 'primary' : 'tertiary'"
             [class]="finx % 2 == 0 ? 'primary' : 'tertiary'"
             class="ion-activatable"
-            (click)="showInfo(i)"
         >
-            <ion-ripple-effect></ion-ripple-effect>
-            <ion-label>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <span class="notes">{{ i.date }}</span>
-                        </ion-col>
-                        <ion-col class="center">
-                            <ion-badge
-                                [color]="
-                                    i.src === 'sell' ? 'success' : 'danger'
-                                "
-                            >
-                                {{ i.src === 'sell' ? 'بيع' : 'شراء' }}
-                            </ion-badge>
-                        </ion-col>
-                        <ion-col>
-                            <ion-button
-                                fill="solid"
-                                size="small"
-                                color="danger"
-                                class="pull-end"
-                                (click)="destroy(i, finx)"
-                                >x</ion-button
-                            >
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>{{ i.type }}</ion-col>
-                        <ion-col class="center">{{ i.value }}</ion-col>
-                    </ion-row>
-                </ion-grid>
+            <ion-label class="m-0">
+                <ion-row>
+                    <ion-col
+                        size="10"
+                        (click)="showInfo(i)"
+                        class="ion-activatable"
+                    >
+                        <ion-ripple-effect></ion-ripple-effect>
+                        <ion-row>
+                            <ion-col>
+                                <span class="notes">{{ i.date }}</span>
+                            </ion-col>
+                            <ion-col class="center">
+                                <ion-badge
+                                    [color]="
+                                        i.src === 'sell' ? 'success' : 'danger'
+                                    "
+                                >
+                                    {{ i.src === 'sell' ? 'بيع' : 'شراء' }}
+                                </ion-badge>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>{{ i.type }}</ion-col>
+                            <ion-col class="center">{{ i.value }}</ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button
+                            fill="solid"
+                            size="small"
+                            color="danger"
+                            class="pull-end"
+                            (click)="destroy(i, finx)"
+                        >
+                            <ion-icon name="close"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
             </ion-label>
         </ion-item>
     </ion-list>
