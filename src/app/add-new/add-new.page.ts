@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
 import Rabbit from '../interfaces/rabbit';
-import { ToastController } from '@ionic/angular';
 import { createDate, toEngDate } from '../common/rabbit';
+import { Toast } from '@ionic-native/toast/ngx';
 
 @Component({
     selector: 'app-add-new',
@@ -31,10 +31,9 @@ export class AddNewPage implements OnInit {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
         private db: DatabaseService,
         private loader: LoaderService,
-        public toastCtrl: ToastController
+        public toast: Toast
     ) {}
 
     ngOnInit() {
@@ -179,13 +178,6 @@ export class AddNewPage implements OnInit {
             'الأرنب رقم ' + num + ' مسجل بالفعل',
             'تم الحفظ بنجاح'
         ];
-        this.toastCtrl
-            .create({
-                message: messages[mess],
-                duration: 2000,
-                showCloseButton: true,
-                color
-            })
-            .then(ts => ts.present());
+        this.toast.show(messages[mess], '2000', 'center');
     }
 }

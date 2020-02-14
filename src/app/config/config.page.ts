@@ -4,7 +4,7 @@ import Config from '../interfaces/Config';
 import { AlertController } from '@ionic/angular';
 import { LoaderService } from '../services/loader.service';
 import { File } from '@ionic-native/file/ngx';
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { Toast } from '@ionic-native/toast/ngx';
 
 @Component({
     selector: 'app-config',
@@ -21,7 +21,7 @@ export class ConfigPage implements OnInit {
         public alertCtrl: AlertController,
         public loader: LoaderService,
         public file: File,
-        public fileChr: FileChooser
+        public toast: Toast
     ) {}
 
     ionViewDidEnter() {
@@ -98,6 +98,8 @@ export class ConfigPage implements OnInit {
             { replace: true }
         );
 
+        this.toast.show('تم حفظ الملف (rabbitFarmDB.json) بنجاح على الذاكرة الداخلية للهاتف', '2000', 'center');
+
         this.loader.hide();
     }
 
@@ -107,6 +109,9 @@ export class ConfigPage implements OnInit {
         this.file
             .readAsText(this.file.externalRootDirectory, 'rabbitFarmDB.json')
             .then(res => {
+                if (!res || !JSON.parse(res)) {
+                    this.toast.show('لم يتم العثور على الملف (rabbitFarmDB.json) على الذاكرة الداخلية للهاتف', '2000', 'center');
+                }
                 const data = JSON.parse(res);
 
                 for (const d in data) {
@@ -120,9 +125,11 @@ export class ConfigPage implements OnInit {
                 }
 
                 this.loader.hide();
+                this.toast.show('تم إسترداد البيانات بنجاح', '2000', 'center');
             })
             .catch(err => {
                 // console.log(err);
+                this.toast.show('حدث خطأ غير متوقع', '2000', 'center');
                 this.loader.hide();
             });
     }

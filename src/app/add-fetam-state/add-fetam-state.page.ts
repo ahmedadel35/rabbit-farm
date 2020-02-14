@@ -6,6 +6,7 @@ import { createDate } from '../common/rabbit';
 import FetamState from '../interfaces/fetamState';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
+import { Toast } from '@ionic-native/toast/ngx';
 
 @Component({
     selector: 'app-add-fetam-state',
@@ -40,7 +41,7 @@ export class AddFetamStatePage implements OnInit {
     notes = null;
     date = null;
 
-    constructor(private router: Router, private db:DatabaseService, public loader: LoaderService) {}
+    constructor(private router: Router, private db:DatabaseService, public loader: LoaderService, public toast: Toast) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -95,6 +96,7 @@ export class AddFetamStatePage implements OnInit {
         this.loader.show();
 
         const f: FetamState = form.value;
+
         // console.log(f);
         const d = new Date(f.date || this.date);
         const date = createDate(
@@ -118,6 +120,7 @@ export class AddFetamStatePage implements OnInit {
 
         this.db.add('fetamState', fs).then(d => {
             this.loader.hide();
+            this.toast.show('تم الحفظ بنجاح', '2000', 'center');
             this.goBack();
         });
     }
