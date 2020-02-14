@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-    <form #fetamState (ngSubmit)="save(fetamState)">
+    <form #fetamState="ngForm" (ngSubmit)="save(fetamState)">
         <ion-list>
             <div *ngIf="slide === 0">
                 <ion-item>
@@ -23,33 +23,37 @@
                         type="text"
                     ></ion-input>
                 </ion-item>
-                <ion-item>
+                <ion-grid>
                     <ion-row>
                         <ion-col>
-                            <ion-label position="floating" color="danger"
-                                >العدد</ion-label
-                            >
-                            <ion-input
-                                clearInput
-                                [(ngModel)]="count"
-                                name="count"
-                                type="number"
-                                required
-                            ></ion-input>
+                            <ion-item>
+                                <ion-label position="floating" [color]="!count ? 'danger' : ''"
+                                    >العدد</ion-label
+                                >
+                                <ion-input
+                                    clearInput
+                                    [(ngModel)]="count"
+                                    name="count"
+                                    type="number"
+                                    required
+                                ></ion-input>
+                            </ion-item>
                         </ion-col>
                         <ion-col>
-                            <ion-label position="floating">الوزن</ion-label>
-                            <ion-input
-                                clearInput
-                                [(ngModel)]="weight"
-                                name="weight"
-                                type="number"
-                            ></ion-input>
+                            <ion-item>
+                                <ion-label position="floating">الوزن</ion-label>
+                                <ion-input
+                                    clearInput
+                                    [(ngModel)]="weight"
+                                    name="weight"
+                                    type="number"
+                                ></ion-input>
+                            </ion-item>
                         </ion-col>
                     </ion-row>
-                </ion-item>
+                </ion-grid>
                 <ion-item>
-                    <ion-label position="floating" color="danger"
+                    <ion-label position="floating" [color]="!value ? 'danger' : ''"
                         >السعر</ion-label
                     >
                     <ion-input
@@ -61,7 +65,7 @@
                     ></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating" color="danger"
+                    <ion-label position="floating" [color]="!date ? 'danger' : ''"
                         >التاريخ</ion-label
                     >
                     <ion-datetime
@@ -107,7 +111,7 @@
                     </ion-segment>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating" color="danger">
+                    <ion-label position="floating" [color]="!str ? 'danger' : ''">
                         {{ vaccineStr.str[vaccineSlide - 1] }}
                     </ion-label>
                     <ion-input
@@ -142,7 +146,7 @@
                     ></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating" color="danger"
+                    <ion-label position="floating" [color]="!date ? 'danger' : ''"
                         >التاريخ</ion-label
                     >
                     <ion-datetime
@@ -162,7 +166,7 @@
             </div>
             <div *ngIf="slide === 2">
                 <ion-item>
-                    <ion-label position="floating" color="danger"
+                    <ion-label position="floating" [color]="!count ? 'danger' : ''"
                         >عدد الأرانب</ion-label
                     >
                     <ion-input
@@ -191,7 +195,7 @@
                     ></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating" color="danger"
+                    <ion-label position="floating" [color]="!date ? 'danger' : ''"
                         >التاريخ</ion-label
                     >
                     <ion-datetime
