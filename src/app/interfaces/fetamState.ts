@@ -1,6 +1,6 @@
 export default interface FetamState {
     patchNo: number;
-    src: 'sell' | 'death' | 'vaccine';
+    src: string | 'sell' | 'death' | 'vaccine';
     str: string;
     count?: number;
     weight?: number;
