@@ -14,7 +14,11 @@ export class FetamPage implements OnInit {
     data: Fetam[] = [];
     oldData: Fetam[] = [];
 
-    constructor(private loader: LoaderService, private router: Router, private db: DatabaseService) {}
+    constructor(
+        private loader: LoaderService,
+        private router: Router,
+        private db: DatabaseService
+    ) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -37,6 +41,20 @@ export class FetamPage implements OnInit {
             this.oldData = [...d];
             console.log(d);
         });
+    }
+
+    filterData(s: string): void {
+        if (!s.length) {
+            this.data = [...this.oldData];
+            return;
+        }
+
+        // user serched for something
+        const d = this.oldData.filter((x: Fetam) => {
+            return x.patchNo && x.patchNo === parseInt(s, 10);
+        });
+
+        this.data = [...d];
     }
 
     addNewFetam() {

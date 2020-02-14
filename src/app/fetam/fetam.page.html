@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content>
+    <ion-searchbar
+        showCancelButton="focus"
+        (ionChange)="filterData($event.target.value)"
+        placeholder="رقم الدفعة"
+    ></ion-searchbar>
     <ion-list>
         <ion-item-sliding
             *ngFor="let f of data; let inx = index"
