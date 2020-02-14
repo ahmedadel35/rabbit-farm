@@ -29,7 +29,7 @@ export class AppComponent {
     {
       title: 'الفطام',
       url: '/fetam',
-      icon: 'male'
+      icon: 'medical'
     },
     {
       title: 'المالية',
