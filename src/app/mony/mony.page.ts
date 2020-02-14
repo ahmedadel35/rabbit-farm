@@ -13,8 +13,8 @@ import { createDate } from '../common/rabbit';
     styleUrls: ['./mony.page.scss']
 })
 export class MonyPage implements OnInit {
-    public data: Array<Funds> = [];
-    public allData: Array<Funds> = [];
+    data: Array<Funds>;
+    allData: Array<Funds>;
     initHasPlayed = false;
     totalSell = 0;
     totalBuy = 0;
@@ -37,18 +37,23 @@ export class MonyPage implements OnInit {
 
     ngOnInit() {
         this.initHasPlayed = true;
+        this.data = [];
+        this.allData = [];
 
         this.loader.show();
 
-        this.db.get('funds').then(d => {
-            // console.log(d);
-            // save all data into one object
-            this.allData = d as Array<Funds>;
+        this.loadData();
+
+        this.loader.hide();
+    }
+
+    loadData() {
+        this.db.get('funds').then((d: Array<Funds>) => {
             // remove types other than this page id
-            d = (d as Array<Funds>).filter(x => x.date !== 'noDate');
-            console.log(d);
-            this.data = d as Array<Funds>;
-            this.loader.hide();
+            d = d.filter(x => x.date !== 'noDate');
+            // console.log(d);
+            this.allData = [...d];
+            this.data = [...d];
 
             // check if user has entered any funds
             if (this.data.length > 1) {
@@ -58,36 +63,33 @@ export class MonyPage implements OnInit {
                     if (x.src === 'sell') {
                         sell += x.value;
                     } else if (x.src === 'buy') {
-                        buy += x.value
+                        buy += x.value;
                     }
                 });
 
                 this.totalSell = sell;
                 this.totalBuy = buy;
-                this.diff = Math.abs(this.totalSell - this.totalBuy); 
+                this.diff = Math.abs(this.totalSell - this.totalBuy);
                 if (this.totalSell > this.totalBuy) {
                     this.state = 'مكسب';
                 } else {
                     this.state = 'خسارة';
                 }
             }
+            this.loader.hide();
         });
-
-        this.loader.hide();
     }
 
     openPage() {
         this.router.navigate(['list']);
     }
 
-    private showInfo(
-        fund: Funds
-    ) {
+    private showInfo(fund: Funds) {
         const alert = this.alertCtrl
             .create({
                 header: 'بيان',
                 cssClass: 'fundsRepo',
-                message:`
+                message: `
                 <ion-list>
                     <ion-item>
                     <ion-note slot='start'>شراء</ion-note>
@@ -119,6 +121,11 @@ export class MonyPage implements OnInit {
     }
 
     destroy(i: Funds, inx: number) {
-        
+        this.loader.show();
+        this.allData.splice(this.allData.indexOf(i), 1);
+        this.data.splice(inx, 1);
+
+        this.db.set('funds', this.allData);
+        this.loader.hide();
     }
 }
