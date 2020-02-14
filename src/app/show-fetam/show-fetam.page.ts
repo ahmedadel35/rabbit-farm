@@ -123,9 +123,7 @@ export class ShowFetamPage implements OnInit {
             { count: 0 }
         ).count;
 
-        this.calc.remain = Math.abs(
-            this.f.count - (this.calc.sell + this.calc.death)
-        );
+        this.calc.remain = this.f.count - (this.calc.sell + this.calc.death);
     }
 
     async fakeData() {
