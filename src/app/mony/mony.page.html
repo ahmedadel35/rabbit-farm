@@ -15,27 +15,44 @@
 <ion-content>
     <ion-list>
         <ion-item
-            *ngFor="let i of data"
-            [color]="i.src === 'sell' ? 'success' : 'danger'"
+            *ngFor="let i of data; let finx = index"
+            [color]="finx % 2 == 0 ? 'primary' : 'tertiary'"
+            [class]="finx % 2 == 0 ? 'primary' : 'tertiary'"
             class="ion-activatable"
             (click)="showInfo(i)"
         >
             <ion-ripple-effect></ion-ripple-effect>
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="8">{{ i.date }}</ion-col>
-                    <ion-col size="2">{{
-                        i.src === 'sell' ? 'بيع' : 'شراء'
-                    }}</ion-col>
-                    <ion-col>
-                        <ion-button fill='solid' size='small' color='danger'>x</ion-button>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col size="7">{{ i.type }}</ion-col>
-                    <ion-col>{{ i.value }}</ion-col>
-                </ion-row>
-            </ion-grid>
+            <ion-label>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <span class="notes">{{ i.date }}</span>
+                        </ion-col>
+                        <ion-col class="center">
+                            <ion-badge
+                                [color]="
+                                    i.src === 'sell' ? 'success' : 'danger'
+                                "
+                            >
+                                {{ i.src === 'sell' ? 'بيع' : 'شراء' }}
+                            </ion-badge>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button
+                                fill="solid"
+                                size="small"
+                                color="danger"
+                                class="pull-end"
+                                >x</ion-button
+                            >
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>{{ i.type }}</ion-col>
+                        <ion-col class="center">{{ i.value }}</ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-label>
         </ion-item>
     </ion-list>
 </ion-content>
