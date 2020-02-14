@@ -8,6 +8,9 @@ ion-list, ion-item {
 .hydrated {
     padding: 0;
 }
-.hidden {
-    display: none;
+.text-center {
+    text-align: center;
+    span {
+        font-weight: bold;
+    }
 }
