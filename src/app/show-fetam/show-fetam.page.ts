@@ -212,7 +212,7 @@ export class ShowFetamPage implements OnInit {
         const addFS: NavigationExtras = {
             state: {
                 f: this.f,
-                slide: this.activeSlide
+                slide: this.activeSlide - 1 > -1 ? this.activeSlide - 1 : 0
             }
         };
 
