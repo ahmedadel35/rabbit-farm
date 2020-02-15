@@ -85,10 +85,18 @@ export function toEngDate(
 ): string[] | string {
     date = (date as string).split(' ');
 
+    const m = date[1].split('(');
+    let month = 0;
+    if (typeof m[1] !== 'undefined') {
+        month = parseInt(m[1], 10);
+    } else {
+        month = ArabicMonths.indexOf(date[1]) + 1;
+    }
+
     // @ts-ignore
     date = [
         parseInt(date[2], 10),
-        ArabicMonths.indexOf(date[1]) + 1,
+        month,
         parseInt(date[0], 10)
     ];
 
@@ -103,5 +111,5 @@ export function createDate(
     const m = date ? moment(date, format) : moment();
     moment.locale('ar');
 
-    return m.format('D MMMM YYYY');
+    return m.format('D MMMM(M) YYYY');
 }
