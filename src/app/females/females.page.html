@@ -55,7 +55,7 @@
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-avatar slot="start">
                     <img
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw=="
+                        [src]="'assets/img/' + (i.state || 0) + '.png'"
                     />
                 </ion-avatar>
                 <ion-label class="noMargin">
