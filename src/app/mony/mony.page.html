@@ -64,15 +64,15 @@
 </ion-content>
 <ion-footer>
     <ion-list>
-        <ion-item>
+        <ion-item color='dark'>
             <ion-label>إجمالى المشتريات</ion-label>
             <ion-note slot="end" color="danger">{{ totalBuy }}</ion-note>
         </ion-item>
-        <ion-item>
+        <ion-item color='dark'>
             <ion-label>إجمالى المبيعات</ion-label>
             <ion-note slot="end" color="success">{{ totalSell }}</ion-note>
         </ion-item>
-        <ion-item class="text-center">
+        <ion-item class="text-center" color='dark'>
             <ion-label
                 >{{ diff }} جنيه
                 <span [class]="totalSell > totalBuy ? 'success' : 'danger'">{{
