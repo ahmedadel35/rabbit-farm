@@ -141,4 +141,8 @@ export class ListPage implements OnInit {
             this.router.navigate(['mony']);
         });
     }
+
+    goBack() {
+        this.router.navigate(['mony']);
+    }
 }
