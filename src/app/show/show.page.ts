@@ -125,6 +125,8 @@ export class ShowPage implements OnInit {
     }
 
     showRadioAlert() {
+        const st = this.rabbit.state;
+
         this.alertCtrl
             .create({
                 header: 'تعديل حالة هذه الإنثى',
@@ -135,31 +137,29 @@ export class ShowPage implements OnInit {
                         type: 'radio',
                         name: 'state',
                         label: 'فارغة',
-                        value: 0
+                        value: 0,
+                        checked: !st || st === 4
                     },
                     {
                         type: 'radio',
                         name: 'state',
                         label: 'ملقحة',
-                        value: 1
+                        value: 1,
+                        checked: st === 1
                     },
                     {
                         type: 'radio',
                         name: 'state',
                         label: 'موجبة',
-                        value: 2
+                        value: 2,
+                        checked: st === 2
                     },
                     {
                         type: 'radio',
                         name: 'state',
                         label: 'ولادة',
-                        value: 3
-                    },
-                    {
-                        type: 'radio',
-                        name: 'state',
-                        label: 'فطام',
-                        value: 4
+                        value: 3,
+                        checked: st === 3
                     }
                 ],
                 buttons: [
