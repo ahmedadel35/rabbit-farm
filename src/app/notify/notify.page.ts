@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { toEngDate, createDate } from '../common/rabbit';
 import Rabbit from '../interfaces/rabbit';
 import { Calendar } from '@ionic-native/calendar/ngx';
+import FetamState from '../interfaces/fetamState';
 
 @Component({
     selector: 'app-notify',
@@ -29,6 +30,7 @@ export class NotifyPage implements OnInit {
     slidesArr = ['talqeh', 'gas', 'welada', 'fetam', 'ill'];
     config: Config;
     statesData: State[];
+    fetamStates: FetamState[];
     illData: Ill[];
     slidesData: Array<State[] | Ill[]> = [];
     calc = {
@@ -93,10 +95,12 @@ export class NotifyPage implements OnInit {
         const config = (await this.db.get('config')) as Config;
         const states = (await this.db.get('states')) as State[];
         const ill = (await this.db.get('ill')) as Ill[];
+        const fetamState = (await this.db.get('fetamState') as FetamState[]);
 
         this.config = config;
         this.statesData = states.reverse();
         this.illData = ill.reverse();
+        this.fetamStates = fetamState;
 
         // console.log(states);
         this.doCalc(states, ill);
