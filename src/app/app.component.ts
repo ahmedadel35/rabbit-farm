@@ -46,6 +46,11 @@ export class AppComponent {
       url: '/config',
       icon: 'cog'
     },
+    {
+      title: 'عن التطبيق',
+      url: '/about',
+      icon: 'information-circle'
+    },
   ];
 
   constructor(

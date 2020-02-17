@@ -66,6 +66,10 @@ const routes: Routes = [
   {
     path: 'add-fetam-state',
     loadChildren: () => import('./add-fetam-state/add-fetam-state.module').then( m => m.AddFetamStatePageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   }
 ];
 
