@@ -302,7 +302,7 @@
         (click)="addState()"
     >
         <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+            <ion-icon [name]="sliderVal === 'home' ? 'information' : 'add'"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>

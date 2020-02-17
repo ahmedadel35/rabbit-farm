@@ -106,6 +106,10 @@ export class ShowPage implements OnInit {
     }
 
     addState(): void {
+        if (this.sliderVal === 'home') {
+            this.showRadioAlert();
+            return;
+        }
         if (this.sliderVal === 'ill' || this.isMale) {
             this.showAlert();
             return;
@@ -118,6 +122,75 @@ export class ShowPage implements OnInit {
         };
 
         this.router.navigate(['add-state'], d);
+    }
+
+    showRadioAlert() {
+        this.alertCtrl
+            .create({
+                header: 'تعديل حالة هذه الإنثى',
+                backdropDismiss: false,
+                keyboardClose: false,
+                inputs: [
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'فارغة',
+                        value: 0
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'ملقحة',
+                        value: 1
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'موجبة',
+                        value: 2
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'ولادة',
+                        value: 3
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'فطام',
+                        value: 4
+                    }
+                ],
+                buttons: [
+                    {
+                        role: 'cancel',
+                        text: 'إلغاء'
+                    },
+                    {
+                        text: 'حفظ',
+                        handler: a => {
+                            this.editState(a);
+                        }
+                    }
+                ]
+            })
+            .then(a => a.present());
+    }
+
+    editState(st: number) {
+        this.loader.show();
+
+        this.db.get('females').then((d: Rabbit[]) => {
+            d = d.map(x => {
+                if (x.num === this.rabbit.num) {
+                    x.state = st;
+                }
+                return x;
+            })
+            this.db.set('females', d);
+            this.loader.hide();
+        });
     }
 
     editRabbit(): void {
@@ -144,7 +217,7 @@ export class ShowPage implements OnInit {
     }
 
     changeSlide(inx: string) {
-        // console.log(inx);
+        this.sliderVal = inx;
         this.slides.slideTo(this.slidesArr.indexOf(inx));
     }
 
