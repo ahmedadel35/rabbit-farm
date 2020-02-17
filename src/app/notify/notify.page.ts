@@ -60,6 +60,11 @@ export class NotifyPage implements OnInit {
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
+
+        // TODO close app when back button clicked on main pages
+        // this.plt.backButton.subscribe(_ => {
+        //     navigator['app'].exitApp();
+        // });
     }
     ionViewWillLeave() {
         this.initHasPlayed = false;
