@@ -16,7 +16,7 @@ export class FemalesPage implements OnInit {
     data: Array<Rabbit> = [];
     oldData: Array<Rabbit> = [];
     initHasPlayed = false;
-    states = ['فارغة', 'ملقحة', 'موجبة', 'ولادة'];
+    states = ['فارغة', 'ملقحة', 'موجبة', 'ولادة', 'تم التلقيح وترضع صغارها', 'عشار وترضع صغارها'];
     isArchive = false;
     onlyFree = false;
 

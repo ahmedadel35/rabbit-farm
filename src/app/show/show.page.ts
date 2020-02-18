@@ -138,7 +138,7 @@ export class ShowPage implements OnInit {
                         name: 'state',
                         label: 'فارغة',
                         value: 0,
-                        checked: !st || st === 4
+                        checked: !st
                     },
                     {
                         type: 'radio',
@@ -160,6 +160,20 @@ export class ShowPage implements OnInit {
                         label: 'ولادة',
                         value: 3,
                         checked: st === 3
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'تم التلقيح وترضع صغارها',
+                        value: 4,
+                        checked: st === 4
+                    },
+                    {
+                        type: 'radio',
+                        name: 'state',
+                        label: 'عشار وترضع صغارها',
+                        value: 5,
+                        checked: st === 5
                     }
                 ],
                 buttons: [
