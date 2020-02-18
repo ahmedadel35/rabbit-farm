@@ -130,6 +130,7 @@ export class ShowPage implements OnInit {
         this.alertCtrl
             .create({
                 header: 'تعديل حالة هذه الإنثى',
+                cssClass: 'fundsRepo states',
                 backdropDismiss: false,
                 keyboardClose: false,
                 inputs: [
