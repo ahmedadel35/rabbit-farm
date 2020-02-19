@@ -409,12 +409,12 @@ export class NotifyPage implements OnInit {
                 ${dper} %
                 </ion-note>
             </ion-item>
-            <ion-item>
+            <!--<ion-item>
                 <ion-label>إجمالى الفطام</ion-label>
                 <ion-note slot="end" color='tertiary'>
                 ${fetam.length}
                 </ion-note>
-            </ion-item>
+            </ion-item>-->
             </ion-list>`,
                 buttons: [
                     {
