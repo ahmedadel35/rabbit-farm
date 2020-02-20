@@ -5,7 +5,9 @@ import { Storage } from '@ionic/storage';
     providedIn: 'root'
 })
 export class DatabaseService {
-    constructor(private storage: Storage) {}
+    constructor(private storage: Storage) {
+        console.log(this.storage.driver);
+    }
 
     async get(key: string): Promise<Array<{}> | boolean> {
         return await this.storage.get(key).then(d => {

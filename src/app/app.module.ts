@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 // import { HttpClientModule } from '@angular/common/http';
 
 // import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
-import { SQLite } from '@ionic-native/sqlite/ngx';
+// import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
@@ -42,7 +42,7 @@ import { Calendar } from '@ionic-native/calendar/ngx';
     Calendar,
     SpinnerDialog,
     Toast,
-    SQLite,
+    // SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

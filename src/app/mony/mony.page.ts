@@ -55,29 +55,33 @@ export class MonyPage implements OnInit {
             this.allData = [...d];
             this.data = [...d];
 
-            // check if user has entered any funds
-            if (this.data.length > 1) {
-                let sell = 0,
-                    buy = 0;
-                d.map((x: Funds) => {
-                    if (x.src === 'sell') {
-                        sell += x.value;
-                    } else if (x.src === 'buy') {
-                        buy += x.value;
-                    }
-                });
-
-                this.totalSell = sell;
-                this.totalBuy = buy;
-                this.diff = Math.abs(this.totalSell - this.totalBuy);
-                if (this.totalSell > this.totalBuy) {
-                    this.state = 'مكسب';
-                } else {
-                    this.state = 'خسارة';
-                }
-            }
+            this.doCalc(d);
             this.loader.hide();
         });
+    }
+
+    doCalc(d: Funds[]) {
+        // check if user has entered any funds
+        if (d.length > 1) {
+            let sell = 0,
+                buy = 0;
+            d.map((x: Funds) => {
+                if (x.src === 'sell') {
+                    sell += x.value;
+                } else if (x.src === 'buy') {
+                    buy += x.value;
+                }
+            });
+
+            this.totalSell = sell;
+            this.totalBuy = buy;
+            this.diff = Math.abs(this.totalSell - this.totalBuy);
+            if (this.totalSell > this.totalBuy) {
+                this.state = 'مكسب';
+            } else {
+                this.state = 'خسارة';
+            }
+        }
     }
 
     openPage() {
@@ -126,6 +130,7 @@ export class MonyPage implements OnInit {
         this.data.splice(inx, 1);
 
         this.db.set('funds', this.allData);
+        this.doCalc(this.data);
         this.loader.hide();
     }
 }
