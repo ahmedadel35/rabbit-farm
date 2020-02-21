@@ -37,6 +37,11 @@ export class AppComponent {
       icon: 'cash'
     },
     {
+      title: 'التقويم',
+      url: '/calender',
+      icon: 'calender'
+    },
+    {
       title: 'دليل الأمراض وعلاجها',
       url: '/illness',
       icon: 'bug'

@@ -70,6 +70,10 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'calender',
+    loadChildren: () => import('./calender/calender.module').then( m => m.CalenderPageModule)
   }
 ];
 
