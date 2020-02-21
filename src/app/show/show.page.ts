@@ -106,7 +106,7 @@ export class ShowPage implements OnInit {
     }
 
     addState(): void {
-        if (this.sliderVal === 'home') {
+        if (this.sliderVal === 'home' && !this.isMale) {
             this.showRadioAlert();
             return;
         }
