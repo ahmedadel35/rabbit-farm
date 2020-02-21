@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform, IonSlides, AlertController } from '@ionic/angular';
+import { Platform, IonSlides, AlertController, ToastController } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { Storage } from '@ionic/storage';
@@ -12,6 +12,7 @@ import { toEngDate, createDate } from '../common/rabbit';
 import Rabbit from '../interfaces/rabbit';
 import { Calendar } from '@ionic-native/calendar/ngx';
 import FetamState from '../interfaces/fetamState';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-notify',
@@ -46,25 +47,35 @@ export class NotifyPage implements OnInit {
     };
     alive = 0;
     dead = 0;
+    public lastTimeClicked = 0;
+    public timePeriodToExit = 2000;
+    private exitPages = [
+        '/notify',
+        '/females',
+        '/males',
+        '/fetam',
+        '/mony',
+        '/calender',
+        '/illness',
+        '/config',
+        '/about'
+    ];
 
     @ViewChild('notifySlides', { static: false }) slides: IonSlides;
 
     constructor(
         private plt: Platform,
+        private router: Router,
         private storage: Storage,
         private db: DatabaseService,
         private loader: LoaderService,
         public alertCtrl: AlertController,
-        public calender: Calendar
+        public calender: Calendar,
+        private toast: ToastController
     ) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
-
-        // TODO close app when back button clicked on main pages
-        // this.plt.backButton.subscribe(_ => {
-        //     navigator['app'].exitApp();
-        // });
     }
     ionViewWillLeave() {
         this.initHasPlayed = false;
@@ -75,6 +86,27 @@ export class NotifyPage implements OnInit {
 
         this.plt.ready().then(rbd => {
             if (rbd) {
+                this.plt.backButton.subscribe(() => {
+                    const route = this.router.url;
+                    if (this.exitPages.indexOf(route) > -1) {
+                        if (
+                            new Date().getTime() - this.lastTimeClicked <
+                            this.timePeriodToExit
+                        ) {
+                            navigator['app'].exitApp(); // Exit from app
+                        } else {
+                            this.toast
+                                .create({
+                                    message: 'إضغط مرة أخرى للخروج من التطبيق',
+                                    duration: 2000,
+                                    position: 'bottom'
+                                })
+                                .then(t => t.present());
+                            this.lastTimeClicked = new Date().getTime();
+                        }
+                    }
+                });
+                
                 this.loader.show();
 
                 // check if this first time to use the app
@@ -100,7 +132,7 @@ export class NotifyPage implements OnInit {
         const config = (await this.db.get('config')) as Config;
         const states = (await this.db.get('states')) as State[];
         const ill = (await this.db.get('ill')) as Ill[];
-        const fetamState = (await this.db.get('fetamState') as FetamState[]);
+        const fetamState = (await this.db.get('fetamState')) as FetamState[];
 
         this.config = config;
         this.statesData = states.reverse();
