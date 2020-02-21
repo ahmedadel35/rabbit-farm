@@ -39,7 +39,7 @@ export class AppComponent {
     {
       title: 'التقويم',
       url: '/calender',
-      icon: 'calender'
+      icon: 'calendar'
     },
     {
       title: 'دليل الأمراض وعلاجها',
