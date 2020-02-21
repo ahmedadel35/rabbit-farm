@@ -6,8 +6,8 @@ import { createDate } from '../common/rabbit';
 import FetamState from '../interfaces/fetamState';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
-import { Toast } from '@ionic-native/toast/ngx';
 import Funds from '../interfaces/funds';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-add-fetam-state',
@@ -42,7 +42,12 @@ export class AddFetamStatePage implements OnInit {
     notes = null;
     date = null;
 
-    constructor(private router: Router, private db:DatabaseService, public loader: LoaderService, public toast: Toast) {}
+    constructor(
+        private router: Router,
+        private db: DatabaseService,
+        public loader: LoaderService,
+        public toast: ToastController
+    ) {}
 
     ionViewDidEnter() {
         if (!this.initHasPlayed) this.ngOnInit();
@@ -136,7 +141,13 @@ export class AddFetamStatePage implements OnInit {
             // save to funds table
             this.db.add('funds', fu).then(d => {
                 this.loader.hide();
-                this.toast.show('تم الحفظ بنجاح', '2000', 'center');
+                this.toast
+                    .create({
+                        message: 'تم الحفظ بنجاح',
+                        duration: 2000,
+                        color: 'success'
+                    })
+                    .then(t => t.present());
                 form.resetForm();
                 this.goBack();
             });

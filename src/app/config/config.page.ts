@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import Config from '../interfaces/Config';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { LoaderService } from '../services/loader.service';
 import { File } from '@ionic-native/file/ngx';
-import { Toast } from '@ionic-native/toast/ngx';
 
 @Component({
     selector: 'app-config',
@@ -21,7 +20,7 @@ export class ConfigPage implements OnInit {
         public alertCtrl: AlertController,
         public loader: LoaderService,
         public file: File,
-        public toast: Toast
+        public toast: ToastController
     ) {}
 
     ionViewDidEnter() {
@@ -98,7 +97,7 @@ export class ConfigPage implements OnInit {
             { replace: true }
         );
 
-        this.toast.show('تم حفظ الملف (rabbitFarmDB.json) بنجاح على الذاكرة الداخلية للهاتف', '2000', 'center');
+        this.showFeedback(0, 'success');
 
         this.loader.hide();
     }
@@ -110,7 +109,7 @@ export class ConfigPage implements OnInit {
             .readAsText(this.file.externalRootDirectory, 'rabbitFarmDB.json')
             .then(res => {
                 if (!res || !JSON.parse(res)) {
-                    this.toast.show('لم يتم العثور على الملف (rabbitFarmDB.json) على الذاكرة الداخلية للهاتف', '2000', 'center');
+                    this.showFeedback(1, 'danger');
                 }
                 const data = JSON.parse(res);
 
@@ -125,12 +124,28 @@ export class ConfigPage implements OnInit {
                 }
 
                 this.loader.hide();
-                this.toast.show('تم إسترداد البيانات بنجاح', '2000', 'center');
+                this.showFeedback(2, 'success');
             })
             .catch(err => {
                 // console.log(err);
-                this.toast.show('حدث خطأ غير متوقع', '2000', 'center');
+                this.showFeedback(3, 'danger');
                 this.loader.hide();
             });
+    }
+
+    private showFeedback(mess: number, color: string = 'danger') {
+        const messages = [
+            'تم حفظ الملف (rabbitFarmDB.json) بنجاح على الذاكرة الداخلية للهاتف',
+            'لم يتم العثور على الملف (rabbitFarmDB.json) على الذاكرة الداخلية للهاتف',
+            'تم إسترداد البيانات بنجاح',
+            'حدث خطأ غير متوقع ، برجاء إعادة المحاولة لاحقاً'
+        ];
+        this.toast
+            .create({
+                message: messages[mess],
+                duration: 2000,
+                color
+            })
+            .then(t => t.present());
     }
 }

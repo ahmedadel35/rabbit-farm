@@ -5,7 +5,7 @@ import { LoaderService } from '../services/loader.service';
 import { NgForm } from '@angular/forms';
 import Rabbit from '../interfaces/rabbit';
 import { createDate, toEngDate } from '../common/rabbit';
-import { Toast } from '@ionic-native/toast/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-add-new',
@@ -33,7 +33,7 @@ export class AddNewPage implements OnInit {
         private router: Router,
         private db: DatabaseService,
         private loader: LoaderService,
-        public toast: Toast
+        public toast: ToastController
     ) {}
 
     ngOnInit() {
@@ -178,6 +178,10 @@ export class AddNewPage implements OnInit {
             'الأرنب رقم ' + num + ' مسجل بالفعل',
             'تم الحفظ بنجاح'
         ];
-        this.toast.show(messages[mess], '2000', 'center');
+        this.toast.create({
+            message: messages[mess],
+            duration: 2000,
+            color
+        }).then(t => t.present());
     }
 }

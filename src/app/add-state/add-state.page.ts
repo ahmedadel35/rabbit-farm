@@ -9,7 +9,7 @@ import { createDate } from '../common/rabbit';
 import * as moment from 'moment';
 import Config from '../interfaces/Config';
 import { Calendar } from '@ionic-native/calendar/ngx';
-import { Toast } from '@ionic-native/toast/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-add-state',
@@ -32,7 +32,7 @@ export class AddStatePage implements OnInit {
         private router: Router,
         private db: DatabaseService,
         private loader: LoaderService,
-        public toast: Toast,
+        public toast: ToastController,
         public calender: Calendar
     ) {}
 
@@ -202,14 +202,12 @@ export class AddStatePage implements OnInit {
 
     private showFeedback(num: number, mess: number, color: string = 'danger') {
         const messages = ['الذكر رقم ' + num + ' غير موجود', 'تم الحفظ بنجاح'];
-        // this.toastCtrl
-        //     .create({
-        //         message: ,
-        //         duration: 2000,
-        //         showCloseButton: true,
-        //         color
-        //     })
-        //     .then(ts => ts.present());
-        this.toast.show(messages[mess], '2000', 'center');
+        this.toast
+            .create({
+                message: messages[mess],
+                duration: 2000,
+                color
+            })
+            .then(ts => ts.present());
     }
 }

@@ -5,7 +5,7 @@ import { createDate } from '../common/rabbit';
 import Fetam from '../interfaces/fetam';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
-import { Toast } from '@ionic-native/toast/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-add-fetam',
@@ -20,7 +20,12 @@ export class AddFetamPage implements OnInit {
     age: number = null;
     date: string;
 
-    constructor(private router: Router, private db: DatabaseService, public loader: LoaderService, public toast: Toast) {}
+    constructor(
+        private router: Router,
+        private db: DatabaseService,
+        public loader: LoaderService,
+        public toast: ToastController
+    ) {}
 
     ngOnInit() {
         this.date = new Date().toDateString();
@@ -51,9 +56,13 @@ export class AddFetamPage implements OnInit {
             // console.log(obj);
             this.db.add('fetam', obj).then(d => {
                 this.loader.hide();
-                this.toast.show('تم الحفظ بنجاح', '2000', 'center');
+                this.toast.create({
+                    message: 'تم الحفظ بنجاح',
+                    duration: 2000,
+                    color: 'success'
+                }).then(t => t.present());
                 this.goBack();
-            })
+            });
         }
     }
 }
