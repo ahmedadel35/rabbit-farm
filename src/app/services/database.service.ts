@@ -5,11 +5,10 @@ import { Storage } from '@ionic/storage';
     providedIn: 'root'
 })
 export class DatabaseService {
-    constructor(private storage: Storage) {
-        console.log(this.storage.driver);
-    }
+    constructor(private storage: Storage) {}
 
     async get(key: string): Promise<Array<{}> | boolean> {
+        console.log(this.storage.driver);
         return await this.storage.get(key).then(d => {
             if (null !== d) {
                 return JSON.parse(d);
