@@ -30,18 +30,25 @@ export class CalenderPage implements OnInit {
         this.loader.show();
         let states = (await this.db.get('states')) as State[];
 
-        // const currentDate = moment();
-
         // TODO load only states with upcoming date
         states.map(x => {
+            const d = x.toDate;
+            // console.log(d);
             if (
                 x.date !== 'noDate' &&
                 x.state !== 4 &&
-                moment().isSameOrBefore(toEngDate(x.date, true, 1) as string)
+                moment().isSameOrBefore(toEngDate(
+                    x.toDate,
+                    true,
+                    1
+                ) as string)
             ) {
-                // x.date = this.turnTODate(x.date);
-
-                if (!this.days.find(i => i.date === x.date)) {
+                if (
+                    !this.days.some(
+                        // @ts-ignore
+                        i => i.toDate === x.toDate
+                    )
+                ) {
                     this.days.push(x);
                 }
 
@@ -50,7 +57,9 @@ export class CalenderPage implements OnInit {
         });
 
         this.days.sort((a, b) =>
-            moment(toEngDate(a.date, true)).isBefore(toEngDate(b.date, true))
+            moment(toEngDate(a.toDate, true)).isBefore(
+                toEngDate(b.toDate, true)
+            )
                 ? -1
                 : 1
         );
@@ -67,14 +76,16 @@ export class CalenderPage implements OnInit {
     }
 
     count(date: string): State[] {
-        return this.data.filter(x => x.date === date);
+        return this.data.filter(x => x.toDate === date);
     }
 
     show(s: State) {
         this.loader.show();
-        const arr = this.count(s.date);
+        const arr = this.count(s.toDate);
         if (arr.length > 1) {
-            this.alertCreate(s.date, arr).then(x => this.loader.hide());
+            this.alertCreate(s.toDate, arr).then(x =>
+                this.loader.hide()
+            );
         }
         this.loader.hide();
     }
