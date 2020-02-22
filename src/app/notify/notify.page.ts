@@ -316,7 +316,7 @@ export class NotifyPage implements OnInit {
                     ],
                     buttons: [
                         {
-                            text: 'ok',
+                            text: 'موافق',
                             handler: res => {
                                 if (!res || !res.alive || !res.dead) {
                                     return false;
