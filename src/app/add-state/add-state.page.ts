@@ -141,7 +141,7 @@ export class AddStatePage implements OnInit {
             maleNo: f.maleNo,
             date: createDate(),
             done: false,
-            toDate: createDate(m.format('YYYY MM DD'))
+            toDate: createDate(m.format('YYYY-MM-DD'))
         };
         // console.log(newState);
         // return;
