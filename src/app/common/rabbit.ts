@@ -92,7 +92,8 @@ export function getAgeFromArabic(birth: string | string[]): string {
 
 export function toEngDate(
     date: string | string[] | number[],
-    asStr: boolean = true
+    asStr: boolean = true,
+    minus: number = 0
 ): string[] | string {
     date = (date as string).split(' ');
 
@@ -108,7 +109,7 @@ export function toEngDate(
     date = [
         parseInt(date[2], 10),
         month,
-        parseInt(date[0], 10)
+        parseInt(date[0], 10) + minus
     ];
 
     // @ts-ignore
