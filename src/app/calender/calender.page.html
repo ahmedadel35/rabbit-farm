@@ -10,17 +10,18 @@
 <ion-content>
     <ion-list>
         <ion-item
-            *ngFor="let s of data; let inx = index"
+            *ngFor="let s of days; let inx = index"
             detail
             [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
             class="ion-activatable"
+            (click)="show(s, inx)"
         >
             <ion-ripple-effect></ion-ripple-effect>
             <ion-label>
                 <ion-row>
                     <ion-col class="notes">
                         <ion-badge color="danger">4</ion-badge>
-                        {{ turnTODate(s.date) }}
+                        {{ s.date }}
                     </ion-col>
                     <ion-col class="text-left">
                         <ion-badge color="success">

@@ -87,6 +87,13 @@
   }
 }
 
+.calendar {
+  .hydrated {
+    padding: 0;
+    margin: 0;
+  }
+}
+
 .fundsRepo {
   ion-label {
     white-space: normal !important;
@@ -131,5 +138,16 @@
         color: var(--ion-color-danger);
       }
     }
+  }
+  .bg-primary, .bg-tertiary {
+    padding: 1rem 2rem;
+  }
+  .bg-primary {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-light);
+  }
+  .bg-tertiary {
+    background: var(--ion-color-tertiary);
+    color: var(--ion-color-light);
   }
 }
