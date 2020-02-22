@@ -20,13 +20,13 @@ export const ArabicMonths = [
 ];
 
 export const ArabicDays = [
-    'السبت',
     'الأحد',
     'الإثنين',
     'الثلاثاء',
     'الأربعاء',
     'الخميس',
     'الجمعة',
+    'السبت',
 ];
 
 moment.locale('ar', {
