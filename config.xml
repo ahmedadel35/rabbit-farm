@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="rabbitfarm.ninjacoder.aboadel" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>إدارة الأرانب</name>
+<widget id="rabbitfarm.ninjacoder.aboadel" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>رابيت فارم</name>
     <description>an ionic application to manage your rabbit farm</description>
     <author email="abo3adel35@gmai.com" href="http://ninjacoder.rf.gd/">Ahmed Adel</author>
     <content src="index.html" />
