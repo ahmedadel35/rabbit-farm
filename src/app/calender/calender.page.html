@@ -12,7 +12,7 @@
         <ion-item
             *ngFor="let s of days; let inx = index"
             detail
-            [color]="inx % 2 === 0 ? 'primary' : 'tertiary'"
+            [color]="inx % 2 === 0 ? 'tertiary' : 'primary'"
             class="ion-activatable"
             (click)="show(s, inx)"
         >
@@ -21,7 +21,7 @@
                 <ion-row>
                     <ion-col class="notes">
                         <ion-badge color="danger">{{count(s.date).length}}</ion-badge>
-                        {{ s.date }}
+                        {{ turnTODate(s.date) }}
                     </ion-col>
                     <ion-col class="text-left">
                         <ion-badge color="success">

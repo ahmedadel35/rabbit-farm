@@ -39,7 +39,7 @@ export class CalenderPage implements OnInit {
                 x.state !== 4 &&
                 moment().isSameOrBefore(toEngDate(x.date, true, 1) as string)
             ) {
-                x.date = this.turnTODate(x.date);
+                // x.date = this.turnTODate(x.date);
 
                 if (!this.days.find(i => i.date === x.date)) {
                     this.days.push(x);
@@ -49,7 +49,11 @@ export class CalenderPage implements OnInit {
             }
         });
 
-        console.log(this.data);
+        this.days.sort((a, b) =>
+            moment(toEngDate(a.date, true)).isBefore(toEngDate(b.date, true))
+                ? -1
+                : 1
+        );
 
         this.loader.hide();
     }
