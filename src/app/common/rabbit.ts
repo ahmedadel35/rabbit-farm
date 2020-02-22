@@ -19,8 +19,19 @@ export const ArabicMonths = [
     'ديسمبر'
 ];
 
+export const ArabicDays = [
+    'السبت',
+    'الأحد',
+    'الإثنين',
+    'الثلاثاء',
+    'الأربعاء',
+    'الخميس',
+    'الجمعة',
+];
+
 moment.locale('ar', {
-    months: ArabicMonths
+    months: ArabicMonths,
+    weekdays: ArabicDays
 });
 
 export function goToAddNew(
@@ -106,10 +117,11 @@ export function toEngDate(
 
 export function createDate(
     date: string | Date = null,
-    format = 'YYYY-MM-DD'
+    format = 'YYYY-MM-DD',
+    returnAs = 'D MMMM(M) YYYY'
 ): string {
     const m = date ? moment(date, format) : moment();
     moment.locale('ar');
 
-    return m.format('D MMMM(M) YYYY');
+    return m.format(returnAs);
 }
