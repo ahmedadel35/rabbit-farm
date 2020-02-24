@@ -61,7 +61,7 @@ export class ShowFetamPage implements OnInit {
         if (routerData) {
             routerData = routerData.extras;
             if (!routerData.state || !routerData.state.f) {
-                // this.router.navigate(['fetam']);
+                this.router.navigate(['fetam']);
             } else {
                 // get page name and id from state
                 this.f = routerData.state.f;
@@ -206,5 +206,16 @@ export class ShowFetamPage implements OnInit {
         };
 
         this.router.navigate(['add-fetam-state'], addFS);
+    }
+
+    editPatch() {
+        const st: NavigationExtras = {
+            state: {
+                edit: true,
+                f: this.f
+            }
+        };
+
+        this.router.navigate(['add-fetam'], st);
     }
 }

@@ -7,6 +7,9 @@
         </ion-buttons>
         <ion-title>{{ title }}</ion-title>
         <ion-buttons slot="end">
+            <ion-button fill="clear" color="light" (click)="editPatch()">
+                <ion-icon name="create"></ion-icon>
+            </ion-button>
             <ion-button fill="outline" color="light">
                 عدد الأرانب: {{ f.count }}
             </ion-button>
