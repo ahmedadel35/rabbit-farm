@@ -4,9 +4,9 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>الفطام</ion-title>
-        <ion-buttons slot='end'>
-            <ion-button fill='clear' color='light' (click)="showAnalytics()">
-                <ion-icon name='analytics'></ion-icon>
+        <ion-buttons slot="end">
+            <ion-button fill="clear" color="light" (click)="showAnalytics()">
+                <ion-icon name="analytics"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -39,12 +39,12 @@
                     <p>عدد الخلفات: {{ f.count }}</p>
                     <p>{{ f.date }}</p>
                 </ion-label>
-                <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="destroy(f, inx)">
-                        <ion-icon name="close"></ion-icon>&nbsp; حذف
-                    </ion-item-option>
-                </ion-item-options>
             </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="destroy(f, inx)">
+                    <ion-icon name="close"></ion-icon>&nbsp; حذف
+                </ion-item-option>
+            </ion-item-options>
         </ion-item-sliding>
     </ion-list>
     <ion-fab

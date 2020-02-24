@@ -43,7 +43,7 @@ export class FetamPage implements OnInit {
 
             this.data = d;
             this.oldData = [...d];
-            console.log(d);
+            // console.log(d);
         });
     }
 
