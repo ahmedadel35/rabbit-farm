@@ -74,7 +74,7 @@ export class AddFetamPage implements OnInit {
 
         const f: Fetam = form.value;
 
-        const d = new Date(f.date);
+        const d = new Date(f.date || this.date);
         const date = createDate(
             `${d.getFullYear()} ${d.getMonth() + 1} ${d.getDate()}`
         );
@@ -90,7 +90,7 @@ export class AddFetamPage implements OnInit {
 
             if (this.isEdit) {
                 obj.patchNo = this.patchNo;
-                obj.date = this.f.date;
+                // obj.date = this.f.date;
             }
 
             // console.log(obj);
@@ -101,6 +101,7 @@ export class AddFetamPage implements OnInit {
                             x.count = obj.count;
                             x.weight = obj.weight;
                             x.age = obj.age;
+                            x.date = obj.date;
                         }
                         return x;
                     });
