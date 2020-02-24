@@ -70,7 +70,7 @@ export class ShowFetamPage implements OnInit {
 
             // console.log(routerData.state.f);
         }
-        this.title = `دفعه رقم: ${this.f.patchNo}`;
+        // this.title = `دفعه رقم: ${this.f.patchNo}`;
         // this.fakedData();
         this.loadData();
     }

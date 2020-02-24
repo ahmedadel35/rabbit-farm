@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./show/show.module').then( m => m.ShowPageModule)
   },
   {
+    path: 'showEditedFetam',
+    loadChildren: () => import('./show-fetam/show-fetam.module').then( m => m.ShowFetamPageModule)
+  },
+  {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },

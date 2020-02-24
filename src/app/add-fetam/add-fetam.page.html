@@ -20,6 +20,7 @@
                     name="patchNo"
                     autofocus="true"
                     type="number"
+                    [disabled]="isEdit"
                     required
                 ></ion-input>
             </ion-item>
@@ -61,6 +62,7 @@
                     done-text="حفظ"
                     [(ngModel)]="date"
                     name="date"
+                    [disabled]="isEdit"
                     required
                 ></ion-datetime>
             </ion-item>
