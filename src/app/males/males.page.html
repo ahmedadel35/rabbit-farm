@@ -27,6 +27,9 @@
                 (click)="goToRabbit(i)"
             >
                 <ion-ripple-effect></ion-ripple-effect>
+                <ion-avatar slot="start">
+                    <img [src]="'assets/img/' + (inx % 2 === 0 ? 'male' : 'male2') + '.png'" />
+                </ion-avatar>
                 <ion-label class="noMargin">
                     <h2>{{ i.name || 'رقم ' + i.num }}</h2>
                     <h3>
