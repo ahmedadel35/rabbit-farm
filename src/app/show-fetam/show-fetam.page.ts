@@ -15,13 +15,7 @@ export class ShowFetamPage implements OnInit {
     initHasPlayed = false;
     title = '';
     activeSlide = 0;
-    f: Fetam = {
-        age: 10,
-        count: 34,
-        date: '12 فبراير 2020',
-        patchNo: 2,
-        weight: 22
-    };
+    f: Fetam;
     slidesArr = ['info', 'sell', 'vaccine', 'death'];
     sliderVal = 'info';
     slideOpts = {
