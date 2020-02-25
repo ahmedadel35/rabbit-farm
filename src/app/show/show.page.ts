@@ -204,6 +204,7 @@ export class ShowPage implements OnInit {
                 return x;
             })
             this.db.set('females', d);
+            this.rabbit.state = st;
             this.loader.hide();
         });
     }
