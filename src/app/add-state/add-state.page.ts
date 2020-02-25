@@ -19,6 +19,7 @@ import { ToastController } from '@ionic/angular';
 export class AddStatePage implements OnInit {
     rabbit: Rabbit;
     config: Config;
+    currentState: State;
     statesArr = ['تلقيح', 'جس', 'ولادة', 'فطام'];
     state = '1';
     positive = true;
@@ -45,6 +46,8 @@ export class AddStatePage implements OnInit {
         if (!routerData.state || !routerData.state.rb) {
             this.router.navigate(['females']);
         } else {
+            this.loader.show();
+
             // get page name and id from state
             this.rabbit = routerData.state.rb;
 
@@ -64,6 +67,18 @@ export class AddStatePage implements OnInit {
 
             this.db.get('config').then((c: any) => {
                 this.config = c;
+
+                this.db.get('states').then((s: State[]) => {
+                    s = s.reverse();
+                    s = s.filter(x => x.num === this.rabbit.num && x.positive);
+                    this.currentState = s[0];
+
+                    if (this.segmentVal && this.segmentVal !== '1') {
+                        this.maleNo = this.currentState.maleNo;
+                    }
+
+                    this.loader.hide();
+                });
             });
         }
     }
