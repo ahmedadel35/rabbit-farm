@@ -28,7 +28,7 @@
             <ion-row class="inForm">
                 <ion-segment
                     (ionChange)="setState($event.target.value)"
-                    value="1"
+                    [value]="segmentVal || '1'"
                     color="tertiary"
                 >
                     <ion-segment-button value="1">

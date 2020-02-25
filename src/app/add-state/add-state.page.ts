@@ -27,6 +27,7 @@ export class AddStatePage implements OnInit {
     dead: number;
     maleNo: number;
     notes: string;
+    segmentVal = '1';
 
     constructor(
         private router: Router,
@@ -47,7 +48,19 @@ export class AddStatePage implements OnInit {
             // get page name and id from state
             this.rabbit = routerData.state.rb;
 
-            // console.log(routerData.state.rb);
+            if (!this.rabbit.state) {
+                this.segmentVal = '1';
+                this.setState('1');
+            } else if (this.rabbit.state === 1 || this.rabbit.state === 4) {
+                this.segmentVal = '2';
+                this.setState('2');
+            } else if (this.rabbit.state === 2 || this.rabbit.state === 5) {
+                this.segmentVal = '3';
+                this.setState('3');
+            } else if (this.rabbit.state === 3) {
+                this.segmentVal = '1';
+                this.setState('1');
+            }
 
             this.db.get('config').then((c: any) => {
                 this.config = c;
@@ -113,7 +126,7 @@ export class AddStatePage implements OnInit {
                 dead: f.dead
             },
             notes: f.notes,
-            toDate: createDate(new Date(f.date)),
+            toDate: createDate(new Date(f.date))
         };
 
         const sInd = s > 3 ? 1 : s + 1;
@@ -162,7 +175,12 @@ export class AddStatePage implements OnInit {
         });
     }
 
-    private saveDataToDb(maleNo: number, state: State, newState: State, m: any) {
+    private saveDataToDb(
+        maleNo: number,
+        state: State,
+        newState: State,
+        m: any
+    ) {
         // save new state into database
         this.db.add('states', state).then(d => {
             // update this female state
@@ -179,9 +197,10 @@ export class AddStatePage implements OnInit {
 
                     // add the new state
                     this.db.add('states', newState).then(_ => {
-
                         this.addCalender(
-                            ` ${this.statesArr[newState.state - 1]} الأرنب رقم :${newState.num}`,
+                            ` ${
+                                this.statesArr[newState.state - 1]
+                            } الأرنب رقم :${newState.num}`,
                             m.format('YYYY-MM-DD'),
                             m.format('YYYY-MM-DD'),
                             `الذكر رقم ${newState.maleNo}`
