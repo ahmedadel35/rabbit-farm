@@ -8,7 +8,7 @@ export class DatabaseService {
     constructor(private storage: Storage) {}
 
     async get(key: string): Promise<Array<{}> | boolean> {
-        console.log(this.storage.driver);
+        // console.log(this.storage.driver);
         return await this.storage.get(key).then(d => {
             if (null !== d) {
                 return JSON.parse(d);
