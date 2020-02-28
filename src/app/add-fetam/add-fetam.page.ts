@@ -70,8 +70,6 @@ export class AddFetamPage implements OnInit {
     }
 
     add(form: NgForm) {
-        this.loader.show();
-
         const f: Fetam = form.value;
 
         const d = new Date(f.date || this.date);
@@ -95,6 +93,7 @@ export class AddFetamPage implements OnInit {
 
             // console.log(obj);
             this.db.get('fetam').then((d: Fetam[]) => {
+                this.loader.show();
                 if (this.isEdit) {
                     d = d.map(x => {
                         if (x.patchNo === this.patchNo) {
@@ -105,6 +104,7 @@ export class AddFetamPage implements OnInit {
                         }
                         return x;
                     });
+                    // this.loader.hide();
                 } else {
                     // check if patchNo already exists
                     const found = d.some(x => x.patchNo === obj.patchNo);
@@ -138,7 +138,10 @@ export class AddFetamPage implements OnInit {
             }
         };
 
-        this.router.navigate([this.isEdit ? 'showEditedFetam' : 'show-fetam'], st);
+        this.router.navigate(
+            [this.isEdit ? 'showEditedFetam' : 'show-fetam'],
+            st
+        );
     }
 
     feedBack(message: string = 'تم الحفظ بنجاح', color: string = 'success') {

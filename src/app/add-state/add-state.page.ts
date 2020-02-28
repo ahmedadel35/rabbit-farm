@@ -46,7 +46,6 @@ export class AddStatePage implements OnInit {
         if (!routerData.state || !routerData.state.rb) {
             this.router.navigate(['females']);
         } else {
-            this.loader.show();
 
             // get page name and id from state
             this.rabbit = routerData.state.rb;
@@ -66,6 +65,7 @@ export class AddStatePage implements OnInit {
             }
 
             this.db.get('config').then((c: any) => {
+                this.loader.show();
                 this.config = c;
 
                 this.db.get('states').then((s: State[]) => {
@@ -79,6 +79,7 @@ export class AddStatePage implements OnInit {
 
                     this.loader.hide();
                 });
+                this.loader.hide();
             });
         }
     }
