@@ -4,6 +4,7 @@ import Config from '../interfaces/Config';
 import { AlertController, ToastController } from '@ionic/angular';
 import { LoaderService } from '../services/loader.service';
 import { File } from '@ionic-native/file/ngx';
+import { setDarkMode } from '../common/rabbit';
 
 @Component({
     selector: 'app-config',
@@ -14,7 +15,6 @@ export class ConfigPage implements OnInit {
     // @ts-ignore
     config: Config = {};
     initHasPlayed = false;
-    activeButton: number;
     darkMode = false;
 
     constructor(
@@ -209,35 +209,12 @@ export class ConfigPage implements OnInit {
             bo.add(color);
         }
 
-        this.db.set('primaryColor', color);
+        this.db.set('primaryColor', {pc: color});
 
         this.loader.hide();
     }
 
     changeDarkMode() {
-        this.loader.show();
-        const bo = document.body.classList,
-            dm = { darkMode: this.darkMode };
-
-        // change page theme
-        if (this.darkMode) {
-            if (bo.contains('teal')) {
-                bo.add('darkTeal');
-            } else if (bo.contains('blue')) {
-                bo.add('darkBlue');
-            } else {
-                bo.add('dark');
-            }
-            bo.remove('teal', 'blue');
-        } else {
-            if (bo.contains('darkTeal')) bo.add('teal');
-            else if (bo.contains('darkBlue')) bo.add('blue');
-
-            bo.remove('dark', 'darkTeal', 'darkBlue');
-        }
-
-        this.db.set('darkMode', dm);
-
-        this.loader.hide();
+        setDarkMode(this, true);
     }
 }

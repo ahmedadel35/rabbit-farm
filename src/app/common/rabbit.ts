@@ -126,3 +126,50 @@ export function createDate(
 
     return m.format(returnAs);
 }
+
+// export function updateTheme(self: any, updateDB: boolean = false, color: string = '') {
+//     this.loader.show();
+//     const bo = document.body.classList;
+
+//     // check if dark mode was enabled then change dark classes
+//     if (this.darkMode) {
+//         bo.remove('dark', 'darkTeal', 'darkBlue');
+//         if (color === 'teal') bo.add('darkTeal');
+//         else if (color === 'blue') bo.add('darkBlue');
+//         else bo.add('dark');
+//     } else {
+//         bo.remove('blue', 'teal');
+//         bo.add(color);
+//     }
+
+//     if()this.db.set('primaryColor', color);
+
+//     this.loader.hide();
+// }
+
+export function setDarkMode(self: any, updateDB: boolean = false) {
+    self.loader.show();
+    const bo = document.body.classList,
+        dm = { darkMode: self.darkMode };
+
+    // change page theme
+    if (self.darkMode) {
+        if (bo.contains('teal')) {
+            bo.add('darkTeal');
+        } else if (bo.contains('blue')) {
+            bo.add('darkBlue');
+        } else {
+            bo.add('dark');
+        }
+        bo.remove('teal', 'blue');
+    } else {
+        if (bo.contains('darkTeal')) bo.add('teal');
+        else if (bo.contains('darkBlue')) bo.add('blue');
+
+        bo.remove('dark', 'darkTeal', 'darkBlue');
+    }
+
+    if (updateDB) self.db.set('darkMode', dm);
+
+    self.loader.hide();
+}
