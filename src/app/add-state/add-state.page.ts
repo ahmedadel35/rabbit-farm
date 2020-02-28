@@ -142,7 +142,8 @@ export class AddStatePage implements OnInit {
                 dead: f.dead
             },
             notes: f.notes,
-            toDate: createDate(new Date(f.date))
+            toDate: createDate(new Date(f.date)),
+            done: this.positive
         };
 
         const sInd = s > 3 ? 1 : s + 1;
