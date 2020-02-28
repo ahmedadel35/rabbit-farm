@@ -48,7 +48,7 @@ export class NotifyPage implements OnInit {
     alive = 0;
     dead = 0;
     public lastTimeClicked = 0;
-    public timePeriodToExit = 2000;
+    public timePeriodToExit = 1500;
     private exitPages = [
         '/notify',
         '/females',
@@ -98,7 +98,7 @@ export class NotifyPage implements OnInit {
                             this.toast
                                 .create({
                                     message: 'إضغط مرة أخرى للخروج من التطبيق',
-                                    duration: 2000,
+                                    duration: this.timePeriodToExit,
                                     position: 'bottom'
                                 })
                                 .then(t => t.present());
@@ -106,7 +106,7 @@ export class NotifyPage implements OnInit {
                         }
                     }
                 });
-                
+
                 this.loader.show();
 
                 // check if this first time to use the app
