@@ -14,6 +14,7 @@ export class ConfigPage implements OnInit {
     // @ts-ignore
     config: Config = {};
     initHasPlayed = false;
+    activeButton: number;
 
     constructor(
         private db: DatabaseService,
@@ -147,5 +148,45 @@ export class ConfigPage implements OnInit {
                 color
             })
             .then(t => t.present());
+    }
+
+    changeColor() {
+        this.alertCtrl
+            .create({
+                header: 'أختر اللون الأساسى للتطبيق',
+                cssClass: 'fundsRepo',
+                buttons: [
+                    {
+                        text: 'المظهر 1',
+                        cssClass: 'primaryButton text-center',
+                        handler: _ => {
+                            this.changeTheme('');
+                        }
+                    },
+                    {
+                        text: 'المظهر 2',
+                        cssClass: 'tealButton text-center',
+                        handler: _ => {
+                            this.changeTheme('teal');
+                        }
+                    },
+                    {
+                        text: 'المظهر 3',
+                        cssClass: 'blueButton text-center',
+                        handler: _ => {
+                            this.changeTheme('blue');
+                        }
+                    }
+                ]
+            })
+            .then(a => a.present());
+    }
+
+    changeTheme(color: string) {
+        const bo = document.body;
+        bo.classList.remove('blue', 'teal');
+        bo.classList.add(color);
+
+        this.db.set('primaryColor', color);
     }
 }

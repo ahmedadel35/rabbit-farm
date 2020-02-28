@@ -179,22 +179,20 @@ body.teal,
 body.darkTeal {
   /* primary */
   --ion-color-primary: #006060;
-  --ion-color-primary-rgb: 0,96,96;
+  --ion-color-primary-rgb: 0, 96, 96;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #005454;
   --ion-color-primary-tint: #1a7070;
 
   /* tertiary*/
   --ion-color-tertiary: #86014c;
-  --ion-color-tertiary-rgb: 134,1,76;
+  --ion-color-tertiary-rgb: 134, 1, 76;
   --ion-color-tertiary-contrast: #ffffff;
-  --ion-color-tertiary-contrast-rgb: 255,255,255;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
   --ion-color-tertiary-shade: #760143;
   --ion-color-tertiary-tint: #921a5e;
 }
-
-
 
 /*
 * Material Design Dark Theme
@@ -249,7 +247,7 @@ body.darkTeal {
           color: var(--ion-color-secondary-tint) !important;
         }
       }
-  }
+    }
   }
 }
 
@@ -269,6 +267,26 @@ body.darkTeal {
     padding: 0;
     margin: 0;
   }
+}
+.primaryButton,
+.tealButton,
+.blueButton {
+  direction: ltr;
+  color: #ffffff !important;
+  margin-bottom: 2rem !important;
+}
+
+.primaryButton {
+  background: #3880ff !important;
+  border: 3px solid #7044ff !important;
+}
+.tealButton {
+  background: #006060 !important;
+  border: 3px solid #86014c !important;
+}
+.blueButton {
+  background: #2f32a0 !important;
+  border: 3px solid #432684 !important;
 }
 
 .fundsRepo {
