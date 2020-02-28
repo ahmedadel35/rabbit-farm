@@ -97,23 +97,23 @@ export class MonyPage implements OnInit {
                 <ion-list>
                     <ion-item>
                     <ion-note slot='start'>شراء</ion-note>
-                    <ion-label>${fund.type}</ion-label>
+                    <ion-label>${fund.type || ''}</ion-label>
                     </ion-item>
                     <ion-item>
                     <ion-note slot='start'>إسم البائع</ion-note>
-                    <ion-label>${fund.seller}</ion-label>
+                    <ion-label>${fund.seller || ''}</ion-label>
                     </ion-item>
                     <ion-item>
                     <ion-note slot='start'>العدد</ion-note>
-                    <ion-label>${fund.count}</ion-label>
+                    <ion-label>${fund.count || 0}</ion-label>
                     </ion-item>
                     <ion-item>
                     <ion-note slot='start'>الوزن</ion-note>
-                    <ion-label>${fund.weight}</ion-label>
+                    <ion-label>${fund.weight || 0}</ion-label>
                     </ion-item>
                     <ion-item>
                     <ion-note slot='start'>الملاحظات</ion-note>
-                    <ion-label>${fund.info}</ion-label>
+                    <ion-label>${fund.info || ''}</ion-label>
                     </ion-item>
                 </ion-list>
                 `,
