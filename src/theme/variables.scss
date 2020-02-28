@@ -234,6 +234,10 @@ body.darkTeal {
 
   --ion-item-background: #222428;
 
+  ion-toolbar ion-buttons ion-button {
+    --ion-color-base: #ffffff !important;
+  }
+
   ion-label {
     color: var(--ion-color-light-contrast) !important;
   }
