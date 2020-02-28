@@ -407,10 +407,11 @@ export class NotifyPage implements OnInit {
             d = this.analys.dead,
             sum = a + d,
             aper = ((a / sum) * 100).toFixed(2),
-            dper = ((d / sum) * 100).toFixed(2),
-            fetam = this.statesData.filter(x => {
-                return x.state === 4 && x.date !== 'noDate' && x.done === true;
-            });
+            dper = ((d / sum) * 100).toFixed(2);
+
+            // fetam = this.statesData.filter(x => {
+            //     return x.state === 4 && x.date !== 'noDate' && x.done === true;
+            // });
 
         const alert = this.alertCtrl
             .create({
@@ -432,21 +433,15 @@ export class NotifyPage implements OnInit {
             <ion-item>
                 <ion-label>نسبة الحى</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${aper} %
+                ${+aper || 0} %
                 </ion-note>
             </ion-item>
             <ion-item>
                 <ion-label>نسبة الميت</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${dper} %
+                ${+dper || 0} %
                 </ion-note>
             </ion-item>
-            <!--<ion-item>
-                <ion-label>إجمالى الفطام</ion-label>
-                <ion-note slot="end" color='tertiary'>
-                ${fetam.length}
-                </ion-note>
-            </ion-item>-->
             </ion-list>`,
                 buttons: [
                     {

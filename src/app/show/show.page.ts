@@ -443,13 +443,13 @@ export class ShowPage implements OnInit {
             <ion-item>
                 <ion-label>نسبة الحى</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${((this.calc.alive / this.calc.allWelada) * 100).toFixed(2)} %
+                ${+((this.calc.alive / this.calc.allWelada) * 100).toFixed(2) || 0} %
                 </ion-note>
             </ion-item>
             <ion-item>
                 <ion-label>نسبة الميت</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${((this.calc.dead / this.calc.allWelada) * 100).toFixed(2)} %
+                ${+((this.calc.dead / this.calc.allWelada) * 100).toFixed(2) || 0} %
                 </ion-note>
             </ion-item>
             </ion-list>`,
