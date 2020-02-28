@@ -165,7 +165,7 @@ export class AddStatePage implements OnInit {
 
         const newState: State = {
             state: sInd,
-            positive: false,
+            positive: true,
             num: this.rabbit.num,
             maleNo: f.maleNo,
             date: createDate(),

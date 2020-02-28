@@ -365,7 +365,7 @@ export class NotifyPage implements OnInit {
 
         const newState: State = {
             state: sInd,
-            positive: false,
+            positive: true,
             num: obj.num,
             maleNo: obj.maleNo,
             date: createDate(),
