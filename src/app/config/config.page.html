@@ -58,18 +58,20 @@
             <ion-label>إعدادات التطبيق</ion-label>
         </ion-list-header>
         <ion-item class="ion-activatable" (click)="changeColor()">
+            <ion-ripple-effect></ion-ripple-effect>
             <ion-label>
                 <ion-icon name="cloud-download"></ion-icon>
                 تغيير اللون الأساسى
                 <p>إختر مظهر مختلف للتطبيق</p>
             </ion-label>
         </ion-item>
-        <ion-item class="ion-activatable" (click)="showSwitcher()">
+        <ion-item>
             <ion-label>
                 <ion-icon name="cloud-download"></ion-icon>
                 الوضع المظلم
                 <p>تفعيل الوضع المظلم للتطبيق</p>
             </ion-label>
+            <ion-toggle [(ngModel)]="darkMode" (ionChange)="changeDarkMode()"></ion-toggle>
         </ion-item>
         <ion-list-header color="primary">
             <ion-label>حفظ و نقل البيانات</ion-label>

@@ -15,6 +15,7 @@ export class ConfigPage implements OnInit {
     config: Config = {};
     initHasPlayed = false;
     activeButton: number;
+    darkMode = false;
 
     constructor(
         private db: DatabaseService,
@@ -32,8 +33,19 @@ export class ConfigPage implements OnInit {
     }
 
     ngOnInit() {
+        this.loader.show();
+
         this.db.get('config').then((c: any) => {
             this.config = c;
+
+            // load darkMode or note
+            this.db.get('darkMode').then((dm: any) => {
+                if (dm) {
+                    this.darkMode = dm.darkMode;
+                }
+
+                this.loader.hide();
+            });
         });
     }
 
@@ -183,10 +195,49 @@ export class ConfigPage implements OnInit {
     }
 
     changeTheme(color: string) {
-        const bo = document.body;
-        bo.classList.remove('blue', 'teal');
-        bo.classList.add(color);
+        this.loader.show();
+        const bo = document.body.classList;
+
+        // check if dark mode was enabled then change dark classes
+        if (this.darkMode) {
+            bo.remove('dark', 'darkTeal', 'darkBlue');
+            if (color === 'teal') bo.add('darkTeal');
+            else if (color === 'blue') bo.add('darkBlue');
+            else bo.add('dark');
+        } else {
+            bo.remove('blue', 'teal');
+            bo.add(color);
+        }
 
         this.db.set('primaryColor', color);
+
+        this.loader.hide();
+    }
+
+    changeDarkMode() {
+        this.loader.show();
+        const bo = document.body.classList,
+            dm = { darkMode: this.darkMode };
+
+        // change page theme
+        if (this.darkMode) {
+            if (bo.contains('teal')) {
+                bo.add('darkTeal');
+            } else if (bo.contains('blue')) {
+                bo.add('darkBlue');
+            } else {
+                bo.add('dark');
+            }
+            bo.remove('teal', 'blue');
+        } else {
+            if (bo.contains('darkTeal')) bo.add('teal');
+            else if (bo.contains('darkBlue')) bo.add('blue');
+
+            bo.remove('dark', 'darkTeal', 'darkBlue');
+        }
+
+        this.db.set('darkMode', dm);
+
+        this.loader.hide();
     }
 }
