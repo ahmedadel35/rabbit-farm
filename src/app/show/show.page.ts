@@ -258,6 +258,7 @@ export class ShowPage implements OnInit {
                 i = i.filter(x => x.num === this.rabbit.num);
                 this.illData = i.reverse();
                 // console.log(this.illData);
+                this.loader.hide();
             });
 
             this.loader.hide();
