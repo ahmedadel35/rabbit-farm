@@ -88,7 +88,7 @@ export class MonyPage implements OnInit {
         this.router.navigate(['list']);
     }
 
-    private showInfo(fund: Funds) {
+    showInfo(fund: Funds) {
         const alert = this.alertCtrl
             .create({
                 header: 'بيان',

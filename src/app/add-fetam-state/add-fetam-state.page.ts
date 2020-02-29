@@ -41,6 +41,7 @@ export class AddFetamStatePage implements OnInit {
     value = null;
     notes = null;
     date = null;
+    showData = false;
 
     constructor(
         private router: Router,
