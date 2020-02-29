@@ -62,6 +62,7 @@ export class AddFetamPage implements OnInit {
 
                 this.loader.hide();
             }
+            this.loader.hide();
         }
     }
 
