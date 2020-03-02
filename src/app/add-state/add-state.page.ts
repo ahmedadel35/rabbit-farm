@@ -5,7 +5,7 @@ import { LoaderService } from '../services/loader.service';
 import Rabbit from '../interfaces/rabbit';
 import { NgForm } from '@angular/forms';
 import State from '../interfaces/state';
-import { createDate } from '../common/rabbit';
+import { createDate, toEngDate } from '../common/rabbit';
 import * as moment from 'moment';
 import Config from '../interfaces/Config';
 import { Calendar } from '@ionic-native/calendar/ngx';
@@ -71,10 +71,15 @@ export class AddStatePage implements OnInit {
                 this.db.get('states').then((s: State[]) => {
                     s = s.reverse();
                     s = s.filter(x => x.num === this.rabbit.num && x.positive);
+                    // console.log(s[0]);
                     this.currentState = s[0];
 
                     if (this.segmentVal && this.segmentVal !== '1') {
                         this.maleNo = this.currentState.maleNo;
+                        const d = moment(toEngDate(this.currentState.toDate, true));
+                        moment.locale('en');
+                        this.date = new Date(d.format('YYYY-MM-DD')).toDateString();
+                        // console.log(this.date, this.currentState.date);
                     }
 
                     this.loader.hide();
