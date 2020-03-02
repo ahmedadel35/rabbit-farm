@@ -7,7 +7,12 @@
         </ion-buttons>
         <ion-title>{{ title }}</ion-title>
         <ion-buttons slot="end">
-            <ion-button fill="clear" color="light" (click)="showYoungRepo()" *ngIf="!isMale">
+            <ion-button
+                fill="clear"
+                color="light"
+                (click)="showYoungRepo()"
+                *ngIf="!isMale"
+            >
                 <ion-icon name="analytics"></ion-icon>
             </ion-button>
             <ion-button fill="clear" color="light" (click)="editRabbit()">
@@ -164,12 +169,18 @@
         </ion-slide>
         <ion-slide class="slideTwo" *ngIf="!isMale">
             <ion-list>
-                <div *ngFor="let i of data; let inx = index">
+                <div *ngFor="let i of data; let rrinx = index">
                     <ion-item
                         *ngIf="i.date !== 'noDate'"
                         [color]="i.positive ? 'success' : 'danger'"
                     >
                         <ion-grid>
+                            <ion-row
+                                *ngIf="rrinx % 4 == 0"
+                                class="bg-dark ion-color-dark"
+                            >
+                                <ion-col><hr /></ion-col>
+                            </ion-row>
                             <ion-row>
                                 <ion-col size="5">{{
                                     i.toDate || i.date
@@ -185,7 +196,7 @@
                                     <ion-button
                                         fill="outline"
                                         color="light"
-                                        (click)="destroy(i, inx)"
+                                        (click)="destroy(i, rrinx)"
                                     >
                                         <ion-icon name="close"></ion-icon>
                                     </ion-button>
@@ -206,7 +217,7 @@
         </ion-slide>
         <ion-slide class="slideTwo" *ngIf="!isMale">
             <ion-list>
-                <div *ngFor="let i of data; let inx = index">
+                <div *ngFor="let i of data; let yyinx = index">
                     <ion-item
                         *ngIf="i.date !== 'noDate' && i.state === 3"
                         [color]="i.positive ? 'success' : 'danger'"
@@ -227,7 +238,7 @@
                                     <ion-button
                                         fill="outline"
                                         color="light"
-                                        (click)="destroy(i, inx)"
+                                        (click)="destroy(i, yyinx)"
                                     >
                                         <ion-icon name="close"></ion-icon>
                                     </ion-button>
@@ -247,8 +258,8 @@
             </ion-list>
         </ion-slide>
         <ion-slide class="slideTwo">
-            <ion-list class='illness'>
-            <div *ngFor="let i of illData; let inx = index">
+            <ion-list class="illness">
+                <div *ngFor="let i of illData; let ilinx = index">
                     <ion-item [color]="i.healed ? 'success' : 'danger'">
                         <ion-grid>
                             <ion-row>
@@ -263,23 +274,21 @@
                                         *ngIf="!i.healed"
                                         fill="solid"
                                         color="success"
-                                        (click)="updateIll(i, inx)"
+                                        (click)="updateIll(i, ilinx)"
                                     >
                                         <ion-icon name="checkmark"></ion-icon>
                                     </ion-button>
                                     <ion-button
                                         fill="solid"
                                         color="danger"
-                                        (click)="deleteIll(i, inx)"
+                                        (click)="deleteIll(i, ilinx)"
                                     >
                                         <ion-icon name="close"></ion-icon>
                                     </ion-button>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col>
-                                    العلاج: {{i.anti}}
-                                </ion-col>
+                                <ion-col> العلاج: {{ i.anti }} </ion-col>
                             </ion-row>
                             <ion-row *ngIf="i.notes && i.notes.length">
                                 <ion-col
@@ -302,7 +311,9 @@
         (click)="addState()"
     >
         <ion-fab-button>
-            <ion-icon [name]="sliderVal === 'home' ? 'information' : 'add'"></ion-icon>
+            <ion-icon
+                [name]="sliderVal === 'home' ? 'information' : 'add'"
+            ></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
