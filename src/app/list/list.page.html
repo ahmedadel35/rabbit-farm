@@ -27,7 +27,9 @@
     <ion-list>
         <form #addFund="ngForm" (ngSubmit)="save(addFund)">
             <ion-item>
-                <ion-label position="floating">النوع</ion-label>
+                <ion-label position="floating">
+                    {{ src === 'sell' ? 'بيع' : 'شراء' }}
+                </ion-label>
                 <ion-input
                     clearInput
                     autofocus="true"
@@ -37,7 +39,9 @@
                 ></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">إسم المشترى</ion-label>
+                <ion-label position="floating">
+                    إسم {{ src === 'sell' ? 'المشترى' : 'البائع' }}
+                </ion-label>
                 <ion-input
                     clearInput
                     [(ngModel)]="seller"
