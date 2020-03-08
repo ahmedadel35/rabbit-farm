@@ -96,11 +96,11 @@ export class MonyPage implements OnInit {
                 message: `
                 <ion-list>
                     <ion-item>
-                    <ion-note slot='start'>شراء</ion-note>
+                    <ion-note slot='start'>${fund.src === 'sell' ? 'بيع' : 'شراء'}</ion-note>
                     <ion-label>${fund.type || ''}</ion-label>
                     </ion-item>
                     <ion-item>
-                    <ion-note slot='start'>إسم البائع</ion-note>
+                    <ion-note slot='start'>إسم ${ fund.src === 'sell' ? 'المشترى' : 'البائع' }</ion-note>
                     <ion-label>${fund.seller || ''}</ion-label>
                     </ion-item>
                     <ion-item>
