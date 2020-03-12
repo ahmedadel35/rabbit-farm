@@ -273,14 +273,18 @@ export class ShowPage implements OnInit {
         const welada = d.filter(x => x.state === 3 && x.positive);
         const alive = welada.reduce(
             (t, c) => {
-                t.child.alive += c.child.alive;
+                if (t.child && c.child) {
+                    t.child.alive += c.child.alive;
+                }
                 return t;
             },
             { child: { alive: 0 } }
         );
         const dead = welada.reduce(
             (t, c) => {
-                t.child.dead += c.child.dead;
+                if (t.child && c.child) {
+                    t.child.dead += c.child.dead;
+                }
                 return t;
             },
             { child: { dead: 0 } }
