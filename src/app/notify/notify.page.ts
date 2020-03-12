@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform, IonSlides, AlertController, ToastController } from '@ionic/angular';
+import {
+    Platform,
+    IonSlides,
+    AlertController,
+    ToastController
+} from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 import { LoaderService } from '../services/loader.service';
 import { Storage } from '@ionic/storage';
@@ -244,8 +249,10 @@ export class NotifyPage implements OnInit {
 
             /**
              * add new state for upcoming event
+             * 
              * ex. if this state is `talqeh`
              * Then we will add an `gas` state
+             * 
              * so the user can know when will it happen
              * using config number of days for this states
              */
@@ -257,7 +264,7 @@ export class NotifyPage implements OnInit {
             if (state === 1) {
                 m.add(this.config.gas, 'd');
             } else if (state === 2) {
-                m.add(this.config.hamlMotaqa, 'd');
+                m.add(this.config.hamlMotaqa - this.config.gas, 'd');
             } else if (state === 3) {
                 m.add(this.config.fetam, 'd');
             } else if (state === 4) {
@@ -409,9 +416,9 @@ export class NotifyPage implements OnInit {
             aper = ((a / sum) * 100).toFixed(2),
             dper = ((d / sum) * 100).toFixed(2);
 
-            // fetam = this.statesData.filter(x => {
-            //     return x.state === 4 && x.date !== 'noDate' && x.done === true;
-            // });
+        // fetam = this.statesData.filter(x => {
+        //     return x.state === 4 && x.date !== 'noDate' && x.done === true;
+        // });
 
         const alert = this.alertCtrl
             .create({

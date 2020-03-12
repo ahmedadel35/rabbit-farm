@@ -163,7 +163,7 @@ export class AddStatePage implements OnInit {
         if (s === 1) {
             m.add(this.config.gas, 'd');
         } else if (s === 2) {
-            m.add(this.config.hamlMotaqa, 'd');
+            m.add(this.config.hamlMotaqa - this.config.gas, 'd');
         } else if (s === 3) {
             m.add(this.config.fetam, 'd');
         } else if (s === 4) {
