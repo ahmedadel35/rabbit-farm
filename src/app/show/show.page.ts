@@ -11,7 +11,7 @@ import Rabbit from '../interfaces/rabbit';
 import { IonSlides, AlertController } from '@ionic/angular';
 import State from '../interfaces/state';
 import Ill from '../interfaces/ill';
-import { createDate, goToAddNew } from '../common/rabbit';
+import { createDate, goToAddNew, toEngDate } from '../common/rabbit';
 import * as moment from 'moment';
 
 @Component({
@@ -202,7 +202,7 @@ export class ShowPage implements OnInit {
                     x.state = st;
                 }
                 return x;
-            })
+            });
             this.db.set('females', d);
             this.rabbit.state = st;
             this.loader.hide();
@@ -246,7 +246,15 @@ export class ShowPage implements OnInit {
             // filter data to get states related to this female
             d = d.filter(x => x[this.rabbitAttr] === this.rabbit.num);
 
-            this.data = d.reverse();
+            this.data = d;
+            this.data.sort((a, b) => {
+                const d1 = moment(toEngDate(a.toDate || a.date));
+                const d2 = moment(toEngDate(b.toDate || b.date));
+                if (d1.isBefore(d2)) return -1;
+                else if (d1.isAfter(d2)) return 1;
+                else return 1;
+            });
+            console.log(this.data);
 
             this.doAllCalculations(this.data);
 
@@ -448,13 +456,15 @@ export class ShowPage implements OnInit {
             <ion-item>
                 <ion-label>نسبة الحى</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${+((this.calc.alive / this.calc.allWelada) * 100).toFixed(2) || 0} %
+                ${+((this.calc.alive / this.calc.allWelada) * 100).toFixed(2) ||
+                    0} %
                 </ion-note>
             </ion-item>
             <ion-item>
                 <ion-label>نسبة الميت</ion-label>
                 <ion-note slot="end" color='tertiary'>
-                ${+((this.calc.dead / this.calc.allWelada) * 100).toFixed(2) || 0} %
+                ${+((this.calc.dead / this.calc.allWelada) * 100).toFixed(2) ||
+                    0} %
                 </ion-note>
             </ion-item>
             </ion-list>`,
