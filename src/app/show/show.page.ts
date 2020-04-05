@@ -259,7 +259,7 @@ export class ShowPage implements OnInit {
 
             d.map((x, inx) => {
                 if (x[this.rabbitAttr] === this.rabbit.num) {
-                    if (inx % 4 == 0 && Len >= 4) {
+                    if (inx % 4 == 0 && Len >= 4 && x.positive) {
                         // @ts-ignore
                         this.data.push({ id: this.lastCount++ });
                     }

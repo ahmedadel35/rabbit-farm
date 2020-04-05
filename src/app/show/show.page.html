@@ -172,14 +172,14 @@
                 <div *ngFor="let i of data; let rrinx = index;let rlast = last">
                     <ion-item
                         *ngIf="i.date !== 'noDate'"
-                        [color]="i.positive ? 'success' : 'danger'"
+                        [color]="!i.id ? i.positive ? 'success' : 'danger' : 'tertiary'"
                     >
                         <ion-grid>
                             <ion-row
                                 *ngIf="i.id && !rlast"
-                                class="bg-dark ion-color-dark"
+                                class="ion-color-dark text-center"
                             >
-                                <ion-col size="12">{{i.id}}</ion-col>
+                                <ion-col size="12">الولادة {{i.id}}</ion-col>
                             </ion-row>
                             <ion-row *ngIf="!i.id">
                                 <ion-col size="5"
