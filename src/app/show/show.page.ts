@@ -51,6 +51,7 @@ export class ShowPage implements OnInit {
         centeredSlides: false
     };
     slidesArr = ['home', 'report', 'child', 'ill'];
+    public lastCount: number = 1;
 
     @ViewChild('rabbitSlides', { static: false }) slides: IonSlides;
 
@@ -241,20 +242,30 @@ export class ShowPage implements OnInit {
         this.loader.show();
 
         this.db.get('states').then((d: State[]) => {
-            this.allData = d;
+            this.allData = [...d];
 
             // filter data to get states related to this female
             d = d.filter(x => x[this.rabbitAttr] === this.rabbit.num);
 
-            this.data = d;
-            this.data.sort((a, b) => {
+            d.sort((a, b) => {
                 const d1 = moment(toEngDate(a.toDate || a.date));
                 const d2 = moment(toEngDate(b.toDate || b.date));
                 if (d1.isBefore(d2)) return -1;
                 else if (d1.isAfter(d2)) return 1;
-                else return 1;
+                else return 0;
             });
-            console.log(this.data);
+
+            const Len = d.length;
+
+            d.map((x, inx) => {
+                if (x[this.rabbitAttr] === this.rabbit.num) {
+                    if (inx % 4 == 0 && Len >= 4) {
+                        // @ts-ignore
+                        this.data.push({ id: this.lastCount++ });
+                    }
+                    this.data.push(x);
+                }
+            });
 
             this.doAllCalculations(this.data);
 
