@@ -118,7 +118,8 @@ export class ShowPage implements OnInit {
 
         const d: NavigationExtras = {
             state: {
-                rb: this.rabbit
+                rb: this.rabbit,
+                weladaCount: this.lastCount || this.calc.welada.length
             }
         };
 
@@ -247,25 +248,8 @@ export class ShowPage implements OnInit {
             // filter data to get states related to this female
             d = d.filter(x => x[this.rabbitAttr] === this.rabbit.num);
 
-            d.sort((a, b) => {
-                const d1 = moment(toEngDate(a.toDate || a.date));
-                const d2 = moment(toEngDate(b.toDate || b.date));
-                if (d1.isBefore(d2)) return -1;
-                else if (d1.isAfter(d2)) return 1;
-                else return 0;
-            });
-
-            const Len = d.length;
-
-            d.map((x, inx) => {
-                if (x[this.rabbitAttr] === this.rabbit.num) {
-                    if (inx % 4 == 0 && Len >= 4 && x.positive) {
-                        // @ts-ignore
-                        this.data.push({ id: this.lastCount++ });
-                    }
-                    this.data.push(x);
-                }
-            });
+            this.data = d;
+            this.lastCount = d[d.length-1].weladaCount;
 
             this.doAllCalculations(this.data);
 
@@ -285,6 +269,9 @@ export class ShowPage implements OnInit {
     }
 
     doAllCalculations(d: State[]) {
+        d.sort((a, b) => a.state - b.state);
+        d.sort((a, b) => a.weladaCount - b.weladaCount);
+        // d = d.filter(x => x.positive);
         const talqeh = d.filter(x => x.state === 1);
         const gas = d.filter(x => x.state === 2);
         const goodGas = gas.filter(x => x.positive);

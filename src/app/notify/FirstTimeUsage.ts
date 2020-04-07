@@ -49,18 +49,6 @@ export class FirstTimeUsage {
                 weight: 0,
                 date: 'noDate'
             }
-            // ,{
-            //     type: 'outcome',
-            //     value: 0,
-            //     info: '',
-            //     date: 'noDate'
-            // },
-            // {
-            //     type: 'fetam',
-            //     value: 0,
-            //     info: '',
-            //     date: 'noDate'
-            // }
         ];
 
         this.db.set('funds', funds);
@@ -72,7 +60,8 @@ export class FirstTimeUsage {
                 num: 0,
                 type: 'noType',
                 date: 'noDate'
-            }
+            },
+            { num: 1, type: 'شسيسشي', date: '7 ابريل(4) 2020', state: 2 }
         ];
 
         this.db.set('females', rabbit);
@@ -88,6 +77,7 @@ export class FirstTimeUsage {
                 positive: false,
                 num: 0,
                 date: 'noDate',
+                weladaCount: 0
             }
         ];
 
@@ -122,14 +112,16 @@ export class FirstTimeUsage {
     }
 
     private createFetamStateTB() {
-        const fs: FetamState[] = [{
-            patchNo: 0,
-            src: 'sell',
-            count: 0,
-            str: '',
-            value: 0,
-            date: 'noDate'
-        }];
+        const fs: FetamState[] = [
+            {
+                patchNo: 0,
+                src: 'sell',
+                count: 0,
+                str: '',
+                value: 0,
+                date: 'noDate'
+            }
+        ];
 
         this.db.set('fetamState', fs);
     }

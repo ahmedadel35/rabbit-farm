@@ -29,6 +29,7 @@ export class AddStatePage implements OnInit {
     maleNo: number;
     notes: string;
     segmentVal = '1';
+    weladaCount = 0;
 
     constructor(
         private router: Router,
@@ -49,6 +50,8 @@ export class AddStatePage implements OnInit {
 
             // get page name and id from state
             this.rabbit = routerData.state.rb;
+            this.weladaCount = routerData.state.weladaCount;
+            console.log(routerData.state.weladaCount);
 
             if (!this.rabbit.state) {
                 this.segmentVal = '1';
@@ -136,6 +139,8 @@ export class AddStatePage implements OnInit {
             return;
         }
 
+        if (s === 1) this.weladaCount++;
+
         const state: State = {
             state: s,
             num: this.rabbit.num,
@@ -148,7 +153,8 @@ export class AddStatePage implements OnInit {
             },
             notes: f.notes,
             toDate: createDate(new Date(f.date)),
-            done: this.positive
+            done: this.positive,
+            weladaCount: this.weladaCount
         };
 
         const sInd = s > 3 ? 1 : s + 1;
@@ -177,9 +183,10 @@ export class AddStatePage implements OnInit {
             maleNo: f.maleNo,
             date: createDate(),
             done: false,
-            toDate: createDate(m.format('YYYY-MM-DD'))
+            toDate: createDate(m.format('YYYY-MM-DD')),
+            weladaCount: this.weladaCount
         };
-        // console.log(newState);
+        // console.log(newState.weladaCount, state.weladaCount);
         // return;
 
         // check for male exsitance

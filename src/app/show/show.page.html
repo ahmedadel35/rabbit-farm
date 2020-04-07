@@ -176,10 +176,10 @@
                     >
                         <ion-grid>
                             <ion-row
-                                *ngIf="i.id && !rlast"
+                                *ngIf="i.state === 1"
                                 class="ion-color-dark text-center"
                             >
-                                <ion-col size="12">الولادة {{i.id}}</ion-col>
+                                <ion-col size="12">الولادة {{i.weladaCount}}</ion-col>
                             </ion-row>
                             <ion-row *ngIf="!i.id">
                                 <ion-col size="5"

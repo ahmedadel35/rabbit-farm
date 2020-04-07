@@ -369,6 +369,8 @@ export class NotifyPage implements OnInit {
         sInd = sInd === 0 ? 1 : sInd;
         // console.log(sInd);
         // console.log(this.statesArr[sInd - 1]);
+        let wc = obj.weladaCount;
+        if (sInd === 1) ++wc;
 
         const newState: State = {
             state: sInd,
@@ -377,9 +379,10 @@ export class NotifyPage implements OnInit {
             maleNo: obj.maleNo,
             date: createDate(),
             done: false,
-            toDate: createDate(m.format('YYYY-MM-DD'))
+            toDate: createDate(m.format('YYYY-MM-DD')),
+            weladaCount: wc
         };
-        // console.log(newState);
+        // console.log(newState.weladaCount);
         this.db.add('states', newState).then(d => {
             this.statesData.unshift(newState);
             if (this.activeSlide + 1 < 4) {

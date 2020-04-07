@@ -22,4 +22,5 @@ export default interface State {
     notes?: string;
     done?: boolean;
     toDate?: string;
+    weladaCount?: number;
 }
